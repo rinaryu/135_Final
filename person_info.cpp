@@ -96,17 +96,18 @@ public:
         }
         return 1;
     }
-    //helper method to valid_date
-    bool check_date (int month, int day, int year){
+    // Method checks if new person's DOB is valid
+        bool check_date (int month, int day, int year){
         if (month < 0 || month > 12) return 0;
+
         if (month == 2){
             if (year % 4 == 0){
                 if (day > 29 || day < 0) return 0;
             } else {
                 if (day > 28 || day < 0) return 0;
             } 
-        } else if (month == 1 || month == 3 || month == 5 ||
-                    month == 7 || month == 8 || month == 10 ||
+        } else if (month == 1 || month == 3 || month == 5
+                    month == 7 || month == 8 || month == 10
                     month == 12)
         {
             if (day > 31 || day < 0) return 0;
@@ -117,7 +118,6 @@ public:
         if (year < 1940 || year > 2005) return 0;
         return 1;
     }
-    //method checks if user entered date of birth is valid
     bool valid_date (string user_input){
         // MM/DD/YYYY
         int month = stoi (user_input.substr(0, 2));
@@ -126,6 +126,7 @@ public:
 
         return check_date(month, day, year);
     }
+    
     //checks if user entered city is valid
     bool valid_city(string city_name){
         //importing list of all cities in Lower Mainland 
