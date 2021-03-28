@@ -1,51 +1,51 @@
-Abbotsford
-Armstrong
-Burnaby
-Campbell River
-Chilliwack
-Colwood
-Coquitlam
-Courtenay
-Cranbrook
-Dawson Creek
-Delta
-Duncan
-Enderby
-Fernie
-Fort St. Jogn
-Grand Forks
-Greenwood
-Kamloops
-Kelowna
-Kimberley
-Langford
-Langley
-Maple Ridge
-Merritt
-Nanaimo
-Nelson
-New Westminister
-North Vancouver
-Parksville
-Penticton
-Pitt Meadows
-Port Alberni
-Port Coquitlam
-Port Moody
-Powell River
-Prince George
-Prince Rupert
-Quesnel
-Revelstoke
-Richmond 
-Rossland
-Salmon Arm
-Surrey
-Terrace
-Trail
-Vancouver
-Vernon
-Victoria
-West Kelowna
-White Rock
-Williams Lake
+abbotsford
+armstrong
+burnaby
+campbell river
+chilliwack
+colwood
+coquitlam
+courtenay
+cranbrook
+dawson creek
+delta
+duncan
+enderby
+fernie
+fort st. jogn
+grand forks
+greenwood
+kamloops
+kelowna
+kimberley
+langford
+langley
+maple ridge
+merritt
+nanaimo
+nelson
+new westminister
+north vancouver
+parksville
+penticton
+pitt meadows
+port alberni
+port coquitlam
+port moody
+powell river
+prince george
+prince rupert
+quesnel
+revelstoke
+richmond 
+rossland
+salmon arm
+surrey
+terrace
+trail
+vancouver
+vernon
+victoria
+west kelowna
+white rock
+williams lake

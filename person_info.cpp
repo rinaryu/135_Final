@@ -13,7 +13,7 @@ private:
     string dob; 
     string new_city;
     int phone_num; 
-    bool vaccinated; 
+    string vaccinated; 
 
 public:
     Person_info (const string& user_choice): user_input(user_choice){
@@ -33,16 +33,37 @@ public:
             }              
         }
         //Second: Getting birthday of new person. 
-        cout<<"Please enter their date of birth.\n The data must be in the following format of, MM/DD/YYYY (eg. 04/07/1999): \n";
-
+        cout<<"Please enter their date of birth.\nThe data must be in the following format of, MM/DD/YYYY (eg. 04/07/1999): \n";
+        getline(cin, dob);
+        while(true){
+            if(!(dob.at(2) == '/') && !(dob.at(5) == '/')){
+                cout<<"The date of birth is not in the correct format, please re-enter: \n";
+                getline(cin, dob);
+                continue;
+            }
+            if(!valid_date(dob)){
+                cout<<"That is not a valid date of birth, please re-enter: \n";
+                getline(cin, dob);
+                if(valid_date(dob)) break;
+            }
+        }
         //Third: Getting the city that the new person resides in. 
         cout<<"Please enter the city in the Lower Mainland that they reside in: \n";
         getline(cin, new_city);
+        //changing the user input to all lowercase letters
+        for(int i = 0; i < new_city.size(); i++){
+            new_city.at(i) = towlower(new_city.at(i));
+        }
+        cout<<"new_city: "<<new_city<<endl;
         if(!valid_city(new_city)){
             while(true){
                 cout<<"That is not a valid city, please enter a city in the Lower Mainland: \n";
                 getline(cin, new_city);
-                if(valid_city(new_city)) break; 
+                //changing the user input to all lowercase letters
+                for(int i = 0; i < new_city.size(); i++){
+                  new_city.at(i) = towlower(new_city.at(i));
+                }
+                if(valid_city(new_city)) break;
             }
         }
         //Fourth: Getting phone number of new person. 
@@ -55,6 +76,16 @@ public:
                 if(valid_phoneNum(phone_num)) break;
             }
         }
+        //Fifth: Getting if new person is vaccinated or not. 
+        cout<<"Is the new person vaccinated? (y/n)";
+        getline(cin, vaccinated);
+        while(true){
+            if(vaccinated == "y" || vaccinated == "n") break;
+            else{
+                cout<<"That is not a valid answer: please enter y or n.\n";
+                getline(cin, vaccinated);
+            }
+        }
     }
     //method checks if new person's name input is valid (string with only alpha chars) 
     bool valid_name (string user_input){
@@ -65,21 +96,35 @@ public:
         }
         return 1;
     }
-    // Method checks if new person's DOB is valid
-    bool check_data (int month, int day, int year){
+    //helper method to valid_date
+    bool check_date (int month, int day, int year){
+        if (month < 0 || month > 12) return 0;
         if (month == 2){
             if (year % 4 == 0){
                 if (day > 29 || day < 0) return 0;
             } else {
                 if (day > 28 || day < 0) return 0;
             } 
-        } else if (month == 1 || month == 3 || month == 5
-                    month == 7 || month == 8 || month == )
+        } else if (month == 1 || month == 3 || month == 5 ||
+                    month == 7 || month == 8 || month == 10 ||
+                    month == 12)
+        {
+            if (day > 31 || day < 0) return 0;
+        } else {
+            if (day > 30 || day < 0) return 0;
+        }
 
-        } 
+        if (year < 1940 || year > 2005) return 0;
+        return 1;
     }
+    //method checks if user entered date of birth is valid
     bool valid_date (string user_input){
-        
+        // MM/DD/YYYY
+        int month = stoi (user_input.substr(0, 2));
+        int day = stoi (user_input.substr(3, 2));
+        int year = stoi (user_input.substr(6, 4));
+
+        return check_date(month, day, year);
     }
     //checks if user entered city is valid
     bool valid_city(string city_name){
@@ -100,14 +145,18 @@ public:
         }
         return 0; 
     }
-    
+    //check if user entered phone number is valid
     bool valid_phone (int num){
+        vector<string> area_codes = {"604", "778", "236","672","250"};
         string temp_num = to_string(num);
-        if(temp_num.size() != 7) return 0;
-        //ADD: check if the input is all numbers 
+        if(temp_num.size() == 7){
+            for(string code : area_codes){
+                if(temp_num.substr(0,3) == code){
+                    return 1;
+                }
+            }
+        } else {return 0;}
     }
-    
-    
     ~Person_info(){};
 };
 
