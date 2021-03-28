@@ -6,7 +6,7 @@
 #include "cmpt_error.h"
 #include <cassert>
 #include <iomanip>
-#include <ncurse>
+#include <ncurses.h>
 #include <fstream>
 #include <cmath>
 #include <iostream>
