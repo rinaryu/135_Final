@@ -2,8 +2,6 @@
 
 // menu.cpp
 
-//test comment
-
 #include "final_project.h"
 #include "cmpt_error.h"
 #include <iostream>
