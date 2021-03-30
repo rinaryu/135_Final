@@ -2,12 +2,13 @@
 
 // person_info.cpp
 
-#include "final_project.h"
+#include "database.h"
 #include "cmpt_error.h"
 #include <iostream>
+using namespace std;
 
 // Definition
-class Person_info {
+class person_info {
 private:
     string new_name;
     string dob; 
@@ -16,11 +17,10 @@ private:
     string vaccinated; 
 
 public:
-    Person_info (const string& user_choice): user_input(user_choice){
+    person_info();
 
-    }
     //Method used to get user input to enter new person into the database.
-    string new_person (){
+    void new_person (){
         //First: Getting name of new person to be added. 
         cout << "To enter a new person in the database, first provide their first and last name: \n";
         getline(cin, new_name); 
@@ -68,15 +68,15 @@ public:
         }
         //Fourth: Getting phone number of new person. 
         cout<<"Please enter their phone number: \n";
-        getline(cin, phone_num);
-        if(!valid_phoneNum(phone_num)){
+        cin >> phone_num;
+        if(!valid_phone(phone_num)){
             while(true){
                 cout<<"This is not a valid phone number, please re-enter: \n";
-                getline(cin, phone_num);
-                if(valid_phoneNum(phone_num)) break;
+                cin >> phone_num;
+                if(valid_phone(phone_num)) break;
             }
         }
-        //Fifth: Getting if new person is vaccinated or not. 
+        //Fifth: Getting if new person is vaccinated or nots. 
         cout<<"Is the new person vaccinated? (y/n)";
         getline(cin, vaccinated);
         while(true){
@@ -97,7 +97,7 @@ public:
         return 1;
     }
     // Method checks if new person's DOB is valid
-        bool check_date (int month, int day, int year){
+    bool check_date (int month, int day, int year){
         if (month < 0 || month > 12) return 0;
 
         if (month == 2){
@@ -106,8 +106,8 @@ public:
             } else {
                 if (day > 28 || day < 0) return 0;
             } 
-        } else if (month == 1 || month == 3 || month == 5
-                    month == 7 || month == 8 || month == 10
+        } else if (month == 1 || month == 3 || month == 5 ||
+                    month == 7 || month == 8 || month == 10 ||
                     month == 12)
         {
             if (day > 31 || day < 0) return 0;
@@ -158,8 +158,8 @@ public:
             }
         } else {return 0;}
     }
-    ~Person_info(){};
+    ~person_info();
 };
 
-#endif
+
 

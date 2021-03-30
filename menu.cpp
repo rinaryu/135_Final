@@ -2,14 +2,13 @@
 
 // menu.cpp
 
-#include "final_project.h"
+#include "database.h"
 #include "cmpt_error.h"
 #include <iostream>
 
 // Definition
-class Menu {
+class menu {
 
 
 };
 
-#endif
