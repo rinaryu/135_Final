@@ -3,7 +3,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //This class:
 // - gets and stores the data from database.txt 
-// - add new data to database.txt
 // - sorts the data from alphabetical order to reverse alphabetical order 
 // - includes a searching feature to find specific data 
 
