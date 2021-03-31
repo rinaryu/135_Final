@@ -55,7 +55,7 @@ void Database::search_name (string name){
     int count_match = 0;
     for (int i = 0; i < size; i++){
         if (new_data[i].get_name() == name){
-            cout << print_record(i) << endl;
+            cout << "Matching record found: " << print_record(i) << "\n";
             count_match++;
         }
     }
@@ -69,7 +69,7 @@ void Database::search_dob (string dob){
     // NOTE: check for the right format search of dob
     for (int i = 0; i < size; i++){
         if (new_data[i].get_dob() == dob){
-            cout << print_record(i) << endl;
+            cout << "Matching record found: " << print_record(i) << "\n";
             count_match++;
         }
     }
@@ -82,7 +82,7 @@ void Database::search_city (string city){
     int count_match = 0;
     for (int i = 0; i < size; i++){
         if (new_data[i].get_city() == city){
-            cout << print_record(i) << endl;
+            cout << "Matching record found: " << print_record(i) << "\n";
             count_match++;
         }
     }
@@ -94,7 +94,7 @@ void Database::search_phone (int phone){
     int count_match = 0;
     for (int i = 0; i < size; i++){
         if (new_data[i].get_phone() == phone){
-            cout << print_record(i) << endl;
+            cout << "Matching record found: " << print_record(i) << endl;
             count_match++;
         }
     }
@@ -134,5 +134,5 @@ string Database::print_record(int i){
 
     // Number field: descending order
 //void Database::list_dob_descend(){}
-//void Database::list_dob_descend(){}
+//void Database::list_phone_descend(){}
 

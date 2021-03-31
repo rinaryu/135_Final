@@ -33,7 +33,6 @@ private:
 	string vaccinated; 
     
 public:
-	
 	void new_person(); 
 	string get_name() const;
 	string get_dob() const;
