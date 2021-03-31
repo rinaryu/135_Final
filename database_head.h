@@ -24,18 +24,27 @@
 using namespace std;
 
 //Person_info class
-class Person_info;
-void new_person(); 
-string get_name() const;
-string get_dob() const;
-string get_city() const;
-string get_phone() const;
-string get_status() const;
-bool valid_name (string user_input);
-bool check_date (int month, int day, int year);
-bool valid_date (string user_input);
-bool valid_city (string city_name);
-bool valid_phone (int num);
+class Person_info{
+private:
+    string new_name;
+    string dob; 
+    string new_city;
+    int phone_num; 
+    string vaccinated; 
+    
+public:
+    void new_person(); 
+    string get_name() const;
+    string get_dob() const;
+    string get_city() const;
+    int get_phone() const;
+    string get_status() const;
+    bool valid_name (string user_input);
+    bool check_date (int month, int day, int year);
+    bool valid_date (string user_input);
+    bool valid_city (string city_name);
+    bool valid_phone (int num);
+};
 
 //Database class 
 class Database;
@@ -53,7 +62,7 @@ void list_name_reverse();
 void list_dob_ascend();
 void list_phone_ascend();
 void list_dob_descend();
-void list_dob_descend();
+void list_phone_descend(){}
 
 
 //Menu class 

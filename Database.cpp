@@ -140,7 +140,7 @@ class Database {
 
             // Number field: descending order
         void list_dob_descend(){}
-        void list_dob_descend(){}
+        void list_phone_descend(){}
 
 
         ~Database();
