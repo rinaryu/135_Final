@@ -52,10 +52,10 @@ public:
 //Database class 
 class Database{
 private:
-  string* per_person;
-  int size;
-  int capacity;
-  Person_info* new_data;
+	string* per_person;
+	int size;
+	int capacity;
+	Person_info* new_data;
 
 public:
 	Database(int sz, int cap);
