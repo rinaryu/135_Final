@@ -1,50 +1,50 @@
-Adelaide Dodson, 5/6/1994, Delta, 6045224152, Y
-Adonis Chaney, 4/15/1931, Burnaby, 6044668896, N
-Albert Quinn, 9/16/2004, Richmond, 6049459887, N
-Alejandro Gallagher, 2/6/1996, Maple Ridge, 6045407259, N
-Aliza Miranda, 7/14/1969, Kelowna, 2504486941, N
-Alma Yates, 1/4/1991, Delta, 6045245965, Y
-Amy Skinner, 11/26/1991, Burnaby, 6045249890, N
-Bernard Alvarez, 9/6/1996, Coquitlam, 6049456367, N
-Bo Stafford, 5/11/2001, North Vancouver, 6045241812, Y
-Brody Byrd, 9/25/1970, Surrey, 6049366523, Y
-Brynn Contreras, 8/25/1961, Vancouver, 6044639775, N
-Cayden Green, 9/12/1984, Burnaby, 7783971100, Y
-Cesar Simmons, 4/29/1955, Delta, 6045213751, N
-Colby Robinson, 7/12/1938, Surrey, 6044760275, N
-Craig Zamora, 8/26/1965, Richmond, 6049873973, N
-Elaina Pitts, 3/19/1980, Vancouver, 6044668786, N
-Elliott Bolton, 3/24/1975, Richmond, 6049809932, N
-Emery Whitney, 7/11/2001, Burnaby, 6044668242, Y
-Felicity Michael, 1/13/1960, Kamloops, 6047771284, Y
-Georgia Abbott, 1/25/1951, Abbotsford, 6049361309, N
-Gina Hanna, 5/22/2003, Abbotsford, 6049415259, Y
-Gunnar Blanchard, 8/14/2001, North Vancouver, 6045211196, N
-Haven Haynes, 2/19/1982, Richmond, 6049850361, Y
-Henry Frank, 11/8/1939, Surrey, 6045255619, Y
-Jamari Boyer, 12/13/1960, Kelowna, 2508611026, Y
-Jamie Russell, 8/14/2001, Maple Ridge, 6045289651, N
-Janet Glenn, 4/17/1952, Abbotsford, 6044694410, Y
-Kamryn Phelps, 8/13/1935, Vancouver, 7787534429, Y
-Kareem Kent, 10/24/1930, Burnaby, 6044657342, N
-Kaylyn Hughes, 5/6/1930, Kamloops, 2507639888, Y
-Keaton Dean, 8/7/1961, Surrey, 6049313055, N
-Kirsten Mclean, 4/13/1944, Kamloops, 6049413358, N
-Lawson Warner, 7/12/1988, Coquitlam, 6049872143, Y
-Leyla Neal, 7/18/2003, Coquitlam, 6049366615, Y
-Lillian Daniels, 5/1/2002, Burnaby, 6044794721, Y
-Mariah Wu, 7/19/1996, Vancouver, 6044667579, N
-Marisa Elliott, 9/12/1984, Surrey, 6049377096, Y
-Mattie Washington, 5/2/1997, North Vancouver, 6049317268, Y
-Mckayla Archer, 4/11/2003, Surrey, 6044644957, N
-Melanie Freeman, 6/6/1956, Vancouver, 6044673985, Y
-Miriam Gallagher, 1/17/1934, Delta, 6045170595, Y
-Nash Kerr, 11/11/1993, Delta, 6045253889, Y
-Nehemiah Dennis, 3/12/1951, Burnaby, 6049839830 N
-Nickolas Perry, 5/18/1990, Coquitlam, 6049422927, Y
-Prince Mata, 11/19/1999, Coquitlam, 6044680449, Y
-Quinten Crane, 4/1/1994, Coquitlam,6049450046, N
-Raul Moon, 2/4/1964, Kelowna, 6049444002, Y
-Rocco Booker, 11/8/1939, Burnaby, 6045217928, Y
-Stanley Gaines, 5/26/1998, Vancouver, 6049315464, Y
-Zackary Mason, 3/17/1992, Kamloops, 6045250525, N
+Adelaide Dodson 5/6/1994 Delta 6045224152 Y
+Adonis Chaney 4/15/1931 Burnaby 6044668896 N
+Albert Quinn 9/16/2004 Richmond 6049459887 N
+Alejandro Gallagher 2/6/1996 Maple Ridge 6045407259 N
+Aliza Miranda 7/14/1969 Kelowna 2504486941 N
+Alma Yates 1/4/1991 Delta 6045245965 Y
+Amy Skinner 11/26/1991 Burnaby 6045249890 N
+Bernard Alvarez 9/6/1996 Coquitlam 6049456367 N
+Bo Stafford 5/11/2001 North Vancouver 6045241812 Y
+Brody Byrd 9/25/1970 Surrey 6049366523 Y
+Brynn Contreras 8/25/1961 Vancouver 6044639775 N
+Cayden Green 9/12/1984 Burnaby 7783971100 Y
+Cesar Simmons 4/29/1955 Delta 6045213751 N
+Colby Robinson 7/12/1938 Surrey 6044760275 N
+Craig Zamora 8/26/1965 Richmond 6049873973 N
+Elaina Pitts 3/19/1980 Vancouver 6044668786 N
+Elliott Bolton 3/24/1975 Richmond 6049809932 N
+Emery Whitney 7/11/2001 Burnaby 6044668242 Y
+Felicity Michael 1/13/1960 Kamloops 6047771284 Y
+Georgia Abbott 1/25/1951 Abbotsford 6049361309 N
+Gina Hanna 5/22/2003 Abbotsford 6049415259 Y
+Gunnar Blanchard 8/14/2001 North Vancouver 6045211196 N
+Haven Haynes 2/19/1982 Richmond 6049850361 Y
+Henry Frank 11/8/1939 Surrey 6045255619 Y
+Jamari Boyer 12/13/1960 Kelowna 2508611026 Y
+Jamie Russell 8/14/2001 Maple Ridge 6045289651 N
+Janet Glenn 4/17/1952 Abbotsford 6044694410 Y
+Kamryn Phelps 8/13/1935 Vancouver 7787534429 Y
+Kareem Kent 10/24/1930 Burnaby 6044657342 N
+Kaylyn Hughes 5/6/1930 Kamloops 2507639888 Y
+Keaton Dean 8/7/1961 Surrey 6049313055 N
+Kirsten Mclean 4/13/1944 Kamloops 6049413358 N
+Lawson Warner 7/12/1988 Coquitlam 6049872143 Y
+Leyla Neal 7/18/2003 Coquitlam 6049366615 Y
+Lillian Daniels 5/1/2002 Burnaby 6044794721 Y
+Mariah Wu 7/19/1996 Vancouver 6044667579 N
+Marisa Elliott 9/12/1984 Surrey 6049377096 Y
+Mattie Washington 5/2/1997 North Vancouver 6049317268 Y
+Mckayla Archer 4/11/2003 Surrey 6044644957 N
+Melanie Freeman 6/6/1956 Vancouver 6044673985 Y
+Miriam Gallagher 1/17/1934 Delta 6045170595 Y
+Nash Kerr 11/11/1993 Delta 6045253889 Y
+Nehemiah Dennis 3/12/1951 Burnaby 6049839830 N
+Nickolas Perry 5/18/1990 Coquitlam 6049422927 Y
+Prince Mata 11/19/1999 Coquitlam 6044680449 Y
+Quinten Crane 4/1/1994 Coquitlam6049450046 N
+Raul Moon 2/4/1964 Kelowna 6049444002 Y
+Rocco Booker 11/8/1939 Burnaby 6045217928 Y
+Stanley Gaines 5/26/1998 Vancouver 6049315464 Y
+Zackary Mason 3/17/1992 Kamloops 6045250525 N

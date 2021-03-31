@@ -1,14 +1,16 @@
-//////////////////////////////////////////////////////
+//Person_info.cpp
+//Contains Person_info class 
+//////////////////////////////////////////////////////////////////////////////////////
+//This class:
+// - gets user input to add new information into the database
 
-// person_info.cpp
-
-#include "database.h"
+#include "database_head.h"
 #include "cmpt_error.h"
 #include <iostream>
 using namespace std;
 
 // Definition
-class person_info {
+class Person_info {
 private:
     string new_name;
     string dob; 
@@ -17,7 +19,16 @@ private:
     string vaccinated; 
 
 public:
-    person_info();
+ 
+    Person_info();
+
+    // Getter methods
+    string get_name() const {return new_name;}
+    string get_dob() const {return dob;}
+    string get_city() const {return new_city;}
+    int get_phone() const {return phone_num;}
+    string get_status() const {return vaccinated;}
+
 
     //Method used to get user input to enter new person into the database.
     void new_person (){
@@ -158,7 +169,7 @@ public:
             }
         } else {return 0;}
     }
-    ~person_info();
+    ~Person_info();
 };
 
 

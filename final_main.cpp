@@ -22,7 +22,7 @@
 //
 /////////////////////////////////////////////////////////////////////////
 
-#include "database.h" 
+#include "database_head.h"
 using namespace std;
 
 int main(){
