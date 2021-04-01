@@ -34,23 +34,57 @@ void Database::resize(){
 }
 
 //gets data from database.txt
-//ADD: substr each element in temp_data arry to be respective Person_info variable type 
-/*void Database::get_data(){
-    int count = 0;
-    string temp_data[50] // data's size may change later if we add more to database.txt 
+void Database::get_data(){
+    vector<string> data;
     ifstream fin("database.txt");
-    while(count < 50){
+    if(fin.fail()) cmpt::error("Problem with opening database text file.");
+    while(true){
         string info;
+        if(fin.fail()) break;
         getline(fin, info);
-        data[count] = info;
-        count++
+        data.push_back(info);
     }
-}*/
+    fin.close();
+    //splitting database information into their respective fields
+        //i.e. name, date of birth, city, phone number, and vaccination status 
+    for(int i = 0; i < data.size(); i++){
+        string temp = data.at(i);
+        size_t spaceIdx = data.at(i).find_last_of(' ');
+
+        // Resize the array if needed
+        resize();
+
+        //setting vaccination status (Y or N)
+        new_data[i].set_status(temp.substr(spaceIdx + 1, temp.size()-1));
+        temp = temp.substr(0, temp.size() - new_data[i].get_status().size() - 1); 
+        spaceIdx = temp.find_last_of(' ');
+
+        //setting phone number
+        string temp_phone_num = temp.substr(spaceIdx + 1, temp.size()-1);
+        new_data[i].set_phone(stoi(temp_phone_num));
+        temp = temp.substr(0, temp.size() - temp_phone_num.size() - 1);
+        spaceIdx = temp.find_last_of(' ');
+        
+        //setting their city
+        new_data[i].set_city(temp.substr(spaceIdx + 1, temp.size()-1));
+        temp = temp.substr(0, temp.size() - new_data[i].get_city().size() - 1);
+        spaceIdx = temp.find_last_of(' ');
+
+        //setting their date of birth
+        new_data[i].set_dob(temp.substr(spaceIdx + 1, temp.size()-1)); 
+        temp = temp.substr(0, temp.size() - new_data[i].get_dob().size() - 1);
+
+        //setting their name 
+        new_data[i].set_name(temp);
+    }
+}
 
 
+//////////////////////////////////////Finding a Record////////////////////////////////////////////
 
-// Finding a Record
-    // 1st Method: type-in string EXACTLY matched the appropriate field
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// 1st Method: type-in string EXACTLY matched the appropriate field
+//////////////////////////////////////////////////////////////////////////////////////////////////
 void Database::search_name (string name){
     int count_match = 0;
     for (int i = 0; i < size; i++){
@@ -94,12 +128,25 @@ void Database::search_phone (int phone){
     int count_match = 0;
     for (int i = 0; i < size; i++){
         if (new_data[i].get_phone() == phone){
-            cout << "Matching record found: " << print_record(i) << endl;
+            cout << "Matching record found: " << print_record(i) << "\n";
             count_match++;
         }
     }
     if (count_match == 0){
         cout << "No matching person's phone number found!\n";
+    }
+}
+
+void Database::search_status(string status){
+    int count_match = 0;
+    for(int i = 0; i < size; i++){
+        if(new_data[i].get_status() == status && status == "Y"){
+            cout << "According to the database, people who have been vaccinated are: \n";
+            cout << print_record(i) << "\n";
+        } else if(new_data[i].get_status() == status && status == "N"){
+            cout <<"According to the database, people who haven't been vaccinated are: ";
+            cout <<print_record(i) <<"\n";
+        }
     }
 }
 
@@ -114,13 +161,71 @@ string Database::print_record(int i){
     return per_record;
 }
 
-    // 2nd Method: type-in string as SUBstring in appropriate field.
-    //ADD: searching method -- takes in string and uses .find() to search through each entry in database 
-//void Database::search_substr(string findData){
-    
-//}
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// 2nd Method: type-in string as SUBstring in appropriate field.
+//////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Listing record
+void Database::search_substr_name(string findData){
+    int count_match  = 0;
+    for (int i = 0; i < size; i++){
+        found = new_data[i].get_name().find(findData);
+        if (found != string::npos){
+            count << "Similar name record found: " << print_record(i) << "\n";
+            count_match++;
+        }
+    }
+    if (count_match == 0){
+        cout << "No similar name found!\n";
+    }
+}
+
+void Database::search_substr_city(string findCity){
+    int count_match = 0;
+    for(int i = 0; i < size; i++){
+        string tempCity = new_data[i].get_city();
+        size_t city_found = tempCity.find(findCity);
+        if(city_found != string::npos){
+            cout << "Similar city record found: " << print_record(i) << "\n";
+            count_match++;
+        }
+    }
+    if(count_match == 0){
+        cout << "No similar city found!\n";
+    }
+}
+
+void Database::search_substr_phone(int num){
+    int count_match = 0;
+    for (int i = 0; i < size; i++){
+        string num_str = to_string(new_data[i].get_phone());
+        found = num_str.find(to_string(num));
+        if (found != string::npos){
+            count << "Similar name record found: " << print_record(i) << "\n";
+            count_match++;
+        }
+    }
+    if (count_match == 0){
+        cout << "No similar digits found!\n";
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// 3rd Method: type-in number is in the range from low to high.
+//////////////////////////////////////////////////////////////////////////////////////////////////
+void Database::search_range_dob(int low, int high){
+    int count_match = 0;
+    for (int i = 0; i < size; i++){
+        int year = stoi(new_data[i].get_dob().substr(6,4));
+        if (low <= year && year <= high){
+            cout << "Year in the range found: " << print_record(i) << "\n";
+        }
+    }
+    if (count_match == 0){
+        cout << "No such results found.\n";
+    }
+}
+
+//////////////////////////////////////Listing Records//////////////////////////////////////////////
     // String field: alphabetical order
 //void Database::list_name_alpha(){}
 

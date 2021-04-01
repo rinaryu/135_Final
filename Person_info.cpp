@@ -9,13 +9,19 @@
 #include <iostream>
 using namespace std;
 
-
+//getter methods
 string Person_info::get_name() const {return new_name;}
 string Person_info::get_dob() const {return dob;}
 string Person_info::get_city() const {return new_city;}
 int Person_info::get_phone() const {return phone_num;}
 string Person_info::get_status() const {return vaccinated;}
 
+//setter methods
+void Person_info::set_name(string name) {new_name = name;}
+void Person_info::set_dob(string date) {dob = date;}
+void Person_info::set_city(string city) {new_city = city;}
+void Person_info::set_phone(int phone) {phone_num = phone;}
+void Person_info::set_status(string status) {vaccinated = status;}
 
 //Method used to get user input to enter new person into the database.
 void Person_info::new_person (){
@@ -84,18 +90,22 @@ void Person_info::new_person (){
 		getline(cin, vaccinated);
 	    }
 	}
-	}
-	//method checks if new person's name input is valid (string with only alpha chars) 
-	bool Person_info::valid_name (string user_input){
-	for (int i = 0; i < user_input.size(); i++){
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//helper methods that check validity of input for each field in the database
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+//checks if new person's name input is valid (string with only alpha chars) 
+bool Person_info::valid_name (string user_input){
+    for (int i = 0; i < user_input.size(); i++){
 	    if (!isalpha(user_input.at(i))){
 		return 0;
 	    } 
 	}
 	return 1;
-	}
-	// Method checks if new person's DOB is valid
-	bool Person_info::check_date (int month, int day, int year){
+}
+//checks if new person's DOB is valid
+bool Person_info::check_date (int month, int day, int year){
 	if (month < 0 || month > 12) return 0;
 
 	if (month == 2){

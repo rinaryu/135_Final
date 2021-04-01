@@ -39,6 +39,13 @@ public:
 	string get_city() const;
 	int get_phone() const;
 	string get_status() const;
+
+	void Person_info::set_name(string name);
+	void Person_info::set_dob(string data);
+	void Person_info::set_city(string city);
+	void Person_info::set_phone(int phone);
+	void Person_info::set_status(string status);
+
 	bool valid_name (string user_input);
 	bool check_date (int month, int day, int year);
 	bool valid_date (string user_input);
