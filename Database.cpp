@@ -148,6 +148,9 @@ void Database::search_status(string status){
             cout <<print_record(i) <<"\n";
         }
     }
+    if (count_match == 0){
+        cout << "No matching results found!\n";
+    }
 }
 
 string Database::print_record(int i){
@@ -168,9 +171,9 @@ string Database::print_record(int i){
 void Database::search_substr_name(string findData){
     int count_match  = 0;
     for (int i = 0; i < size; i++){
-        found = new_data[i].get_name().find(findData);
+        size_t found = new_data[i].get_name().find(findData);
         if (found != string::npos){
-            count << "Similar name record found: " << print_record(i) << "\n";
+            cout << "Similar name record found: " << print_record(i) << "\n";
             count_match++;
         }
     }
@@ -198,9 +201,9 @@ void Database::search_substr_phone(int num){
     int count_match = 0;
     for (int i = 0; i < size; i++){
         string num_str = to_string(new_data[i].get_phone());
-        found = num_str.find(to_string(num));
+        size_t found = num_str.find(to_string(num));
         if (found != string::npos){
-            count << "Similar name record found: " << print_record(i) << "\n";
+            cout << "Similar name record found: " << print_record(i) << "\n";
             count_match++;
         }
     }
@@ -227,17 +230,70 @@ void Database::search_range_dob(int low, int high){
 
 //////////////////////////////////////Listing Records//////////////////////////////////////////////
     // String field: alphabetical order
-//void Database::list_name_alpha(){}
+bool compare_name_alpha(Person_info a, Person_info b){
+    return a.get_name() <= b.get_name();
+}
 
+void Database::list_name_alpha(){
+    sort(new_data, new_data + size, compare_name_alpha);
+    for(int i = 0; i < size; i++){
+        cout << print_record(i) << "\n";
+    }
+}
 
     // String field: reverse alphabetical order
-//void Database::list_name_reverse(){}
+bool compare_name_rev(Person_info a, Person_info b){
+    return a.get_name() >= b.get_name();
+}
 
-    // Number field: ascending order
-//void Database::list_dob_ascend(){}
-//void Database::list_phone_ascend(){}
+void Database::list_name_reverse(){
+    sort(new_data, new_data + size, compare_name_rev);
+    for(int i = 0; i < size; i++){
+        cout << print_record(i) << "\n";
+    }
+}
+
+    //Number field: ascending order
+    //FINISH/////////////////////
+bool compare_dob_asc(Person_info a, Person_info b){
+    return 0;
+
+}
+
+void Database::list_dob_ascend(){
+    sort(new_data, new_data + size, compare_dob_asc);
+    for(int i = 0; i < size; i++){
+        cout << print_record(i) << "\n";
+    }
+}
+
+bool compare_phone_asc(Person_info a, Person_info b){
+    return a.get_phone() <= b.get_phone();
+}
+
+void Database::list_phone_ascend(){
+    sort(new_data, new_data + size, compare_phone_asc);
+    for(int i = 0; i < size; i++){
+        cout << print_record(i) << "\n";
+    }
+}
 
     // Number field: descending order
 //void Database::list_dob_descend(){}
-//void Database::list_phone_descend(){}
+bool compare_phone_desc(Person_info a, Person_info b){
+    return a.get_phone() >= b.get_phone();
+}
+void Database::list_phone_descend(){
+    sort(new_data, new_data + size, compare_phone_desc);
+    for(int i = 0; i < size; i++){
+        cout << print_record(i) << "\n";
+    }
+}
+
+
+//////////////////////////////////////Deleting Records/////////////////////////////////////////////
+
+Database::~Database(){
+    delete[] new_data; 
+}
 

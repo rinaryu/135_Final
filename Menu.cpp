@@ -6,45 +6,97 @@
 #include "cmpt_error.h"
 #include <iostream>
 
-// Definition
-class Menu {
-private:
+//creates the main menu display windows 
+void Menu::feature_display(){
   
-public:
-  Menu();
+	//Initiaize the screen 
+  initscr();  
+  noecho(); //hides user input from window
+  curs_set(0); //hides screen cursor
+
+  // Create a window
+  // Get size of the user's window
+  int height, width;
+  getmaxyx(stdscr, height, width);
+
+  mainwin = newwin(height/2, width/2, height/4, width/4);
   
-  void feature_display(){
-    //Initiaize the screen 
-    initscr();
-    echo();
+  box(mainwin, 0, 0);
 
-    // Create a window
-    // Get size of the user's window
-    int height, width;
-    getmaxyx(stdscr, height, width);
 
-    WINDOW* win = newwin(height/2, width/2, height/4, width/4);
-    box(win, 0, 0);
+  mvwprintw(mainwin, 0, 3, "Features");
+  mvwprintw(mainwin, 0, 13, "Appointment");
 
-    mvwprintw(win, 0, 3, "Features");
-    mvwprintw(win, 0, 13, "Appointment");
+  mvwprintw(mainwin, 4, 3, "Welcome to the Vaccination Database!");
+  mvwprintw(mainwin, 5, 3, "====================================");
+  mvwprintw(mainwin, 8, 3, "(a) Add new person's information.");
+  mvwprintw(mainwin, 9, 3, "(s) Search specific information.");
+  mvwprintw(mainwin, 10, 3, "(u) Update vaccination status,");
+  mvwprintw(mainwin, 11, 3, "(d) Delete data.");
+  mvwprintw(mainwin, 12, 3, "(q) Quit.");
 
-    mvwprintw(win, 4, 3, "Welcome to the Vaccination Database!");
-    mvwprintw(win, 5, 3, "====================================");
-    mvwprintw(win, 8, 3, "(A) Add new person's information.");
-    mvwprintw(win, 9, 3, "(S) Search specific information.");
-    mvwprintw(win, 10, 3, "(U) Update vaccination status,");
-    mvwprintw(win, 11, 3, "(D) Delete data.");
-    mvwprintw(win, 12, 3, "(Q) Quit.");
+  //detecting which option is being pressed by the user 
+  char ch = ' ';
+  while(ch == wgetch(mainwin)){
+    switch(ch){
+      case 'a':
+        wattron(mainwin, A_STANDOUT);
+        mvwprintw(mainwin, 8, 4, "a");
+        wattroff(mainwin, A_STANDOUT);
+        mvwprintw(mainwin, 9, 4, "s");
+        mvwprintw(mainwin, 10, 4, "u");
+        mvwprintw(mainwin, 11 ,4, "d");
+        break;
+      case 's':
+        wattron(mainwin, A_STANDOUT);
+        mvwprintw(mainwin, 9, 4, "s");
+        wattroff(mainwin, A_STANDOUT);
+        mvwprintw(mainwin, 8, 4, "a");
+        mvwprintw(mainwin, 10, 4, "u");
+        mvwprintw(mainwin, 11 ,4, "d");
+        break;
+      case 'u':
+        wattron(mainwin, A_STANDOUT);
+        mvwprintw(mainwin, 10, 4, "u");
+        wattroff(mainwin, A_STANDOUT);
+        mvwprintw(mainwin, 8, 4, "a");
+        mvwprintw(mainwin, 9, 4, "s");
+        mvwprintw(mainwin, 11 ,4, "d");
+        break;
+      case 'd':
+        wattron(mainwin, A_STANDOUT);
+        mvwprintw(mainwin, 11 ,4, "d");
+        wattroff(mainwin, A_STANDOUT);
+        mvwprintw(mainwin, 8, 4, "a");
+        mvwprintw(mainwin, 9, 4, "s");
+        mvwprintw(mainwin, 10, 4, "u");
+        break;
+      default:
+        mvwprintw(mainwin, 8, 3, "(a) Add new person's information.");
+        mvwprintw(mainwin, 9, 3, "(s) Search specific information.");
+        mvwprintw(mainwin, 10, 3, "(u) Update vaccination status,");
+        mvwprintw(mainwin, 11, 3, "(d) Delete data.");
+        break;
+    }
+  }    
+}
 
-    mvwprintw(win, 15, 3, "Enter first letter of the feature: ");
+void Menu::deleteWin(WINDOW* win){
+  delwin(win);
+}
 
-    wgetch(win);
+//creates a new window 
+// void Menu::newWin(){
+//   initscr();
+//   noecho();
+//   cur_set(0);
 
-    // Deallocate memory and end ncurses
-    endwin(); 
-  }
 
-  ~Menu();
-};
+
+// }
+
+
+
+
+    
 

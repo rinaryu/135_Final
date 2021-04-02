@@ -173,3 +173,5 @@ bool Person_info::valid_phone (int num){
 	} 
 	return 0;
 }
+
+Person_info::~Person_info(){}

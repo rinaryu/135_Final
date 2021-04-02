@@ -40,11 +40,11 @@ public:
 	int get_phone() const;
 	string get_status() const;
 
-	void Person_info::set_name(string name);
-	void Person_info::set_dob(string data);
-	void Person_info::set_city(string city);
-	void Person_info::set_phone(int phone);
-	void Person_info::set_status(string status);
+	void set_name(string name);
+	void set_dob(string data);
+	void set_city(string city);
+	void set_phone(int phone);
+	void set_status(string status);
 
 	bool valid_name (string user_input);
 	bool check_date (int month, int day, int year);
@@ -58,7 +58,6 @@ public:
 //Database class 
 class Database{
 private:
-	string* per_person;
 	int size;
 	int capacity;
 	Person_info* new_data;
@@ -69,11 +68,16 @@ public:
 	int get_cap() const;
 	void get_data();
 	void resize();
+
 	void search_name (string name);
 	void search_dob (string dob);
 	void search_city (string city);
 	void search_phone (int phone);
-	void search_substr(string findData);
+	void search_status(string status);
+	void search_substr_name(string findData);
+	void search_substr_city(string findCity);
+	void search_substr_phone(int num);
+	void search_range_dob(int low, int high);
 	string print_record (int i);
 
 	void list_name_alpha();
@@ -86,7 +90,14 @@ public:
 };
 
 //Menu class 
-class Menu;
-void feature_display();
+class Menu{
+	private:
+	WINDOW* mainwin;
+
+	public:
+	void feature_display();
+	void deleteWin(WINDOW* win);
+
+};
 
 #endif

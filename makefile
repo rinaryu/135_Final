@@ -35,7 +35,7 @@
 CPPFLAGS = -std=c++17 -Wall -Wextra -Werror -Wfatal-errors -Wno-sign-compare -Wnon-virtual-dtor -g
 
 database_main: final_main.o Person_info.o Database.o Menu.o 
-	g++ -lncurses -o database_main final_main.o Person_info.o Database.o Menu.o
+	g++ -o database_main final_main.o Person_info.o Database.o Menu.o -lncurses 
 
 Person_info:
 	g++ -c $(CPPFLAGS) Person_info.cpp

@@ -25,7 +25,7 @@
 #include "database_head.h"
 using namespace std;
 
+
 int main(){
-    cout<<"test test";
 
 }
