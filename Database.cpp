@@ -255,17 +255,17 @@ void Database::list_name_reverse(){
 
     //Number field: ascending order
     //FINISH/////////////////////
-bool compare_dob_asc(Person_info a, Person_info b){
-    return 0;
+// bool compare_dob_asc(Person_info a, Person_info b){
+//     return 0;
 
-}
+// }
 
-void Database::list_dob_ascend(){
-    sort(new_data, new_data + size, compare_dob_asc);
-    for(int i = 0; i < size; i++){
-        cout << print_record(i) << "\n";
-    }
-}
+// void Database::list_dob_ascend(){
+//     sort(new_data, new_data + size, compare_dob_asc);
+//     for(int i = 0; i < size; i++){
+//         cout << print_record(i) << "\n";
+//     }
+// }
 
 bool compare_phone_asc(Person_info a, Person_info b){
     return a.get_phone() <= b.get_phone();

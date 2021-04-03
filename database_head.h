@@ -91,13 +91,22 @@ public:
 
 //Menu class 
 class Menu{
-	private:
+private:
 	WINDOW* mainwin;
+	//Database database;
+	//Person_info person;
 
-	public:
-	void feature_display();
+public:
+	char feature_display();
 	void deleteWin(WINDOW* win);
-
+	void newWin();
+	char add_display();
+	char search_display();
+	char search_option(char enterChar);
+	char update_display();
+	char list_display();
+	char order_option(char enterChar);
+	char delete_display();
 };
 
 #endif

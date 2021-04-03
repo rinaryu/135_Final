@@ -27,5 +27,7 @@ using namespace std;
 
 
 int main(){
-
+    Menu a;
+	a.feature_display();
+    a.search_display();
 }
