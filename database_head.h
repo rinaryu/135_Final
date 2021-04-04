@@ -58,6 +58,7 @@ public:
 //Database class 
 class Database{
 private:
+	string* per_person;
 	int size;
 	int capacity;
 	Person_info* new_data;
@@ -68,7 +69,7 @@ public:
 	int get_cap() const;
 	void get_data();
 	void resize();
-
+	
 	void search_name (string name);
 	void search_dob (string dob);
 	void search_city (string city);
@@ -89,24 +90,30 @@ public:
 	~Database();
 };
 
+//display.cpp
+void destroy_win(WINDOW *deleteWin);
+WINDOW* create_win();
+char feature_display();
+void newwind();
+char search_display();
+char search_str_display();
+char search_int_display();
+char update_display();
+char list_display();
+char list_str_display();
+char list_int_display();
+void test();
+
+//Menu class 
 //Menu class 
 class Menu{
 private:
-	WINDOW* mainwin;
-	//Database database;
-	//Person_info person;
+
 
 public:
-	void destroy_win(WINDOW *deleteWin);
-	WINDOW* create_win();
-	char feature_display();
-	char add_display();
-	char search_display();
-	char search_option(char enterChar);
-	char update_display();
-	char list_display();
-	char order_option(char enterChar);
-	char delete_display();
+	
 };
 
+
 #endif
+
