@@ -34,8 +34,8 @@
 #   -g puts debugging info into the executables (makes them larger)
 CPPFLAGS = -std=c++17 -Wall -Wextra -Werror -Wfatal-errors -Wno-sign-compare -Wnon-virtual-dtor -g
 
-database_main: final_main.o Person_info.o Database.o Menu.o 
-	g++ -o database_main final_main.o Person_info.o Database.o Menu.o -lncurses 
+database_main: final_main.o Person_info.o Database.o Menu.o display.o
+	g++ -o database_main final_main.o Person_info.o Database.o Menu.o display.o -lncurses
 
 Person_info:
 	g++ -c $(CPPFLAGS) Person_info.cpp
@@ -45,6 +45,12 @@ Database:
 
 Menu:
 	g++ -lncurses -c $(CPPFLAGS) Menu.cpp
+	
+display:
+	g++ -lncurses -c $(CPPFLAGS) display.cpp
+
+final_main:
+	g++ -lncurses -c $(CPPFLAGS) final_main.cpp
 
 clean:
-	rm -f database_main final_main.o Person_info.o Database.o Menu.o
+	rm -f database_main final_main.o Person_info.o Database.o Menu.o display.o
