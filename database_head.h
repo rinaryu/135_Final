@@ -97,9 +97,9 @@ private:
 	//Person_info person;
 
 public:
+	void destroy_win(WINDOW *deleteWin);
+	WINDOW* create_win();
 	char feature_display();
-	void deleteWin(WINDOW* win);
-	void newWin();
 	char add_display();
 	char search_display();
 	char search_option(char enterChar);

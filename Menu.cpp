@@ -6,8 +6,27 @@
 #include "cmpt_error.h"
 #include <iostream>
 
-//creates the main menu display windows 
-char feature_display(){
+//destroys a window
+void Menu::destroy_win(WINDOW *deleteWin){
+  wborder(deleteWin, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+  wrefresh(deleteWin);
+  delwin(deleteWin);
+}
+
+//creates a new window
+WINDOW* Menu::create_win(){
+  int h, w;
+  getmaxyx(stdscr, h, w);
+
+  WINDOW* tempwin = newwin(h/2, w/2, h/4, w/4);
+  box(tempwin, 0, 0);
+  refresh();
+
+  return tempwin; 
+}
+
+//creates main menu display of database 
+char Menu::feature_display(){
   char returnChar = '0'; //gets returned -- used to keep detect which option was chosen by user when in the main menu 
   
 	//Initiaize the screen 
@@ -15,12 +34,7 @@ char feature_display(){
   noecho(); //hides user input from window
   curs_set(0); //hides screen cursor
 
-  // Create a window
-  int height, width;
-  getmaxyx(stdscr, height, width); // Get size of the user's window
-
-  mainwin = newwin(height/2, width/2, height/4, width/4);
-  box(mainwin, 0, 0);
+  WINDOW* mainwin = create_win();
 
   mvwprintw(mainwin, 0, 3, "Features");
   mvwprintw(mainwin, 0, 13, "Appointment");
@@ -100,36 +114,32 @@ char feature_display(){
     }
     if(ch == 10) break;
   }  
-    wrefresh(mainwin);
-    delwin(mainwin);
+    destroy_win(mainwin);
     return returnChar;
 }
 
-void Menu::add_person(){
-  person.new_person();
+////////////////////text based version of adding new person to database//////////////////
+//probably delete later :P 
+// void Menu::add_person(){
+//   person.new_person();
 
-  string name = person.get_name();
-  string dob = person.get_dob();
-  string city = person.get_city();
-  int phone = person.get_phone();
-  string status = person.get_status();
+//   string name = person.get_name();
+//   string dob = person.get_dob();
+//   string city = person.get_city();
+//   int phone = person.get_phone();
+//   string status = person.get_status();
 
-  string new_info = name + " " + dob + " " + city + " " + to_string(phone) + " " + status;
-  cout << "This is the information you have entered into the database.\nReturning to main menu...\n";
-  
-  //add new info to database
+//   string new_info = name + " " + dob + " " + city + " " + to_string(phone) + " " + status;
+//   cout << "This is the information you have entered into the database.\nReturning to main menu...\n";
 
-}
+//   //add new info to database
+
+// }
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
-/* //creates a new window 
-void Menu::newWin(){
-  initscr();
-  noecho();
-  curs_set(0);
-}
-
+/*
 ////////////NOTE///////////////////
 //Fix Person_info::new_person() with cout
 char Menu::add_display(){}
@@ -258,9 +268,6 @@ char Menu::order_option(char enterChar){
 
   return returnChar;
 }
-
-char Menu::delete_display(){
-
-} */
+*/
 
 
