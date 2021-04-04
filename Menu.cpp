@@ -7,7 +7,7 @@
 #include <iostream>
 
 //destroys a window
-void Menu::destroy_win(WINDOW *deleteWin){
+/*void Menu::destroy_win(WINDOW *deleteWin){
   wborder(deleteWin, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
   wrefresh(deleteWin);
   delwin(deleteWin);
@@ -139,7 +139,6 @@ char Menu::feature_display(){
 
 
 
-/*
 ////////////NOTE///////////////////
 //Fix Person_info::new_person() with cout
 char Menu::add_display(){}
