@@ -6,142 +6,136 @@
 #include "cmpt_error.h"
 #include <iostream>
 
-//destroys a window
-/*void Menu::destroy_win(WINDOW *deleteWin){
-  wborder(deleteWin, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-  wrefresh(deleteWin);
-  delwin(deleteWin);
+Menu::Menu(){
+  new_database.get_data();
 }
 
-//creates a new window
-WINDOW* Menu::create_win(){
-  int h, w;
-  getmaxyx(stdscr, h, w);
-
-  WINDOW* tempwin = newwin(h/2, w/2, h/4, w/4);
-  box(tempwin, 0, 0);
-  refresh();
-
-  return tempwin; 
-}
-
-//creates main menu display of database 
-char Menu::feature_display(){
-  char returnChar = '0'; //gets returned -- used to keep detect which option was chosen by user when in the main menu 
+void Menu::temp_name(){
+  char user_input = feature_display();
   
-	//Initiaize the screen 
-  initscr();  
-  noecho(); //hides user input from window
-  curs_set(0); //hides screen cursor
+  char search_input = ''; //which field the user is searching by (name or city or dob etc) 
+  string searchForStr = ""; //which string to search for
+  int searchForInt = 0; //which in to search for 
+  char method = ''; // which method to be used when searching for strings (exact or substr) 
+  //***************************************************************************************
+  if(user_input == 'a'){
+    //Ask user to enter new information in the terminal
+    person.new_person();  
+    new_database.add_data(person);  
+  }
+  //***************************************************************************************
+  //when deleting -- delete only one record or all records the appear when searched?
+  if(user_input == 's' || user_input == 'd'){
+    search_input = search_display(user_input);
+    //user chose to search a string field 
+    if(search_input == 'n' || search_input == 'v' || search_input == 'c'){
+      //determining which method should be used to search the name
+      method = search_str_display(); 
+      if(method == 'e'){  // if wants to search using exact occurence
+        searchForStr = search_get_input();
 
-  WINDOW* mainwin = create_win();
+        //search_name() will look for exact same input
+        // if found; will cout out the record, if not found; will cout it's not found
+        if(search_input == 'n') new_database.search_name(searchForStr);
+        if(search_input == 'v') new_database.search_status(searchForStr);
+        if(search_input == 'c') new_database.search_city(searchForStr);
 
-  mvwprintw(mainwin, 0, 3, "Features");
-  mvwprintw(mainwin, 0, 13, "Appointment");
+      } else if(method == 'o'){ // if wants to search using substring 
+        searchForStr = search_get_input();
 
-  mvwprintw(mainwin, 4, 3, "Welcome to the Vaccination Database!");
-  mvwprintw(mainwin, 5, 3, "====================================");
-  mvwprintw(mainwin, 8, 3, "(a) Add new person's information.");
-  mvwprintw(mainwin, 9, 3, "(s) Search specific information.");
-  mvwprintw(mainwin, 10, 3, "(u) Update vaccination status.");
-  mvwprintw(mainwin, 11, 3, "(l) List all records.");
-  mvwprintw(mainwin, 12, 3, "(d) Delete data.");
-  mvwprintw(mainwin, 13, 3, "(q) Quit.");
+        //looking using substring 
+        if(search_input == 'n') new_database.search_substr_name(searchForStr);
+        if(search_input == 'c') new_database.search_substr_city(searchForStr);
+      }
+    } 
+    //user chose to search by dob or phone number 
+    //phone number and dob searches by exact match
+    //only dob searches using an interval (e.g. people born in 1990 - 2001)
+    else if (search_input == 'd' || search_input == 'p'){
+      method = search_int_display();
+      if(method == 'e'){
+        // Look for exact number
+        if(search_input == 'd') {
+          searchForStr = search_get_input();
+          new_database.search_dob(searchForStr);
+        } else if (search_input = 'p'){
+          searchForInt = search_int_input();
+          new_database.search_phone(searchForInt);
+        }
 
-  mvwprintw(mainwin, 15, 3, "Press a key to choose one feature!");
-
-  //detecting which option is being pressed by the user 
-  char ch;
-  while(ch = wgetch(mainwin)){
-    switch(ch){
-      case 'a':
-        wattron(mainwin, A_STANDOUT);
-        mvwprintw(mainwin, 8, 4, "a");
-        wattroff(mainwin, A_STANDOUT);
-        mvwprintw(mainwin, 9, 4, "s");
-        mvwprintw(mainwin, 10, 4, "u");
-        mvwprintw(mainwin, 11, 4, "l");
-        mvwprintw(mainwin, 12 ,4, "d");
-        returnChar = 'a';
-        break;
-      case 's':
-        wattron(mainwin, A_STANDOUT);
-        mvwprintw(mainwin, 9, 4, "s");
-        wattroff(mainwin, A_STANDOUT);
-        mvwprintw(mainwin, 8, 4, "a");
-        mvwprintw(mainwin, 10, 4, "u");
-        mvwprintw(mainwin, 11, 4, "l");
-        mvwprintw(mainwin, 12 ,4, "d");
-        returnChar = 's';
-        break;
-      case 'u':
-        wattron(mainwin, A_STANDOUT);
-        mvwprintw(mainwin, 10, 4, "u");
-        wattroff(mainwin, A_STANDOUT);
-        mvwprintw(mainwin, 8, 4, "a");
-        mvwprintw(mainwin, 9, 4, "s");
-        mvwprintw(mainwin, 11, 4, "l");
-        mvwprintw(mainwin, 12 ,4, "d");
-        returnChar = 'u';
-        break;
-      case 'l':
-        wattron(mainwin, A_STANDOUT);
-        mvwprintw(mainwin, 11, 4, "l");
-        wattroff(mainwin, A_STANDOUT);
-        mvwprintw(mainwin, 8, 4, "a");
-        mvwprintw(mainwin, 9, 4, "s");
-        mvwprintw(mainwin, 10, 4, "u");
-        mvwprintw(mainwin, 12 ,4, "d");
-        returnChar = 'l';
-        break;
-      case 'd':
-        wattron(mainwin, A_STANDOUT);
-        mvwprintw(mainwin, 12 ,4, "d");
-        wattroff(mainwin, A_STANDOUT);
-        mvwprintw(mainwin, 8, 4, "a");
-        mvwprintw(mainwin, 9, 4, "s");
-        mvwprintw(mainwin, 10, 4, "u");
-        mvwprintw(mainwin, 11, 4, "l");
-        returnChar = 'd';
-        break;
-      default:
-        mvwprintw(mainwin, 8, 3, "(a) Add new person's information.");
-        mvwprintw(mainwin, 9, 3, "(s) Search specific information.");
-        mvwprintw(mainwin, 10, 3, "(u) Update vaccination status.");
-        mvwprintw(mainwin, 11, 3, "(l) List all records.");
-        mvwprintw(mainwin, 12, 3, "(d) Delete data.");
-        break;
+      } else if (method == 'i'){
+        // Search for DOB in range from year A to year B
+        int lowerYear;
+        int upperYear;
+        cout << "Please enter the lower year limit: ";
+        cin >> lowerYear;
+        cout << "\n";
+        cout << "Please enter the upper year limit: ";
+        cin >> upperYear;
+        while (lowerYear > upperYear){
+          cout << "Please enter the first year smaller than the second year!\n";
+          cout << "Please re-enter the lower year limit: ";
+          cin >> lowerYear;
+          cout << "\n";
+          cout << "Please re-enter the upper year limit: ";
+          cin >> upperYear;
+        }
+        new_database.search_range_dob(lowerYear, upperYear);
+      }
     }
-    if(ch == 10) break;
-  }  
-    destroy_win(mainwin);
-    return returnChar;
+    if(user_input == 'd' || user_input == 'p')
+    //if the user wants to delete the record(s) they searched for
+    if(user_input == 'd'){
+      cout << "Do you want to delete these records (y/n)?"
+      string confirmDelete;
+      cin >> confirmDelete;
+      while(confirmDelete != "y" || confirmDelete != "n"){
+        cout << "Please enter a valid answer: ";
+        cin >> confirmDelete; 
+      }
+      if (confirmDelete == "y"){
+        if (search_input == 'n') new_database.delete_name(searchForStr);
+        //if (search_input == 'v') ;-; 
+        //if (search_input == 'c')
+        if (search_input == 'p') new_database.delete_phone(searchForInt);
+        if (search_input == 'd') new_database.delete_dob(searchForStr);
+      }
+    }
+    //search_menu(search_input);
+  }
+//***************************************************************************************
+  if(user_input == 'u'){
+    //update
+  }
+//***************************************************************************************
+  if(user_input == 'l'){
+    //list records.
+
+  }
+  //***************************************************************************************
+  if(user_input == 'q'){
+    //export the current database array into textfile
+    //exit the program
+  }
+  //***************************************************************************************
 }
 
-////////////////////text based version of adding new person to database//////////////////
-//probably delete later :P 
-// void Menu::add_person(){
-//   person.new_person();
+string Menu::search_get_input(){ 
+  cout<<"Please enter what you like to search: ";
+  string search_for;
+  cin >> search_for; 
+  return search_for;
+}
 
-//   string name = person.get_name();
-//   string dob = person.get_dob();
-//   string city = person.get_city();
-//   int phone = person.get_phone();
-//   string status = person.get_status();
-
-//   string new_info = name + " " + dob + " " + city + " " + to_string(phone) + " " + status;
-//   cout << "This is the information you have entered into the database.\nReturning to main menu...\n";
-
-//   //add new info to database
-
-// }
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
+int Menu::search_num_input(){
+  cout << "Please enter number you like to search: ";
+  int num;
+  cin >> num;
+  return num;
+}
 ////////////NOTE///////////////////
 //Fix Person_info::new_person() with cout
-char Menu::add_display(){}
-*/
+// char Menu::add_display(){}
+
 
 

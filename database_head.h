@@ -33,6 +33,8 @@ private:
 	string vaccinated; 
     
 public:
+	Person_info();
+
 	void new_person(); 
 	string get_name() const;
 	string get_dob() const;
@@ -58,18 +60,23 @@ public:
 //Database class 
 class Database{
 private:
-	string* per_person;
 	int size;
 	int capacity;
 	Person_info* new_data;
 
 public:
 	Database(int sz, int cap);
+	
 	int get_size() const;
 	int get_cap() const;
 	void get_data();
 	void resize();
 	
+	void add_data(const Person_info& person);
+	void delete_name(string name);
+	void delete_dob(string dob);
+	void delete_phone(int phone);
+
 	void search_name (string name);
 	void search_dob (string dob);
 	void search_city (string city);
@@ -108,10 +115,14 @@ void test();
 //Menu class 
 class Menu{
 private:
-
+	Database new_database;
+	Person_info person;
+	string fname;
 
 public:
-	
+	Menu();
+	int search_num_input();
+	string search_get_input();
 };
 
 

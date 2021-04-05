@@ -11,26 +11,24 @@
 #include <iostream>
 
 
-Database::Database(int sz, int cap)
-: size(sz), capacity(cap), new_data(new Person_info[cap])
+Database::Database()
+: size(0), capacity(5), new_data(new Person_info[5])
 {}
 
 int Database::get_size() const {return size;}
 int Database::get_cap() const {return capacity;}
+
 // Resize array
 void Database::resize(){
-    if (size >= capacity){
-        Person_info* temp_arr = new Person_info[capacity * 2];
-        int i;
-        for(i = 0; i < size; i++){
-            temp_arr[i] = new_data[i];
-        }
-
-        delete[] new_data;
-        new_data = temp_arr;
-        capacity *= 2;
-        size = i;
+    Person_info* temp_arr = new Person_info[capacity * 2];
+    int i;
+    for(i = 0; i < size; i++){
+        temp_arr[i] = new_data[i];
     }
+
+    delete[] new_data;
+    new_data = temp_arr;
+    capacity *= 2;
 }
 
 //gets data from database.txt
@@ -52,7 +50,9 @@ void Database::get_data(){
         size_t spaceIdx = data.at(i).find_last_of(' ');
 
         // Resize the array if needed
-        resize();
+        if(size >= capacity){
+            resize();
+        }
 
         //setting vaccination status (Y or N)
         new_data[i].set_status(temp.substr(spaceIdx + 1, temp.size()-1));
@@ -76,9 +76,18 @@ void Database::get_data(){
 
         //setting their name 
         new_data[i].set_name(temp);
+        size++;
     }
 }
 
+//////////////////////////////////////Adding a Record////////////////////////////////////////////
+void Database::add_data(const Person_info& person){
+    if(size >= capacity){
+        resize();
+    }
+    new_data[size] = person;
+    size++;
+}
 
 //////////////////////////////////////Finding a Record////////////////////////////////////////////
 
@@ -89,7 +98,7 @@ void Database::search_name (string name){
     int count_match = 0;
     for (int i = 0; i < size; i++){
         if (new_data[i].get_name() == name){
-            cout << "Matching record found: " << print_record(i) << "\n";
+            cout << "Matching record found: \n" << print_record(i) << "\n";
             count_match++;
         }
     }
@@ -103,7 +112,7 @@ void Database::search_dob (string dob){
     // NOTE: check for the right format search of dob
     for (int i = 0; i < size; i++){
         if (new_data[i].get_dob() == dob){
-            cout << "Matching record found: " << print_record(i) << "\n";
+            cout << "Matching record found: \n" << print_record(i) << "\n";
             count_match++;
         }
     }
@@ -116,7 +125,7 @@ void Database::search_city (string city){
     int count_match = 0;
     for (int i = 0; i < size; i++){
         if (new_data[i].get_city() == city){
-            cout << "Matching record found: " << print_record(i) << "\n";
+            cout << "Matching record found: \n" << print_record(i) << "\n";
             count_match++;
         }
     }
@@ -128,7 +137,7 @@ void Database::search_phone (int phone){
     int count_match = 0;
     for (int i = 0; i < size; i++){
         if (new_data[i].get_phone() == phone){
-            cout << "Matching record found: " << print_record(i) << "\n";
+            cout << "Matching record found: \n" << print_record(i) << "\n";
             count_match++;
         }
     }
@@ -292,6 +301,31 @@ void Database::list_phone_descend(){
 
 
 //////////////////////////////////////Deleting Records/////////////////////////////////////////////
+void Database::delete_name(string name){
+    for (int i = 0; i < size; i++){
+        if (new_data[i].get_name() == name){
+            new_data[i] = new_data[size - 1];
+            size--; //Truncate
+        }
+    }
+}
+void Database::delete_dob(string dob){
+    for (int i = 0; i < size; i++){
+        if (new_data[i].get_dob() == dob){
+            new_data[i] = new_data[size - 1];
+            size--; //Truncate
+        }
+    }
+}
+
+void Database::delete_phone(int phone){
+    for (int i = 0; i < size; i++){
+        if (new_data[i].get_phone() == phone){
+            new_data[i] = new_data[size - 1];
+            size--; //Truncate
+        }
+    }
+}
 
 Database::~Database(){
     delete[] new_data; 

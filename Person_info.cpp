@@ -38,7 +38,7 @@ void Person_info::new_person (){
 	    }              
 	}
 	//Second: Getting birthday of new person. 
-	cout<<"Please enter their date of birth.\nThe data must be in the following format of, MM/DD/YYYY (eg. 04/07/1999): \n";
+	cout << "Please enter their date of birth.\nThe data must be in the following format of, MM/DD/YYYY (eg. 04/07/1999): \n";
 	getline(cin, dob);
 	while(true){
 	    if(!(dob.at(2) == '/') && !(dob.at(5) == '/')){

@@ -1,6 +1,10 @@
 //////////////////////////////////////////////////////
 
 // display.cpp
+//contains:
+// -- functions that create the display for each necessary window
+// -- function that deletes a window
+// -- function that creates a new window 
 
 #include "database_head.h"
 #include "cmpt_error.h"
@@ -65,6 +69,7 @@ char feature_display(){
 				mvwprintw(mainwin, 10, 4, "u");
 				mvwprintw(mainwin, 11, 4, "l");
 				mvwprintw(mainwin, 12 ,4, "d");
+				mvwprintw(mainwin 13, 4, "q");
 				//getstr(ch);
 				//mvwprintw(mainwin, 15, 45, "a");
 				returnChar = 'a';
@@ -77,6 +82,7 @@ char feature_display(){
 				mvwprintw(mainwin, 10, 4, "u");
 				mvwprintw(mainwin, 11, 4, "l");
 				mvwprintw(mainwin, 12 ,4, "d");
+				mvwprintw(mainwin 13, 4, "q");
 				//getstr(ch);
 				//mvwprintw(mainwin, 15, 45, "s");
 				returnChar = 's';
@@ -89,6 +95,7 @@ char feature_display(){
 				mvwprintw(mainwin, 9, 4, "s");
 				mvwprintw(mainwin, 11, 4, "l");
 				mvwprintw(mainwin, 12 ,4, "d");
+				mvwprintw(mainwin 13, 4, "q");
 				//getstr(ch);
 				//mvwprintw(mainwin, 15, 45, "u");
 				returnChar = 'u';
@@ -101,6 +108,7 @@ char feature_display(){
 				mvwprintw(mainwin, 9, 4, "s");
 				mvwprintw(mainwin, 10, 4, "u");
 				mvwprintw(mainwin, 12 ,4, "d");
+				mvwprintw(mainwin 13, 4, "q");
 				//getstr(ch);
 				//mvwprintw(mainwin, 15, 45, "l");
 				returnChar = 'l';
@@ -113,7 +121,19 @@ char feature_display(){
 				mvwprintw(mainwin, 9, 4, "s");
 				mvwprintw(mainwin, 10, 4, "u");
 				mvwprintw(mainwin, 11, 4, "l");
+				mvwprintw(mainwin 13, 4, "q");
 				returnChar = 'd';
+				break;
+			case 'q':
+				wattron(mainwin, A_STANDOUT);
+				mvwprintw(mainwin 13, 4, "q");
+				wattroff(mainwin, A_STANDOUT);)
+				mvwprintw(mainwin, 8, 4, "a");
+				mvwprintw(mainwin, 9, 4, "s");
+				mvwprintw(mainwin, 10, 4, "u");
+				mvwprintw(mainwin, 11, 4, "l");
+				mvwprintw(mainwin, 12 ,4, "d");
+				returnChar = 'q';
 				break;
 			default:
 			mvwprintw(mainwin, 8, 3, "(a) Add new person's information.");
@@ -126,7 +146,7 @@ char feature_display(){
 			mvwprintw(mainwin, 15, 3, "Please enter valid letter of your choice: ");
 			break;
 		}
-		if(ch == 10) break;
+		if(ch == 10) break; //if user presses enter -- break while loop
 	}  
 	destroy_win(mainwin);
 	return returnChar;
@@ -135,10 +155,8 @@ char feature_display(){
 //WINDOW 2: Display search-for options
 char search_display(char response){
 	char returnChar = '0'; 
-	//gets returned -- used to keep detect which option was chosen by user in the main menu 
 
-	//Initiaize the screen 
-	initscr();  
+	initscr(); //Initiaize the screen 
 	noecho(); //hides user input from window
 	curs_set(0); //hides screen cursor
 
@@ -248,7 +266,7 @@ char search_display(char response){
 			
 			break;
 		}
-		if(ch == 10) break;
+		if(ch == 10) break; //if user presses enter -- break while loop
 	}  
 	destroy_win(searchwin);
 	return returnChar;
@@ -257,10 +275,8 @@ char search_display(char response){
 //WINDOW 3: Display search options for string type
 char search_str_display(){
 	char returnChar = '0'; 
-	//gets returned -- used to keep detect which option was chosen by user in the main menu 
 
-	//Initiaize the screen 
-	initscr();  
+	initscr();  //Initiaize the screen 
 	noecho(); //hides user input from window
 	curs_set(0); //hides screen cursor
 
@@ -309,7 +325,6 @@ char search_str_display(){
 			default:
 				mvwprintw(searchwin, 9, 3, "(e) Exactly matches.");
 				mvwprintw(searchwin, 10, 3, "(o) Occurs as a substring.");
-
 				mvwprintw(searchwin, 13, 3, "(r) Return to main menu.");
 				mvwprintw(searchwin, 15, 3, "Please enter valid letter of choice: ");
 			break;
@@ -322,11 +337,9 @@ char search_str_display(){
 
 //WINDOW 4: Display search option for integer type
 char search_int_display(){
-	char returnChar = '0'; 
-	//gets returned -- used to keep detect which option was chosen by user in the main menu 
+	char returnChar = '0';  
 
-	//Initiaize the screen 
-	initscr();  
+	initscr();  //Initiaize the screen 
 	noecho(); //hides user input from window
 	curs_set(0); //hides screen cursor
 
@@ -392,10 +405,8 @@ char search_int_display(){
 //WINDOW 6: Display update options
 char update_display(){
 	char returnChar = '0'; 
-	//gets returned -- used to keep detect which option was chosen by user in the main menu 
 
-	//Initiaize the screen 
-	initscr();  
+	initscr(); //Initiaize the screen 
 	noecho(); //hides user input from window
 	curs_set(0); //hides screen cursor
 
@@ -474,10 +485,8 @@ char update_display(){
 // WINDOW 7: Display listing options
 char list_display(){
 	char returnChar = '0'; 
-	//gets returned -- used to keep detect which option was chosen by user in the main menu 
 
-	//Initiaize the screen 
-	initscr();  
+	initscr(); //Initiaize the screen 
 	noecho(); //hides user input from window
 	curs_set(0); //hides screen cursor
 
@@ -590,10 +599,8 @@ char list_display(){
 //WINDOW 8: Display list options for string type
 char list_str_display(){
 	char returnChar = '0'; 
-	//gets returned -- used to keep detect which option was chosen by user in the main menu 
 
-	//Initiaize the screen 
-	initscr();  
+	initscr(); //Initiaize the screen 
 	noecho(); //hides user input from window
 	curs_set(0); //hides screen cursor
 
@@ -656,10 +663,8 @@ char list_str_display(){
 //WINDOW 4: Display search option for integer type
 char list_int_display(){
 	char returnChar = '0'; 
-	//gets returned -- used to keep detect which option was chosen by user in the main menu 
 
-	//Initiaize the screen 
-	initscr();  
+	initscr(); //Initiaize the screen 
 	noecho(); //hides user input from window
 	curs_set(0); //hides screen cursor
 
