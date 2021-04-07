@@ -1,4 +1,3 @@
-// Database.cpp
 //This contains the class "Database" 
 /////////////////////////////////////////////////////////////////////////////
 //This class:
@@ -7,8 +6,8 @@
 // - includes a searching feature to find specific data 
 
 #include "database_head.h"
-#include "cmpt_error.h"
 #include <iostream>
+using namespace std;
 
 
 Database::Database()
@@ -35,7 +34,10 @@ void Database::resize(){
 void Database::get_data(){
     vector<string> data;
     ifstream fin("database.txt");
-    if(fin.fail()) cmpt::error("Problem with opening database text file.");
+    if(fin.fail()){
+        cout << "Problem with opening database text file.\n";
+		exit(EXIT_FAILURE);
+    }
     while(true){
         string info;
         if(fin.fail()) break;
@@ -172,6 +174,8 @@ string Database::print_record(int i){
 
     return per_record;
 }
+
+string Database::save_record(int i);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // 2nd Method: type-in string as SUBstring in appropriate field.

@@ -7,7 +7,7 @@
 #ifndef DATABASE_H
 #define DATABASE_H
 
-#include "cmpt_error.h"
+// #include "cmpt_error.h"
 #include <cassert>
 #include <iomanip>
 #include <ncurses.h>
@@ -20,6 +20,8 @@
 #include <string>
 #include <algorithm>
 #include <stdlib.h>
+#include <chrono> 
+#include <thread>
 
 using namespace std;
 
@@ -102,7 +104,7 @@ void destroy_win(WINDOW *deleteWin);
 WINDOW* create_win();
 char feature_display();
 void newwind();
-char search_display();
+char search_display(char response);
 char search_str_display();
 char search_int_display();
 char update_display();

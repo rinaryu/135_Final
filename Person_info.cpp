@@ -6,7 +6,6 @@
 // - also makes sure that input is valid for all fields
 
 #include "database_head.h"
-#include "cmpt_error.h"
 #include <iostream>
 using namespace std;
 
@@ -148,7 +147,10 @@ bool Person_info::valid_city(string city_name){
 	//importing list of all cities in Lower Mainland 
 	vector<string> cities;
 	ifstream fin("lowermainland_cities.txt");
-	if(fin.fail()) cmpt::error("Importing city text file failed");
+	if(fin.fail()){
+		cout << "Importing city text file failed\n";
+		exit(EXIT_FAILURE);
+	}
 	while(true){
 	    string city;
 	    getline(fin, city);

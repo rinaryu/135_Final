@@ -1,15 +1,10 @@
-//////////////////////////////////////////////////////
-
-// display.cpp
 //contains:
 // -- functions that create the display for each necessary window
 // -- function that deletes a window
 // -- function that creates a new window 
 
 #include "database_head.h"
-#include "cmpt_error.h"
 #include <iostream>
-
 using namespace std;
 
 //destroys a window
@@ -728,31 +723,21 @@ char list_int_display(){
 void test(){
 	bool done = false;
 	while(!done){
-	char x = feature_display();
-	char res;
-		if(x == 's' || x == 'd'){
-			res = search_display(x);
-			if (res == 'n' || res == 'v' || res == 'p'){
-				res = search_str_display();
-			} else if (res == 'd' || res == 'p'){
-				res = search_int_display();
+		char x = feature_display();
+		char res;
+			if(x == 's' || x == 'd'){
+				res = searching(x);
+			} else if (x == 'u'){
+				res = update();
+			} else if (x == 'l'){
+				res = list();
 			}
-		} else if (x == 'u'){
-			update_display();
-		} else if (x == 'l'){
-			res = list_display();
-			if (res == 'n' || res == 'v' || res == 'p'){
-				res = list_str_display();
-			} else if (res == 'd' || res == 'p'){
-				res = list_int_display();
+			
+			if (res == 'r'){
+				done = false;
+			} else {
+				done = true;
 			}
-		}
-		
-		if (res == 'r'){
-			done = false;
-		} else {
-			done = true;
-		}
 	}
 	endwin();
 }
