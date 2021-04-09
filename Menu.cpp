@@ -119,9 +119,8 @@ char Menu::searching(string user_input){
     if (confirmDelete == "y"){
       if (search_input == 'n') new_database.delete_name(searchForStr);
 
-      //*********delete all searched vaccination/city records????
-      //if (search_input == 'v') ;-; 
-      //if (search_input == 'c')
+      // if (search_input == 'v')
+      // if (search_input == 'c')
       
       if (search_input == 'p') new_database.delete_phone(searchForInt);
       if (search_input == 'd') new_database.delete_dob(searchForStr);
@@ -186,14 +185,16 @@ char Menu::list(){
 
 //quitting program and creating new txt of the database 
 void Menu::quit(){
-  ofstream fin("database.txt");
-  if (fin.fail()){
-    cout << "Can not open the file.\n";
-    exit(EXIT_FAILURE);
+  ofstream fout("database.txt");
+  int size = new_database.get_size();
+
+  for(int i; i < size; i++){ //i stg if this seg faults IM GOING TO CRY ;-; 
+    fout << person.get_name() << ", " << person.get_dob << ", " << person.get_city 
+         << ", " << person.get_phone << ", " << person.get_status << "\n";
   }
-  while(true){
-    
-  }
+  fout.close();
+
+  cout<<"Successfully quit\n";
 }
 
 string Menu::search_get_input(){ 

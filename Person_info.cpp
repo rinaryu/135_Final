@@ -147,10 +147,8 @@ bool Person_info::valid_city(string city_name){
 	//importing list of all cities in Lower Mainland 
 	vector<string> cities;
 	ifstream fin("lowermainland_cities.txt");
-	if(fin.fail()){
-		cout << "Importing city text file failed\n";
-		exit(EXIT_FAILURE);
-	}
+	if(fin.fail()) cmpt::error("Importing city text file failed\n");
+	
 	while(true){
 	    string city;
 	    getline(fin, city);

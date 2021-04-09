@@ -34,10 +34,8 @@ void Database::resize(){
 void Database::get_data(){
     vector<string> data;
     ifstream fin("database.txt");
-    if(fin.fail()){
-        cout << "Problem with opening database text file.\n";
-		exit(EXIT_FAILURE);
-    }
+    if(fin.fail()) cmpt::error("Problem with opening database.txt\n");
+
     while(true){
         string info;
         if(fin.fail()) break;
