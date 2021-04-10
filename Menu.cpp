@@ -9,7 +9,7 @@ Menu::Menu(){
 }
 
 //gathers input for a new person and adds it to the database
-char Menu::adding(){
+void Menu::adding(){
   //Ask user to enter new information in the terminal
   person.new_person();  
   new_database.add_data(person);  
@@ -17,13 +17,13 @@ char Menu::adding(){
 
 //searches the database using user's choice of field
 //user can also decided to delete the searched information
-char Menu::searching(string user_input){
+char Menu::searching(char user_input){
   //user_input keeps track of whether the user pressed (s)earching or (d)eleting
   
-  char search_input = ''; //which field the user is searching by (name or city or dob etc) 
-  string searchForStr = ""; //which string to search for
-  int searchForInt = 0; //which in to search for 
-  char method = ''; // which method to be used when searching for strings (exact or substr) 
+  char search_input; //which field the user is searching by (name or city or yob etc) 
+  string searchForStr; //which string to search for
+  long searchForInt = 0; //which in to search for 
+  char method; // which method to be used when searching for strings (exact or substr) 
  
   search_input = search_display(user_input);
 
@@ -64,9 +64,9 @@ char Menu::searching(string user_input){
       if(search_input == 'c') new_database.search_substr_city(searchForStr);
     }
   } 
-  //user chose to search by dob or phone number 
-  //phone number and dob searches by exact match
-  //only dob searches using an interval (e.g. people born in 1990 - 2001)
+  //user chose to search by yob or phone number 
+  //phone number and yob searches by exact match
+  //only yob searches using an interval (e.g. people born in 1990 - 2001)
   else if (search_input == 'd' || search_input == 'p'){
       
     if(search_input == 'r'){ //returning to main menu display
@@ -81,14 +81,14 @@ char Menu::searching(string user_input){
       // Look for exact number
       if(search_input == 'd') {
         searchForStr = search_get_input();
-        new_database.search_dob(searchForStr);
-      } else if (search_input = 'p'){
-        searchForInt = search_int_input();
+        new_database.search_yob(searchForStr);
+      } else if (search_input == 'p'){
+        searchForInt = search_num_input();
         new_database.search_phone(searchForInt);
       }
 
     } else if (method == 'i'){
-      // Search for DOB in range from year A to year B
+      // Search for yob in range from year A to year B
       int lowerYear;
       int upperYear;
       cout << "Please enter the lower year limit: ";
@@ -104,12 +104,12 @@ char Menu::searching(string user_input){
         cout << "Please re-enter the upper year limit: ";
         cin >> upperYear;
       }
-      new_database.search_range_dob(lowerYear, upperYear);
+      new_database.search_range_yob(lowerYear, upperYear);
     }
   }
   //if the user wants to delete the record(s) they searched for
   if(user_input == 'd'){
-    cout << "Do you want to delete these records (y/n)?"
+    cout << "Do you want to delete these records (y/n)?";
     string confirmDelete;
     cin >> confirmDelete;
     while(confirmDelete != "y" || confirmDelete != "n"){
@@ -118,12 +118,10 @@ char Menu::searching(string user_input){
     }
     if (confirmDelete == "y"){
       if (search_input == 'n') new_database.delete_name(searchForStr);
-
-      // if (search_input == 'v')
-      // if (search_input == 'c')
-      
+      if (search_input == 'v') new_database.delete_status(searchForStr);
+      if (search_input == 'c') new_database.delete_city(searchForStr);      
       if (search_input == 'p') new_database.delete_phone(searchForInt);
-      if (search_input == 'd') new_database.delete_dob(searchForStr);
+      if (search_input == 'd') new_database.delete_yob(searchForStr);
       cout << "Record has been deleted.\nReturning to main menu...";
     }
      else if(confirmDelete == "n"){
@@ -135,16 +133,16 @@ char Menu::searching(string user_input){
     return user_input; //user_input should either be 's' or 'd' 
 }
 
-//user can update selected record 
-void Menu::update(){
+// //user can update selected record 
+// void Menu::update(){
   
-}
+// }
 
 //list records.
 char Menu::list(){
-  char search_input = '';
-  char method = '';
-  string returnResp = "";
+  char search_input;
+  char method;
+  string returnResp;
 
   search_input = list_display();
   if (search_input == 'r') {
@@ -156,18 +154,18 @@ char Menu::list(){
   if(search_input == 'n' || search_input == 'c' || search_input == 'v'){
     method = list_str_display();
     if(method == 'a'){
-      if(search_input == 'n') list_name_alpha();
+      if(search_input == 'n') new_database.list_name_alpha();
     } else if (method == 'e'){
-      if(search_input == 'n') list_name_reverse();
+      if(search_input == 'n') new_database.list_name_reverse();
     }
   } else if (search_input == 'd' || search_input == 'p'){
     method = list_int_display();
     if (method == 'a'){
-      if (search_input == 'd') list_dob_ascend();
-      if (search_input == 'p') list_phone_ascend();
+      if (search_input == 'd') new_database.list_yob_ascend();
+      if (search_input == 'p') new_database.list_phone_ascend();
     } else if (method == 'd'){
-      if (search_input == 'd') list_dob_descend();
-      if (search_input == 'p') list_phone_descend();
+      if (search_input == 'd') new_database.list_yob_descend();
+      if (search_input == 'p') new_database.list_phone_descend();
     }
   }
   cout << "Enter (r) if you would like to return.\n";
@@ -189,8 +187,8 @@ void Menu::quit(){
   int size = new_database.get_size();
 
   for(int i; i < size; i++){ //i stg if this seg faults IM GOING TO CRY ;-; 
-    fout << person.get_name() << ", " << person.get_dob << ", " << person.get_city 
-         << ", " << person.get_phone << ", " << person.get_status << "\n";
+    fout << person.get_name() << ", " << person.get_yob() << ", " << person.get_city() 
+         << ", " << person.get_phone() << ", " << person.get_status() << "\n";
   }
   fout.close();
 
@@ -206,7 +204,7 @@ string Menu::search_get_input(){
 
 int Menu::search_num_input(){
   cout << "Please enter number you like to search: ";
-  int num;
+  long num;
   cin >> num;
   return num;
 }

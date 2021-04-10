@@ -10,9 +10,11 @@
 using namespace std;
 
 
-Database::Database()
-: size(0), capacity(5), new_data(new Person_info[5])
-{}
+Database::Database(){
+    size = 0;
+    capacity = 5;
+    new_data = new Person_info[5];
+}
 
 int Database::get_size() const {return size;}
 int Database::get_cap() const {return capacity;}
@@ -45,37 +47,39 @@ void Database::get_data(){
     fin.close();
     //splitting database information into their respective fields
         //i.e. name, date of birth, city, phone number, and vaccination status 
-    for(int i = 0; i < data.size(); i++){
+    for(int i = 0; i < data.size()-1; i++){
         string temp = data.at(i);
         size_t spaceIdx = data.at(i).find_last_of(' ');
 
         // Resize the array if needed
-        if(size >= capacity){
-            resize();
-        }
+        if(size >= capacity) resize();
 
         //setting vaccination status (Y or N)
-        new_data[i].set_status(temp.substr(spaceIdx + 1, temp.size()-1));
-        temp = temp.substr(0, temp.size() - new_data[i].get_status().size() - 1); 
+        string temp_status = (temp.substr(spaceIdx + 1, temp.size()-1));
+        new_data[i].set_status(temp_status);
+        temp = temp.substr(0, temp.size() - temp_status.size() - 1); 
         spaceIdx = temp.find_last_of(' ');
 
         //setting phone number
-        string temp_phone_num = temp.substr(spaceIdx + 1, temp.size()-1);
-        new_data[i].set_phone(stoi(temp_phone_num));
-        temp = temp.substr(0, temp.size() - temp_phone_num.size() - 1);
+        string temp_phone = temp.substr(spaceIdx + 1, temp.size()-1);
+        new_data[i].set_phone(stol(temp_phone));
+        temp = temp.substr(0, temp.size() - temp_phone.size() - 1);
         spaceIdx = temp.find_last_of(' ');
-        
+
         //setting their city
-        new_data[i].set_city(temp.substr(spaceIdx + 1, temp.size()-1));
-        temp = temp.substr(0, temp.size() - new_data[i].get_city().size() - 1);
+        string temp_city = (temp.substr(spaceIdx + 1, temp.size()-1));
+        new_data[i].set_city(temp_city);
+        temp = temp.substr(0, temp.size() - temp_city.size() - 1);
         spaceIdx = temp.find_last_of(' ');
 
         //setting their date of birth
-        new_data[i].set_dob(temp.substr(spaceIdx + 1, temp.size()-1)); 
-        temp = temp.substr(0, temp.size() - new_data[i].get_dob().size() - 1);
+        string temp_yob = (temp.substr(spaceIdx + 1, temp.size()-1)); 
+        new_data[i].set_yob(temp_yob);
+        temp = temp.substr(0, temp.size() - temp_yob.size() - 1);
 
         //setting their name 
         new_data[i].set_name(temp);
+
         size++;
     }
 }
@@ -107,11 +111,11 @@ void Database::search_name (string name){
     }
 }
 
-void Database::search_dob (string dob){
+void Database::search_yob (string yob){
     int count_match = 0;
-    // NOTE: check for the right format search of dob
+    // NOTE: check for the right format search of yob
     for (int i = 0; i < size; i++){
-        if (new_data[i].get_dob() == dob){
+        if (new_data[i].get_yob() == yob){
             cout << "Matching record found: \n" << print_record(i) << "\n";
             count_match++;
         }
@@ -133,7 +137,7 @@ void Database::search_city (string city){
         cout << "No matching city found!\n";
     }
 }
-void Database::search_phone (int phone){
+void Database::search_phone (long phone){
     int count_match = 0;
     for (int i = 0; i < size; i++){
         if (new_data[i].get_phone() == phone){
@@ -165,7 +169,7 @@ void Database::search_status(string status){
 string Database::print_record(int i){
     string per_record = "";
     per_record += (new_data[i].get_name() + ", ");
-    per_record += (new_data[i].get_dob() + ", ");
+    per_record += (new_data[i].get_yob() + ", ");
     per_record += (new_data[i].get_city() + ", ");
     per_record += (new_data[i].get_phone() + ", ");
     per_record += (new_data[i].get_status() + ", ");
@@ -173,7 +177,7 @@ string Database::print_record(int i){
     return per_record;
 }
 
-string Database::save_record(int i);
+//tring Database::save_record(int i);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // 2nd Method: type-in string as SUBstring in appropriate field.
@@ -208,7 +212,7 @@ void Database::search_substr_city(string findCity){
     }
 }
 
-void Database::search_substr_phone(int num){
+void Database::search_substr_phone(long num){
     int count_match = 0;
     for (int i = 0; i < size; i++){
         string num_str = to_string(new_data[i].get_phone());
@@ -226,10 +230,10 @@ void Database::search_substr_phone(int num){
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // 3rd Method: type-in number is in the range from low to high.
 //////////////////////////////////////////////////////////////////////////////////////////////////
-void Database::search_range_dob(int low, int high){
+void Database::search_range_yob(int low, int high){
     int count_match = 0;
     for (int i = 0; i < size; i++){
-        int year = stoi(new_data[i].get_dob().substr(6,4));
+        int year = stoi(new_data[i].get_yob().substr(6,4));
         if (low <= year && year <= high){
             cout << "Year in the range found: " << print_record(i) << "\n";
         }
@@ -265,18 +269,17 @@ void Database::list_name_reverse(){
 }
 
     //Number field: ascending order
-    //FINISH/////////////////////
-// bool compare_dob_asc(Person_info a, Person_info b){
-//     return 0;
+bool compare_yob_asc(Person_info a, Person_info b){
+    return stoi(a.get_yob()) <= stoi(b.get_yob());
 
-// }
+}
 
-// void Database::list_dob_ascend(){
-//     sort(new_data, new_data + size, compare_dob_asc);
-//     for(int i = 0; i < size; i++){
-//         cout << print_record(i) << "\n";
-//     }
-// }
+void Database::list_yob_ascend(){
+    sort(new_data, new_data + size, compare_yob_asc);
+         for(int i = 0; i < size; i++){
+         cout << print_record(i) << "\n";
+     }
+}
 
 bool compare_phone_asc(Person_info a, Person_info b){
     return a.get_phone() <= b.get_phone();
@@ -290,7 +293,18 @@ void Database::list_phone_ascend(){
 }
 
     // Number field: descending order
-//void Database::list_dob_descend(){}
+bool compare_yob_des(Person_info a, Person_info b){
+    return stoi(a.get_yob()) >= stoi(b.get_yob());
+
+}
+
+void Database::list_yob_descend(){
+    sort(new_data, new_data + size, compare_yob_des);
+         for(int i = 0; i < size; i++){
+         cout << print_record(i) << "\n";
+     }
+}
+
 bool compare_phone_desc(Person_info a, Person_info b){
     return a.get_phone() >= b.get_phone();
 }
@@ -311,16 +325,25 @@ void Database::delete_name(string name){
         }
     }
 }
-void Database::delete_dob(string dob){
+void Database::delete_yob(string yob){
     for (int i = 0; i < size; i++){
-        if (new_data[i].get_dob() == dob){
+        if (new_data[i].get_yob() == yob){
             new_data[i] = new_data[size - 1];
             size--; //Truncate
         }
     }
 }
 
-void Database::delete_phone(int phone){
+void Database::delete_city(string city){
+    for (int i = 0; i < size; i++){
+        if (new_data[i].get_city() == city){
+            new_data[i] = new_data[size - 1];
+            size--; //Truncate
+        }
+    }
+}
+
+void Database::delete_phone(long phone){
     for (int i = 0; i < size; i++){
         if (new_data[i].get_phone() == phone){
             new_data[i] = new_data[size - 1];
@@ -328,6 +351,17 @@ void Database::delete_phone(int phone){
         }
     }
 }
+
+void Database::delete_status(string status){
+    for(int i = 0; i < size; i++){
+        if(new_data[i].get_status() == status){
+            new_data[i] = new_data[size - 1];
+            size--; 
+        }
+    }
+}
+
+
 
 Database::~Database(){
     delete[] new_data; 

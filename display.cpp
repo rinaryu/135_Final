@@ -53,7 +53,7 @@ char feature_display(){
 	mvwprintw(mainwin, 15, 3, "Enter the letter of your choice: ");
 
 	//detecting which option is being pressed by the user 
-	char ch = ' ';
+	char ch;
 	while((ch = wgetch(mainwin))){
 		switch(ch){
 			case 'a':
@@ -64,7 +64,7 @@ char feature_display(){
 				mvwprintw(mainwin, 10, 4, "u");
 				mvwprintw(mainwin, 11, 4, "l");
 				mvwprintw(mainwin, 12 ,4, "d");
-				mvwprintw(mainwin 13, 4, "q");
+				mvwprintw(mainwin, 13, 4, "q");
 				//getstr(ch);
 				//mvwprintw(mainwin, 15, 45, "a");
 				returnChar = 'a';
@@ -77,7 +77,7 @@ char feature_display(){
 				mvwprintw(mainwin, 10, 4, "u");
 				mvwprintw(mainwin, 11, 4, "l");
 				mvwprintw(mainwin, 12 ,4, "d");
-				mvwprintw(mainwin 13, 4, "q");
+				mvwprintw(mainwin, 13, 4, "q");
 				//getstr(ch);
 				//mvwprintw(mainwin, 15, 45, "s");
 				returnChar = 's';
@@ -90,7 +90,7 @@ char feature_display(){
 				mvwprintw(mainwin, 9, 4, "s");
 				mvwprintw(mainwin, 11, 4, "l");
 				mvwprintw(mainwin, 12 ,4, "d");
-				mvwprintw(mainwin 13, 4, "q");
+				mvwprintw(mainwin, 13, 4, "q");
 				//getstr(ch);
 				//mvwprintw(mainwin, 15, 45, "u");
 				returnChar = 'u';
@@ -103,7 +103,7 @@ char feature_display(){
 				mvwprintw(mainwin, 9, 4, "s");
 				mvwprintw(mainwin, 10, 4, "u");
 				mvwprintw(mainwin, 12 ,4, "d");
-				mvwprintw(mainwin 13, 4, "q");
+				mvwprintw(mainwin, 13, 4, "q");
 				//getstr(ch);
 				//mvwprintw(mainwin, 15, 45, "l");
 				returnChar = 'l';
@@ -116,13 +116,13 @@ char feature_display(){
 				mvwprintw(mainwin, 9, 4, "s");
 				mvwprintw(mainwin, 10, 4, "u");
 				mvwprintw(mainwin, 11, 4, "l");
-				mvwprintw(mainwin 13, 4, "q");
+				mvwprintw(mainwin, 13, 4, "q");
 				returnChar = 'd';
 				break;
 			case 'q':
 				wattron(mainwin, A_STANDOUT);
-				mvwprintw(mainwin 13, 4, "q");
-				wattroff(mainwin, A_STANDOUT);)
+				mvwprintw(mainwin, 13, 4, "q");
+				wattroff(mainwin, A_STANDOUT);
 				mvwprintw(mainwin, 8, 4, "a");
 				mvwprintw(mainwin, 9, 4, "s");
 				mvwprintw(mainwin, 10, 4, "u");
@@ -143,13 +143,19 @@ char feature_display(){
 		}
 		if(ch == 10) break; //if user presses enter -- break while loop
 	}  
+	
 	destroy_win(mainwin);
 	return returnChar;
 }
 
+//Adding
+void add_display(){
+	
+}
+
 //WINDOW 2: Display search-for options
 char search_display(char response){
-	char returnChar = '0'; 
+	char returnChar; 
 
 	initscr(); //Initiaize the screen 
 	noecho(); //hides user input from window
@@ -179,7 +185,7 @@ char search_display(char response){
 	mvwprintw(searchwin, 17, 3, "Enter the letter of your choice: ");
 
 	//detecting which option is being pressed by the user 
-	char ch = ' ';
+	char ch;
 	while((ch = wgetch(searchwin))){
 		switch(ch){
 			case 'n':
@@ -269,7 +275,7 @@ char search_display(char response){
 
 //WINDOW 3: Display search options for string type
 char search_str_display(){
-	char returnChar = '0'; 
+	char returnChar; 
 
 	initscr();  //Initiaize the screen 
 	noecho(); //hides user input from window
@@ -290,7 +296,7 @@ char search_str_display(){
 	mvwprintw(searchwin, 15, 3, "Enter the letter of your choice: ");
 
 	//detecting which option is being pressed by the user 
-	char ch = ' ';
+	char ch;
 	while((ch = wgetch(searchwin))){
 		switch(ch){
 			case 'e':
@@ -332,7 +338,7 @@ char search_str_display(){
 
 //WINDOW 4: Display search option for integer type
 char search_int_display(){
-	char returnChar = '0';  
+	char returnChar;  
 
 	initscr();  //Initiaize the screen 
 	noecho(); //hides user input from window
@@ -353,7 +359,7 @@ char search_int_display(){
 	mvwprintw(searchwin, 15, 3, "Enter the letter of your choice: ");
 
 	//detecting which option is being pressed by the user 
-	char ch = ' ';
+	char ch;
 	while((ch = wgetch(searchwin))){
 		switch(ch){
 			case 'e':
@@ -399,7 +405,7 @@ char search_int_display(){
 
 //WINDOW 6: Display update options
 char update_display(){
-	char returnChar = '0'; 
+	char returnChar; 
 
 	initscr(); //Initiaize the screen 
 	noecho(); //hides user input from window
@@ -421,7 +427,7 @@ char update_display(){
 	mvwprintw(updatewin, 16, 3, "Enter the letter of your choice: ");
 
 	//detecting which option is being pressed by the user 
-	char ch = ' ';
+	char ch;
 	while((ch = wgetch(updatewin))){
 		switch(ch){
 			case 'c':
@@ -479,7 +485,7 @@ char update_display(){
 
 // WINDOW 7: Display listing options
 char list_display(){
-	char returnChar = '0'; 
+	char returnChar; 
 
 	initscr(); //Initiaize the screen 
 	noecho(); //hides user input from window
@@ -503,7 +509,7 @@ char list_display(){
 	mvwprintw(listwin, 17, 3, "Enter the letter of your choice: ");
 
 	//detecting which option is being pressed by the user 
-	char ch = ' ';
+	char ch;
 	while((ch = wgetch(listwin))){
 		switch(ch){
 			case 'n':
@@ -614,7 +620,7 @@ char list_str_display(){
 	mvwprintw(listwin, 15, 3, "Enter the letter of your choice: ");
 
 	//detecting which option is being pressed by the user 
-	char ch = ' ';
+	char ch;
 	while((ch = wgetch(listwin))){
 		switch(ch){
 			case 'a':
@@ -678,7 +684,7 @@ char list_int_display(){
 	mvwprintw(listwin, 15, 3, "Enter the letter of your choice: ");
 
 	//detecting which option is being pressed by the user 
-	char ch = ' ';
+	char ch;
 	while((ch = wgetch(listwin))){
 		switch(ch){
 			case 'a':
@@ -718,26 +724,4 @@ char list_int_display(){
 	}  
 	destroy_win(listwin);
 	return returnChar;
-}
-
-void test(){
-	bool done = false;
-	while(!done){
-		char x = feature_display();
-		char res;
-			if(x == 's' || x == 'd'){
-				res = searching(x);
-			} else if (x == 'u'){
-				res = update();
-			} else if (x == 'l'){
-				res = list();
-			}
-			
-			if (res == 'r'){
-				done = false;
-			} else {
-				done = true;
-			}
-	}
-	endwin();
 }

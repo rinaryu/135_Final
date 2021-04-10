@@ -9,18 +9,21 @@
 #include <iostream>
 using namespace std;
 
+Person_info::Person_info(){
+	//nothing
+}
 //getter methods
 string Person_info::get_name() const {return new_name;}
-string Person_info::get_dob() const {return dob;}
+string Person_info::get_yob() const {return yob;}
 string Person_info::get_city() const {return new_city;}
 int Person_info::get_phone() const {return phone_num;}
 string Person_info::get_status() const {return vaccinated;}
 
 //setter methods
 void Person_info::set_name(string name) {new_name = name;}
-void Person_info::set_dob(string date) {dob = date;}
+void Person_info::set_yob(string year) {yob = year;}
 void Person_info::set_city(string city) {new_city = city;}
-void Person_info::set_phone(int phone) {phone_num = phone;}
+void Person_info::set_phone(long int phone) {phone_num = phone;}
 void Person_info::set_status(string status) {vaccinated = status;}
 
 //Method used to get user input to enter new person into the database.
@@ -37,18 +40,19 @@ void Person_info::new_person (){
 	    }              
 	}
 	//Second: Getting birthday of new person. 
-	cout << "Please enter their date of birth.\nThe data must be in the following format of, MM/DD/YYYY (eg. 04/07/1999): \n";
-	getline(cin, dob);
+	cout << "Please enter their date of birth.\n";
+	cout << "The data must be in the following format of, MM/DD/YYYY (eg. 04/07/1999):\n";
+	getline(cin, yob);
 	while(true){
-	    if(!(dob.at(2) == '/') && !(dob.at(5) == '/')){
+	    /*if(!(yob.at(2) == '/') && !(dob.at(5) == '/')){
 			cout<<"The date of birth is not in the correct format, please re-enter: \n";
 			getline(cin, dob);
 			continue;
-	    }
-	    if(!valid_date(dob)){
+	    }*/
+	    if(!valid_year(yob)){
 			cout<<"That is not a valid date of birth, please re-enter: \n";
-			getline(cin, dob);
-			if(valid_date(dob)) break;
+			getline(cin, yob);
+			if(valid_year(yob)) break;
 	    }
 	}
 	//Third: Getting the city that the new person resides in. 
@@ -80,6 +84,7 @@ void Person_info::new_person (){
 			cin.ignore(10000, '\n');
 			cin >> phone_num;
 		}
+		
 		if(valid_phone(phone_num)) break; 
 		else {
 			cout<<"This is not a valid phone number, please re-enter: \n";
@@ -111,35 +116,14 @@ bool Person_info::valid_name (string user_input){
 	return 1;
 }
 //checks if new person's DOB is valid
-bool Person_info::check_date (int month, int day, int year){
-	if (month < 0 || month > 12) return 0;
-
-	if (month == 2){
-	    if (year % 4 == 0){
-			if (day > 29 || day < 0) return 0;
-	    } else {
-			if (day > 28 || day < 0) return 0;
-	    } 
-	} 
-	else if (month == 1 || month == 3 || month == 5 ||
-		    month == 7 || month == 8 || month == 10 ||
-		    month == 12){
-	    if (day > 31 || day < 0) return 0;
-	} else {
-	    if (day > 30 || day < 0) return 0;
-	}
-
+bool Person_info::check_year (int year){
 	if (year < 1940 || year > 2005) return 0;
-
 	return 1;
 }
-bool Person_info::valid_date (string user_input){
-	// MM/DD/YYYY
-	int month = stoi (user_input.substr(0, 2));
-	int day = stoi (user_input.substr(3, 2));
-	int year = stoi (user_input.substr(6, 4));
 
-	return check_date(month, day, year);
+bool Person_info::valid_year (string user_input){
+	int year = stoi(user_input);
+	return check_year(year);
 }
 
 //checks if user entered city is valid
@@ -163,10 +147,10 @@ bool Person_info::valid_city(string city_name){
 	return 0; 
 }
 //check if user entered phone number is valid
-bool Person_info::valid_phone (int num){
+bool Person_info::valid_phone (long num){
 	vector<string> area_codes = {"604", "778", "236","672","250"};
 	string temp_num = to_string(num);
-	if(temp_num.size() == 7){
+	if(temp_num.size() == 10){
 	    for(string code : area_codes){
 			if(temp_num.substr(0,3) == code) return 1;
 	    }
