@@ -20,3 +20,4 @@ final_main:
 
 clean:
 	rm -f database_main final_main.o Person_info.o Database.o Menu.o display.o
+

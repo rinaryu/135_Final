@@ -6,9 +6,15 @@ void test(){ //change to better function name later
 	while(true){
 		char x = feature_display();
 		char res;
-		if(x == 'a') menu.adding();
-		if(x == 's' || x == 'd') res = menu.searching(x);
-		 
+		if(x == 'a'){
+		 endwin();
+		 menu.adding();
+		}
+		if(x == 's' || x == 'd'){
+			endwin();	
+			res = menu.searching(x);
+		}
+		
 		//else if (x == 'u'){
 		// 	res = menu.update();
 		// } 
@@ -16,18 +22,12 @@ void test(){ //change to better function name later
 		if (x == 'l') res = menu.list();
 			
 		if (res == 'r') continue; 
-		// if(res == 'q') {
-		// 	menu.quit();
-		// 	wgetch();
-		// 	endwin();
-		// 	refresh();
-		// 	break;
-		// }
+		if(res == 'q') {
+			endwin();
+			break;
+		}
 	}
-	endwin();
-	cout<<"work?\n";
-
-	menu.quit();
+	// menu.quit();
 }
 
 int main(){

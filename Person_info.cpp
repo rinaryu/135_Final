@@ -29,43 +29,41 @@ void Person_info::set_status(string status) {vaccinated = status;}
 //Method used to get user input to enter new person into the database.
 void Person_info::new_person (){
 	//First: Getting name of new person to be added. 
-	cout << "To enter a new person in the database, first provide their first and last name: \n";
+	cout << "To enter a new person in the database, first provide their first and last name: ";
 	getline(cin, new_name); 
 	//call valid_name to check if user input is valid (is a valid name) 
 	if(!valid_name(new_name)){
 	    while(true){
-			cout<<"That is not a valid name, please provide a different name of alphabetical characters: \n";
+			cout<<"That is not a valid name, please provide a different name of alphabetical characters: ";
 			getline(cin, new_name);
 			if(valid_name(new_name)) break; 
 	    }              
 	}
+	cout << '\n';
+	
 	//Second: Getting birthday of new person. 
-	cout << "Please enter their date of birth.\n";
-	cout << "The data must be in the following format of, MM/DD/YYYY (eg. 04/07/1999):\n";
+	cout << "Please enter their year of birth: ";
 	getline(cin, yob);
 	while(true){
-	    /*if(!(yob.at(2) == '/') && !(dob.at(5) == '/')){
-			cout<<"The date of birth is not in the correct format, please re-enter: \n";
-			getline(cin, dob);
-			continue;
-	    }*/
 	    if(!valid_year(yob)){
-			cout<<"That is not a valid date of birth, please re-enter: \n";
+			cout<<"That is not a valid date of birth, please re-enter: ";
 			getline(cin, yob);
-			if(valid_year(yob)) break;
 	    }
+		if(valid_year(yob)) break;
 	}
+	cout << '\n';
+	
 	//Third: Getting the city that the new person resides in. 
-	cout<<"Please enter the city in the Lower Mainland that they reside in: \n";
+	cout<<"Please enter the city in the Lower Mainland that they reside in: ";
 	getline(cin, new_city);
 	//changing the user input to all lowercase letters
 	for(int i = 0; i < new_city.size(); i++){
 	    new_city.at(i) = towlower(new_city.at(i));
 	}
-	cout<<"new_city: "<<new_city<<endl;
+	
 	if(!valid_city(new_city)){
 	    while(true){
-			cout<<"That is not a valid city, please enter a city in the Lower Mainland: \n";
+			cout<<"That is not a valid city, please enter a city in the Lower Mainland: ";
 			getline(cin, new_city);
 			//changing the user input to all lowercase letters
 			for(int i = 0; i < new_city.size(); i++){
@@ -74,33 +72,40 @@ void Person_info::new_person (){
 			if(valid_city(new_city)) break;
 	    }
 	}
+	cout << '\n';
+	
 	//Fourth: Getting phone number of new person. 
-	cout<<"Please enter their phone number: \n";
+	cout<<"Please enter their phone number: ";
 	cin >> phone_num;
 	while(true){
 		if(cin.fail()){
-			cout<<"This is not a number, please re-enter: \n";
+			cout<<"This is not a number, please re-enter: ";
 			cin.clear();
 			cin.ignore(10000, '\n');
 			cin >> phone_num;
-		}
-		
-		if(valid_phone(phone_num)) break; 
-		else {
-			cout<<"This is not a valid phone number, please re-enter: \n";
+		} else if(valid_phone(phone_num)) {break; 
+		}else {
+			cout<<"This is not a valid phone number in BC, please re-enter: ";
 			cin >> phone_num;
 		}
 	}
+	cout << '\n';
+	
 	//Fifth: Getting if new person is vaccinated or not. 
 	cout<<"Is the new person vaccinated? (y/n)";
 	getline(cin, vaccinated);
 	while(true){
-	    if(vaccinated == "y" || vaccinated == "n") break;
-	    else{
-			cout<<"That is not a valid answer: please enter y or n.\n";
+	    if(vaccinated == "y" || vaccinated == "n"){ break;
+	    } else {
+			cout<<"That is not a valid answer, please enter y or n: ";
 			getline(cin, vaccinated);
 	    }
 	}
+	cout << '\n';
+	cout << "New record has been added! \n";
+	cout << "Returning to Main Menu...\n";
+      	chrono::seconds dura(3);
+      	this_thread::sleep_for(dura);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //helper methods that check validity of input for each field in the database
@@ -109,7 +114,7 @@ void Person_info::new_person (){
 //checks if new person's name input is valid (string with only alpha chars) 
 bool Person_info::valid_name (string user_input){
     for (int i = 0; i < user_input.size(); i++){
-	    if (!isalpha(user_input.at(i))){
+	    if (!isalpha(user_input[i]) && user_input.at(i) != ' '){
 			return 0;
 	    } 
 	}
@@ -122,6 +127,11 @@ bool Person_info::check_year (int year){
 }
 
 bool Person_info::valid_year (string user_input){
+	for (int i = 0; i < user_input.size(); i++){
+	    if (!(user_input[i] >= '0' && user_input.at(i) <= '9')){
+			return 0;
+	    } 
+	}
 	int year = stoi(user_input);
 	return check_year(year);
 }

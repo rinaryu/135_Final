@@ -48,6 +48,7 @@ char Menu::searching(char user_input){
     //determining which method should be used to search the name
     method = search_str_display(); 
     if(method == 'e'){  // if wants to search using exact occurence
+      endwin();
       searchForStr = search_get_input();
 
       //search_name() will look for exact same input
@@ -57,6 +58,7 @@ char Menu::searching(char user_input){
       if(search_input == 'c') new_database.search_city(searchForStr);
 
     } else if(method == 'o'){ // if wants to search using substring 
+      endwin();
       searchForStr = search_get_input();
 
       //looking using substring 
@@ -212,6 +214,5 @@ int Menu::search_num_input(){
 ////////////NOTE///////////////////
 //Fix Person_info::new_person() with cout
 // char Menu::add_display(){}
-
 
 

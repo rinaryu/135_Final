@@ -233,7 +233,7 @@ void Database::search_substr_phone(long num){
 void Database::search_range_yob(int low, int high){
     int count_match = 0;
     for (int i = 0; i < size; i++){
-        int year = stoi(new_data[i].get_yob().substr(6,4));
+        int year = stoi(new_data[i].get_yob());
         if (low <= year && year <= high){
             cout << "Year in the range found: " << print_record(i) << "\n";
         }
@@ -366,4 +366,5 @@ void Database::delete_status(string status){
 Database::~Database(){
     delete[] new_data; 
 }
+
 
