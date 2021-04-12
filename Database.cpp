@@ -62,7 +62,7 @@ void Database::get_data(){
 
         //setting phone number
         string temp_phone = temp.substr(spaceIdx + 1, temp.size()-1);
-        new_data[i].set_phone(stol(temp_phone));
+        new_data[i].set_phone(stoll(temp_phone));
         temp = temp.substr(0, temp.size() - temp_phone.size() - 1);
         spaceIdx = temp.find_last_of(' ');
 
@@ -79,7 +79,6 @@ void Database::get_data(){
 
         //setting their name 
         new_data[i].set_name(temp);
-
         size++;
     }
 }
@@ -98,11 +97,33 @@ void Database::add_data(const Person_info& person){
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // 1st Method: type-in string EXACTLY matched the appropriate field
 //////////////////////////////////////////////////////////////////////////////////////////////////
+void Database::print_all(){
+	for (int i = 0; i < size; i++){
+		cout << new_data[i].get_name() << ' ';
+		cout << new_data[i].get_yob() << ' ';
+		cout << new_data[i].get_city() << ' ';
+		cout << new_data[i].get_phone() << ' ';
+		cout << new_data[i].get_status() << endl;
+	}
+}
+
+string Database::print_record(int i){
+    per_record = "";
+    per_record += (new_data[i].get_name() + ", ");
+    per_record += (new_data[i].get_yob() + ", ");
+    per_record += (new_data[i].get_city() + ", ");
+    per_record += (to_string(new_data[i].get_phone()) + ", ");
+    per_record += (new_data[i].get_status());
+	
+    return per_record;
+}
+
 void Database::search_name (string name){
     int count_match = 0;
     for (int i = 0; i < size; i++){
         if (new_data[i].get_name() == name){
-            cout << "Matching record found: \n" << print_record(i) << "\n";
+            cout << "Matching record found: \n" ;
+            cout << print_record(i) << "\n";
             count_match++;
         }
     }
@@ -137,7 +158,7 @@ void Database::search_city (string city){
         cout << "No matching city found!\n";
     }
 }
-void Database::search_phone (long phone){
+void Database::search_phone (long long phone){
     int count_match = 0;
     for (int i = 0; i < size; i++){
         if (new_data[i].get_phone() == phone){
@@ -166,16 +187,6 @@ void Database::search_status(string status){
     }
 }
 
-string Database::print_record(int i){
-    string per_record = "";
-    per_record += (new_data[i].get_name() + ", ");
-    per_record += (new_data[i].get_yob() + ", ");
-    per_record += (new_data[i].get_city() + ", ");
-    per_record += (new_data[i].get_phone() + ", ");
-    per_record += (new_data[i].get_status() + ", ");
-
-    return per_record;
-}
 
 //tring Database::save_record(int i);
 
@@ -186,8 +197,9 @@ string Database::print_record(int i){
 void Database::search_substr_name(string findData){
     int count_match  = 0;
     for (int i = 0; i < size; i++){
-        size_t found = new_data[i].get_name().find(findData);
-        if (found != string::npos){
+        string name = new_data[i].get_name();
+        
+        if (name.find(findData) != std::string::npos){
             cout << "Similar name record found: " << print_record(i) << "\n";
             count_match++;
         }
@@ -212,7 +224,7 @@ void Database::search_substr_city(string findCity){
     }
 }
 
-void Database::search_substr_phone(long num){
+void Database::search_substr_phone(long long num){
     int count_match = 0;
     for (int i = 0; i < size; i++){
         string num_str = to_string(new_data[i].get_phone());
@@ -236,6 +248,7 @@ void Database::search_range_yob(int low, int high){
         int year = stoi(new_data[i].get_yob());
         if (low <= year && year <= high){
             cout << "Year in the range found: " << print_record(i) << "\n";
+            count_match++;
         }
     }
     if (count_match == 0){
@@ -343,7 +356,7 @@ void Database::delete_city(string city){
     }
 }
 
-void Database::delete_phone(long phone){
+void Database::delete_phone(long long phone){
     for (int i = 0; i < size; i++){
         if (new_data[i].get_phone() == phone){
             new_data[i] = new_data[size - 1];
@@ -361,10 +374,26 @@ void Database::delete_status(string status){
     }
 }
 
-
+//////////////////////////////////////Deleting Records/////////////////////////////////////////////
+void Database::quitting_save(){
+	ifstream fin("database.txt");
+	fin.close();
+	
+	ofstream fout("temp.txt");
+	
+	
+	for(int i = 0; i < size; i++){ //i stg if this seg faults IM GOING TO CRY ;-; 
+		fout << new_data[i].get_name() << " " << new_data[i].get_yob() << " " << new_data[i].get_city() 
+         << " " << new_data[i].get_phone() << " " << new_data[i].get_status() << "\n";
+ 
+	}
+	fout.close();
+	remove("database.txt");
+	rename("temp.txt", "database.txt");
+	
+}
 
 Database::~Database(){
     delete[] new_data; 
 }
-
 
