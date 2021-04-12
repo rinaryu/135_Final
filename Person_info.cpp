@@ -147,6 +147,9 @@ bool Person_info::valid_year(string user_input){
 
 //Third: Checks if user entered the city is valid
 bool Person_info::valid_city(string city_name){
+	//making input city lower case letters 
+	for(int i = 0; i < city_name.size(); i++) city_name.at(i) = towlower(city_name.at(i));
+	
 	//importing list of all cities in Lower Mainland 
 	vector<string> cities;
 	ifstream fin("lowermainland_cities.txt");

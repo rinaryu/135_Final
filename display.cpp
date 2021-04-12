@@ -241,7 +241,7 @@ char search_display(char response){
 				mvwprintw(searchwin, 11, 4, "c");
 				mvwprintw(searchwin, 12, 4, "p");
 				mvwprintw(searchwin, 15, 4, "r");
-				returnChar = 'y';
+				returnChar = 'v';
 				break;
 			case 'r':
 				wattron(searchwin, A_STANDOUT);
@@ -263,8 +263,6 @@ char search_display(char response){
 
 				mvwprintw(searchwin, 15, 3, "(r) Return to main menu.");
 				mvwprintw(searchwin, 17, 3, "Please enter valid letter of choice: ");
-
-			
 			break;
 		}
 		if(ch == 10) break; //if user presses enter -- break while loop

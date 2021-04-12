@@ -133,6 +133,8 @@ void Database::search_name (string name){
 
 void Database::search_city (string city){
 	int count_match = 0;
+    city.at(0) = toupper(city.at(0)); //making first letter capital
+
 	for (int i = 0; i < size; i++){
 		if (new_data[i].get_city() == city){
 			count_match++;
@@ -148,26 +150,25 @@ void Database::search_city (string city){
 }
 
 void Database::search_status(string status){
-	int count_match = 0;
+    int count_match = 0;
+    status.at(0) = toupper(status.at(0));
+
 	for(int i = 0; i < size; i++){
-		if(new_data[i].get_status() == status && (status == "Y" || status == "y")){
-			if (count_match == 1){
-				cout << "According to the database, people who have been vaccinated are: \n";
-			}
+		if(new_data[i].get_status() == status && status == "Y"){
+            count_match++;
+            if(count_match == 1) cout << "\nAccording to the database, people who have been vaccinated are: \n";
 			cout << "Record " << count_match << ": \n";
 			print_record(i);
 			cout << '\n';
 			
-		} else if(new_data[i].get_status() == status && (status == "N" || status == "n")){
-			if (count_match == 1){
-				cout << "According to the database, people who haven't been vaccinated are: \n";
-			}
+		} else if(new_data[i].get_status() == status && status == "N"){
+            count_match++;
+            if(count_match == 1) cout << "\nAccording to the database, people who haven't been vaccinated are: \n";
 			cout << "Record " << count_match << ": \n";
 			print_record(i);
 			cout << '\n';
 		}
 	}
-	
 	if (count_match == 0){
 		cout << "No matching results found!\n";
 	}
@@ -176,6 +177,7 @@ void Database::search_status(string status){
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // 2nd Method: type-in string as SUBSTRING in appropriate field.
 //////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Database::search_substr_name(string findData){
 	int count_match  = 0;
 	for (int i = 0; i < size; i++){
@@ -232,6 +234,7 @@ void Database::search_substr_phone(long long num){
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // 3rd Method: type-in NUMBER EXACTLY matches.
 //////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Database::search_yob(string yob){
 	int count_match = 0;
 	// NOTE: check for the valid search
@@ -271,6 +274,7 @@ void Database::search_phone (long long phone){
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // 4rd Method: type-in number is in the range from low to high.
 //////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Database::search_range_yob(int low, int high){
     int count_match = 0;
     for (int i = 0; i < size; i++){

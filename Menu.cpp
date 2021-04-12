@@ -40,8 +40,21 @@ void Menu::searching(char user_input){
     //return search_input; 
   }
 
+  //user chose to search based on vaccination status information
+  if(search_input == 'v'){
+    endwin();
+    cout << "Which vaccination status would you like to search for? (y/n): ";
+    string vacStatus;
+    cin >> vacStatus;
+    while(vacStatus != "y" && vacStatus != "n"){
+      cout << "That is not a valid input, please re-enter (y/n): ";
+      cin >> vacStatus; 
+    }
+    new_database.search_status(vacStatus);
+  }
+
   //user chose to search a string field 
-  if(search_input == 'n' || search_input == 'v' || search_input == 'c'){
+  if(search_input == 'n' || search_input == 'c'){
 
     if(search_input == 'r'){ //returning to main menu display
       cout<< "Returning...\n";
@@ -51,13 +64,14 @@ void Menu::searching(char user_input){
 
     //determining which method should be used to search the name
     method = search_str_display(); 
+
     if(method == 'e'){  // if wants to search using exact occurence
       endwin();
       searchForStr = search_get_input();
       //search_name() will look for exact same input
       // if found; will cout out the record, if not found; will cout it's not found
       if(search_input == 'n') new_database.search_name(searchForStr);
-      if(search_input == 'v') new_database.search_status(searchForStr);
+      // if(search_input == 'v') new_database.search_status(searchForStr);
       if(search_input == 'c') {
         //checks if it's a city in Lower Mainland 
         while(!person.valid_city(searchForStr)){
@@ -147,7 +161,7 @@ void Menu::searching(char user_input){
     }
     if (confirmDelete == "y"){
       if (search_input == 'n') new_database.delete_name(searchForStr);
-      if (search_input == 'v') new_database.delete_status(searchForStr);
+      if (search_input == 'v') new_database.delete_status(vacStatus);
       if (search_input == 'c') new_database.delete_city(searchForStr);      
       if (search_input == 'p') new_database.delete_phone(searchForInt);
       if (search_input == 'd') new_database.delete_yob(searchForStr);
@@ -157,8 +171,6 @@ void Menu::searching(char user_input){
       cout << "Record was not deleted.\nReturning to main menu...";
      }
   }
-  
-
     //return user_input; //user_input should either be 's' or 'd' 
 }
 
