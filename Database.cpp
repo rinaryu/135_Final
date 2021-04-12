@@ -188,7 +188,7 @@ void Database::search_status(string status){
 }
 
 
-//tring Database::save_record(int i);
+//string Database::save_record(int i);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // 2nd Method: type-in string as SUBstring in appropriate field.
@@ -242,6 +242,7 @@ void Database::search_substr_phone(long long num){
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // 3rd Method: type-in number is in the range from low to high.
 //////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Database::search_range_yob(int low, int high){
     int count_match = 0;
     for (int i = 0; i < size; i++){

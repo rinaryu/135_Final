@@ -98,11 +98,27 @@ void Menu::searching(char user_input){
       int upperYear;
       cout << "Please enter the lower year limit: ";
       cin >> lowerYear;
+
+      //makes sure the lower year input is a valid year 
+      while(lowerYear > 2003 || lowerYear < 1940){
+        cout << "That is not a valid year, it must be after 1940 and before 2005.\n";
+        cout << "Please re-enter: ";
+        cin >> lowerYear; 
+      }
       cout << "\n";
       cout << "Please enter the upper year limit: ";
       cin >> upperYear;
+
+      //makes sure the upper year input is a valid year
+      while(upperYear > 2003 || upperYear < 1940){
+        cout << "That is not a valid year, it must be after 1940 and before 2005.\n";
+        cout << "Please re-enter: ";
+        cin >> upperYear;
+      }
+
+      //makes sure the lower year is less than the upper year input
       while (lowerYear > upperYear){
-         cout << "Please enter the first year smaller than the second year!\n";
+        cout << "Please enter the first year smaller than the second year!\n";
         cout << "Please re-enter the lower year limit: ";
         cin >> lowerYear;
         cout << "\n";

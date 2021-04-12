@@ -22,8 +22,8 @@ void test(){ //change to better function name later
 			    //cin >> returnResp;
 			  //}
 			  //returnResp = 'r';
-			  cout << "Returning...\n";
-			  chrono::seconds dura(3);
+			  cout << "Returning in 5 seconds...\n";
+			  chrono::seconds dura(5);
 			  this_thread::sleep_for(dura);
 			  done = false;
 		}
@@ -44,9 +44,6 @@ void test(){ //change to better function name later
 		}
 	}
 	endwin();
-	cout<<"work?\n";
-
-	//menu.quit();
 }
 
 int main(){
