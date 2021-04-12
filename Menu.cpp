@@ -13,16 +13,18 @@ void Menu::adding(){
   //Ask user to enter new information in the terminal
   person.new_person();  
   new_database.add_data(person);  
+  new_database.print_all();
 }
 
 //searches the database using user's choice of field
 //user can also decided to delete the searched information
-char Menu::searching(char user_input){
+void Menu::searching(char user_input){
   //user_input keeps track of whether the user pressed (s)earching or (d)eleting
   
   char search_input; //which field the user is searching by (name or city or yob etc) 
-  string searchForStr; //which string to search for
-  long searchForInt = 0; //which in to search for 
+  string searchForStr = ""; //which string to search for
+  string searchForSubstr = "";
+  long long searchForInt = 0; //which in to search for 
   char method; // which method to be used when searching for strings (exact or substr) 
  
   search_input = search_display(user_input);
@@ -32,7 +34,7 @@ char Menu::searching(char user_input){
     //pauses program (so user can see messages printed to terminal before returning to main menu)
     chrono::seconds dura(2);
     this_thread::sleep_for(dura);
-    return search_input; 
+    //return search_input; 
   }
 
   //user chose to search a string field 
@@ -42,7 +44,7 @@ char Menu::searching(char user_input){
       cout<< "Returning...\n";
       chrono::seconds dura(2);
       this_thread::sleep_for(dura);
-      return search_input; 
+      //return search_input; 
     }
 
     //determining which method should be used to search the name
@@ -50,7 +52,6 @@ char Menu::searching(char user_input){
     if(method == 'e'){  // if wants to search using exact occurence
       endwin();
       searchForStr = search_get_input();
-
       //search_name() will look for exact same input
       // if found; will cout out the record, if not found; will cout it's not found
       if(search_input == 'n') new_database.search_name(searchForStr);
@@ -59,7 +60,7 @@ char Menu::searching(char user_input){
 
     } else if(method == 'o'){ // if wants to search using substring 
       endwin();
-      searchForStr = search_get_input();
+      searchForSubstr = search_get_input();
 
       //looking using substring 
       if(search_input == 'n') new_database.search_substr_name(searchForStr);
@@ -75,11 +76,12 @@ char Menu::searching(char user_input){
       cout<< "Returning...\n";
       chrono::seconds dura(2);
       this_thread::sleep_for(dura);
-      return search_input; 
+      //return search_input; 
     }
 
     method = search_int_display();
     if(method == 'e'){
+    	endwin();
       // Look for exact number
       if(search_input == 'd') {
         searchForStr = search_get_input();
@@ -90,6 +92,7 @@ char Menu::searching(char user_input){
       }
 
     } else if (method == 'i'){
+    	endwin();
       // Search for yob in range from year A to year B
       int lowerYear;
       int upperYear;
@@ -130,10 +133,11 @@ char Menu::searching(char user_input){
       cout << "Record was not deleted.\nReturning to main menu...";
      }
   }
-    chrono::seconds dura(3);
-    this_thread::sleep_for(dura);
-    return user_input; //user_input should either be 's' or 'd' 
+  
+
+    //return user_input; //user_input should either be 's' or 'd' 
 }
+
 
 // //user can update selected record 
 // void Menu::update(){
@@ -155,6 +159,7 @@ char Menu::list(){
   }
   if(search_input == 'n' || search_input == 'c' || search_input == 'v'){
     method = list_str_display();
+    endwin();
     if(method == 'a'){
       if(search_input == 'n') new_database.list_name_alpha();
     } else if (method == 'e'){
@@ -162,6 +167,7 @@ char Menu::list(){
     }
   } else if (search_input == 'd' || search_input == 'p'){
     method = list_int_display();
+    endwin();
     if (method == 'a'){
       if (search_input == 'd') new_database.list_yob_ascend();
       if (search_input == 'p') new_database.list_phone_ascend();
@@ -185,14 +191,7 @@ char Menu::list(){
 
 //quitting program and creating new txt of the database 
 void Menu::quit(){
-  ofstream fout("database.txt");
-  int size = new_database.get_size();
-
-  for(int i; i < size; i++){ //i stg if this seg faults IM GOING TO CRY ;-; 
-    fout << person.get_name() << ", " << person.get_yob() << ", " << person.get_city() 
-         << ", " << person.get_phone() << ", " << person.get_status() << "\n";
-  }
-  fout.close();
+  new_database.quitting_save();
 
   cout<<"Successfully quit\n";
 }
@@ -200,13 +199,13 @@ void Menu::quit(){
 string Menu::search_get_input(){ 
   cout<<"Please enter what you like to search: ";
   string search_for;
-  cin >> search_for; 
+  getline(cin, search_for); 
   return search_for;
 }
 
-int Menu::search_num_input(){
+long long Menu::search_num_input(){
   cout << "Please enter number you like to search: ";
-  long num;
+  long long num;
   cin >> num;
   return num;
 }
@@ -214,5 +213,4 @@ int Menu::search_num_input(){
 ////////////NOTE///////////////////
 //Fix Person_info::new_person() with cout
 // char Menu::add_display(){}
-
 
