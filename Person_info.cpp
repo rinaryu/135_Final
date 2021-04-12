@@ -1,140 +1,426 @@
-//Person_info.cpp
-//Contains Person_info class 
-//////////////////////////////////////////////////////////////////////////////////////
+//This contains the class "Database" 
+//////////////////////////////////////////////////////////////////////////////////////////////////
 //This class:
-// - gets user input to add new information into the database
-// - also makes sure that input is valid for all fields
+// - gets and stores the data from database.txt 
+// - sorts the data from alphabetical order to reverse alphabetical order 
+// - includes a searching feature to find specific data 
 
 #include "database_head.h"
 #include <iostream>
 using namespace std;
 
-Person_info::Person_info(){
-	//nothing
+//Constructor
+Database::Database(){
+	size = 0;
+	capacity = 5;
+	new_data = new Person_info[5];
 }
-//getter methods
-string Person_info::get_name() const {return new_name;}
-string Person_info::get_yob() const {return yob;}
-string Person_info::get_city() const {return new_city;}
-long long Person_info::get_phone() const {return phone_num;}
-string Person_info::get_status() const {return vaccinated;}
 
-//setter methods
-void Person_info::set_name(string name) {new_name = name;}
-void Person_info::set_yob(string year) {yob = year;}
-void Person_info::set_city(string city) {new_city = city;}
-void Person_info::set_phone(long long phone) {phone_num = phone;}
-void Person_info::set_status(string status) {vaccinated = status;}
+//Getter methods
+int Database::get_size() const {return size;}
+int Database::get_cap() const {return capacity;}
 
-//Method used to get user input to enter new person into the database.
-void Person_info::new_person (){
-	//First: Getting name of new person to be added. 
-	cout << "To enter a new person in the database, first provide their first and last name: ";
-	getline(cin, new_name); 
-	//call valid_name to check if user input is valid (is a valid name) 
-	if(!valid_name(new_name)){
-	    while(true){
-			cout<<"That is not a valid name, please provide a different name of alphabetical characters: ";
-			getline(cin, new_name);
-			if(valid_name(new_name)) break; 
-	    }              
+//Resize array
+void Database::resize(){
+	Person_info* temp_arr = new Person_info[capacity * 2];
+	for(int i = 0; i < size; i++){
+		temp_arr[i] = new_data[i];
 	}
-	cout << '\n';
 	
-	//Second: Getting birthday of new person. 
-	cout << "Please enter their year of birth: ";
-	getline(cin, yob);
+	delete[] new_data;
+	new_data = temp_arr;
+	capacity *= 2;
+}
+
+//Read the records from database.txt
+void Database::get_data(){
+	vector<string> data;
+	ifstream fin("database.txt");
+	if(fin.fail()) cmpt::error("Problem with opening database.txt\n");
+
 	while(true){
-	    if(!valid_year(yob)){
-			cout<<"That is not a valid date of birth, please re-enter: ";
-			getline(cin, yob);
-	    }
-		if(valid_year(yob)) break;
+		string info;
+		if(fin.fail()) break;
+		getline(fin, info);
+		data.push_back(info);
 	}
-	cout << '\n';
+	fin.close();
 	
-	//Third: Getting the city that the new person resides in. 
-	cout<<"Please enter the city in the Lower Mainland that they reside in: ";
-	getline(cin, new_city);
-	//changing the user input to all lowercase letters
-	for(int i = 0; i < new_city.size(); i++){
-	    new_city.at(i) = towlower(new_city.at(i));
+	//Splitting database information into their respective fields
+	//i.e. name, year of birth, city, phone number, and vaccination status 
+	for(int i = 0; i < data.size()-1; i++){
+		string temp = data.at(i);
+		size_t spaceIdx = data.at(i).find_last_of(' ');
+
+		// Resize the array if needed
+		if(size >= capacity) resize();
+
+		//setting vaccination status (Y or N)
+		string temp_status = (temp.substr(spaceIdx + 1, temp.size()-1));
+		new_data[i].set_status(temp_status);
+		temp = temp.substr(0, temp.size() - temp_status.size() - 1); 
+		spaceIdx = temp.find_last_of(' ');
+
+		//setting phone number
+		string temp_phone = temp.substr(spaceIdx + 1, temp.size()-1);
+		new_data[i].set_phone(stoll(temp_phone));
+		temp = temp.substr(0, temp.size() - temp_phone.size() - 1);
+		spaceIdx = temp.find_last_of(' ');
+
+		//setting their city
+		string temp_city = (temp.substr(spaceIdx + 1, temp.size()-1));
+		new_data[i].set_city(temp_city);
+		temp = temp.substr(0, temp.size() - temp_city.size() - 1);
+		spaceIdx = temp.find_last_of(' ');
+
+		//setting their date of birth
+		string temp_yob = (temp.substr(spaceIdx + 1, temp.size()-1)); 
+		new_data[i].set_yob(temp_yob);
+		temp = temp.substr(0, temp.size() - temp_yob.size() - 1);
+
+		//setting their name 
+		new_data[i].set_name(temp);
+		size++;
 	}
-	
-	if(!valid_city(new_city)){
-	    while(true){
-			cout<<"That is not a valid city, please enter a city in the Lower Mainland: ";
-			getline(cin, new_city);
-			//changing the user input to all lowercase letters
-			for(int i = 0; i < new_city.size(); i++){
-				new_city.at(i) = towlower(new_city.at(i));
-			}
-			if(valid_city(new_city)) break;
-	    }
+}
+
+//////////////////////////////////////Adding a Record////////////////////////////////////////////
+void Database::add_data(const Person_info& person){
+	if(size >= capacity){
+	resize();
 	}
-	cout << '\n';
-	
-	//Fourth: Getting phone number of new person. 
-	cout<<"Please enter their phone number: ";
-	cin >> phone_num;
-	while(true){
-		if(cin.fail()){
-			cout<<"This is not a number, please re-enter: ";
-			cin.clear();
-			cin.ignore(10000, '\n');
-			cin >> phone_num;
-		} 
-		else if(valid_phone(phone_num)) break; 
-		else {
-			cout<<"This is not a valid phone number in BC, please re-enter: ";
-			cin >> phone_num;
+	new_data[size] = person;
+	size++;
+}
+
+//////////////////////////////////////Finding a Record////////////////////////////////////////////
+void Database::print_all(){
+	for (int i = 0; i < size; i++){
+		cout << new_data[i].get_name() << ' ';
+		cout << new_data[i].get_yob() << ' ';
+		cout << new_data[i].get_city() << ' ';
+		cout << new_data[i].get_phone() << ' ';
+		cout << new_data[i].get_status() << endl;
+	}
+}
+
+void Database::print_record(int i){
+	cout << "Full name: " << new_data[i].get_name() << '\n';
+	cout << "Year of birth: " << new_data[i].get_yob() << '\n';
+	cout << "City that resides in: " << new_data[i].get_city() << '\n';
+	cout << "Contact: " << new_data[i].get_phone() << '\n';
+	cout << "Vaccination status: " << new_data[i].get_status() << '\n';
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// 1st Method: type-in STRING EXACTLY matched the appropriate field
+//////////////////////////////////////////////////////////////////////////////////////////////////
+void Database::search_name (string name){
+	int count_match = 0;
+	for (int i = 0; i < size; i++){
+		if (new_data[i].get_name() == name){
+			count_match++;
+			if (count_match == 1) cout << "Matching record(s) found: \n\n" ;
+			cout << "Record " << count_match << ": \n";
+			print_record(i);
+			cout << '\n';
 		}
 	}
-	cout << '\n';
+	if (count_match == 0){
+		cout << "No matching person's name found!\n";
+	}
+}
+
+void Database::search_city (string city){
+	int count_match = 0;
+	for (int i = 0; i < size; i++){
+		if (new_data[i].get_city() == city){
+			count_match++;
+			if (count_match == 1) cout << "Matching record(s) found: \n\n" ;
+			cout << "Record " << count_match << ": \n";
+			print_record(i);
+			cout << '\n';
+		}
+	}
+	if (count_match == 0){
+		cout << "No matching city found!\n";
+	}
+}
+
+void Database::search_status(string status){
+	int count_match = 0;
+	for(int i = 0; i < size; i++){
+		if(new_data[i].get_status() == status && (status == "Y" || status == "y")){
+			if (count_match == 1){
+				cout << "According to the database, people who have been vaccinated are: \n";
+			}
+			cout << "Record " << count_match << ": \n";
+			print_record(i);
+			cout << '\n';
+			
+		} else if(new_data[i].get_status() == status && (status == "N" || status == "n")){
+			if (count_match == 1){
+				cout << "According to the database, people who haven't been vaccinated are: \n";
+			}
+			cout << "Record " << count_match << ": \n";
+			print_record(i);
+			cout << '\n';
+		}
+	}
 	
-	//Fifth: Getting if new person is vaccinated or not. 
-	cout<<"Is the new person vaccinated? (y/n): ";
-	cin >> vaccinated;
+	if (count_match == 0){
+		cout << "No matching results found!\n";
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// 2nd Method: type-in string as SUBSTRING in appropriate field.
+//////////////////////////////////////////////////////////////////////////////////////////////////
+void Database::search_substr_name(string findData){
+	int count_match  = 0;
+	for (int i = 0; i < size; i++){
+		string name = new_data[i].get_name();
+		if (name.find(findData) != std::string::npos){
+			count_match++;
+			if (count_match == 1) cout << "Matching record(s) found: \n\n" ;
+			cout << "Record " << count_match << ": \n";
+			print_record(i);
+			cout << '\n';	
+		}
+	}
+	if (count_match == 0){
+		cout << "No similar name found!\n";
+	}
+}
+
+void Database::search_substr_city(string findCity){
+	int count_match = 0;
+	for(int i = 0; i < size; i++){
+		string tempCity = new_data[i].get_city();
+		size_t city_found = tempCity.find(findCity);
+		if(city_found != string::npos){
+			count_match++;
+			if (count_match == 1) cout << "Matching record(s) found: \n\n" ;
+			cout << "Record " << count_match << ": \n";
+			print_record(i);
+			cout << '\n';
+		}
+	}
+	if(count_match == 0){
+		cout << "No similar city found!\n";
+	}
+}
+
+void Database::search_substr_phone(long long num){
+	int count_match = 0;
+	for (int i = 0; i < size; i++){
+		string num_str = to_string(new_data[i].get_phone());
+		size_t found = num_str.find(to_string(num));
+		if (found != string::npos){
+			count_match++;
+			if (count_match == 1) cout << "Matching record(s) found: \n\n" ;
+			cout << "Record " << count_match << ": \n";
+			print_record(i);
+			cout << '\n';
+		}
+	}
+	if (count_match == 0){
+		cout << "No similar digits found!\n";
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// 3rd Method: type-in NUMBER EXACTLY matches.
+//////////////////////////////////////////////////////////////////////////////////////////////////
+void Database::search_yob(string yob){
+	int count_match = 0;
+	// NOTE: check for the valid search
 	while(true){
-	    if(vaccinated == "y" || vaccinated == "n") break;
-	    else {
-			cout<<"That is not a valid answer, please enter y or n: ";
-			getline(cin, vaccinated);
-	    }
+		for (int i = 0; i < user_input.size(); i++){
+			if (!(user_input[i] >= '0' && user_input.at(i) <= '9')){
+				cout << "This is not a number, please re-enter: ";
+				cin >> yob;
+			} 
+		}
 	}
-	cout << '\n';
-	cout << "New record has been added! \n";
-	cout << "Returning to Main Menu...\n";
-      	chrono::seconds dura(3);
-      	this_thread::sleep_for(dura);
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//helper methods that check validity of input for each field in the database
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-//checks if new person's name input is valid (string with only alpha chars) 
-bool Person_info::valid_name (string user_input){
-    for (int i = 0; i < user_input.size(); i++){
-	    if (!isalpha(user_input[i]) && user_input.at(i) != ' '){
-			return 0;
-	    } 
+	
+	for (int i = 0; i < size; i++){
+	if (new_data[i].get_yob() == yob){
+	    //cout << "Matching record found: \n" << print_record(i) << "\n";
+	    count_match++;
 	}
-	return 1;
-}
-//checks if new person's DOB is valid
-bool Person_info::check_year (int year){
-	if (year < 1940 || year > 2005) return 0;
-	return 1;
+	}
+	if (count_match == 0){
+		cout << "No matching person's date of birth found!\n";
+	}
 }
 
-bool Person_info::valid_year (string user_input){
-	for (int i = 0; i < user_input.size(); i++){
-	    if (!(user_input[i] >= '0' && user_input.at(i) <= '9')){
-			return 0;
-	    } 
-	}
-	int year = stoi(user_input);
-	return check_year(year);
+void Database::search_phone (long long phone){
+    int count_match = 0;
+    for (int i = 0; i < size; i++){
+        if (new_data[i].get_phone() == phone){
+            //cout << "Matching record found: \n" << print_record(i) << "\n";
+            count_match++;
+        }
+    }
+    if (count_match == 0){
+        cout << "No matching person's phone number found!\n";
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// 4rd Method: type-in number is in the range from low to high.
+//////////////////////////////////////////////////////////////////////////////////////////////////
+void Database::search_range_yob(int low, int high){
+    int count_match = 0;
+    for (int i = 0; i < size; i++){
+        int year = stoi(new_data[i].get_yob());
+        if (low <= year && year <= high){
+            //cout << "Year in the range found: " << print_record(i) << "\n";
+            count_match++;
+        }
+    }
+    if (count_match == 0){
+        cout << "No such results found.\n";
+    }
+}
+
+//////////////////////////////////////Listing Records//////////////////////////////////////////////
+// String field: alphabetical order
+bool compare_name_alpha(Person_info a, Person_info b){
+    return a.get_name() <= b.get_name();
+}
+
+void Database::list_name_alpha(){
+    sort(new_data, new_data + size, compare_name_alpha);
+    for(int i = 0; i < size; i++){
+        //cout << print_record(i) << "\n";
+    }
+}
+
+    // String field: reverse alphabetical order
+bool compare_name_rev(Person_info a, Person_info b){
+    return a.get_name() >= b.get_name();
+}
+
+void Database::list_name_reverse(){
+    sort(new_data, new_data + size, compare_name_rev);
+    for(int i = 0; i < size; i++){
+        //cout << print_record(i) << "\n";
+    }
+}
+
+    //Number field: ascending order
+bool compare_yob_asc(Person_info a, Person_info b){
+    return stoi(a.get_yob()) <= stoi(b.get_yob());
+
+}
+
+void Database::list_yob_ascend(){
+    sort(new_data, new_data + size, compare_yob_asc);
+         for(int i = 0; i < size; i++){
+         //cout << print_record(i) << "\n";
+     }
+}
+
+bool compare_phone_asc(Person_info a, Person_info b){
+    return a.get_phone() <= b.get_phone();
+}
+
+void Database::list_phone_ascend(){
+    sort(new_data, new_data + size, compare_phone_asc);
+    for(int i = 0; i < size; i++){
+        //cout << print_record(i) << "\n";
+    }
+}
+
+    // Number field: descending order
+bool compare_yob_des(Person_info a, Person_info b){
+    return stoi(a.get_yob()) >= stoi(b.get_yob());
+
+}
+
+void Database::list_yob_descend(){
+    sort(new_data, new_data + size, compare_yob_des);
+         for(int i = 0; i < size; i++){
+         //cout << print_record(i) << "\n";
+     }
+}
+
+bool compare_phone_desc(Person_info a, Person_info b){
+    return a.get_phone() >= b.get_phone();
+}
+void Database::list_phone_descend(){
+    sort(new_data, new_data + size, compare_phone_desc);
+    for(int i = 0; i < size; i++){
+        //cout << print_record(i) << "\n";
+    }
+}
+
+
+//////////////////////////////////////Deleting Records/////////////////////////////////////////////
+void Database::delete_name(string name){
+    for (int i = 0; i < size; i++){
+        if (new_data[i].get_name() == name){
+            new_data[i] = new_data[size - 1];
+            size--; //Truncate
+        }
+    }
+}
+void Database::delete_yob(string yob){
+    for (int i = 0; i < size; i++){
+        if (new_data[i].get_yob() == yob){
+            new_data[i] = new_data[size - 1];
+            size--; //Truncate
+        }
+    }
+}
+
+void Database::delete_city(string city){
+    for (int i = 0; i < size; i++){
+        if (new_data[i].get_city() == city){
+            new_data[i] = new_data[size - 1];
+            size--; //Truncate
+        }
+    }
+}
+
+void Database::delete_phone(long long phone){
+    for (int i = 0; i < size; i++){
+        if (new_data[i].get_phone() == phone){
+            new_data[i] = new_data[size - 1];
+            size--; //Truncate
+        }
+    }
+}
+
+void Database::delete_status(string status){
+    for(int i = 0; i < size; i++){
+        if(new_data[i].get_status() == status){
+            new_data[i] = new_data[size - 1];
+            size--; 
+        }
+    }
+}
+
+//////////////////////////////////////Saving Records/////////////////////////////////////////////
+void Database::quitting_save(){
+	ofstream fout("temp.txt");
+		
+	for(int i = 0; i < size; i++){ 
+		fout << new_data[i].get_name() << " " 
+			<< new_data[i].get_yob() << " " 
+			<< new_data[i].get_city() << " " 
+			<< new_data[i].get_phone() << " " 
+			<< new_data[i].get_status() << '\n';
+ 	}
+	fout.close();
+	remove("database.txt");
+	rename("temp.txt", "database.txt");
+}
+
+Database::~Database(){
+    delete[] new_data; 
 }
 
 //checks if user entered city is valid

@@ -1,8 +1,8 @@
 //Header file
-////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
 //contents:
 // - all #include's 
-// - declares methods from Person_info, Database and Menu classes 
+// - declares methods from Person_info, Database and Menu classes, display.cpp
 
 #ifndef DATABASE_H
 #define DATABASE_H
@@ -83,7 +83,7 @@ public:
 	void delete_city(string city);
 
 	void print_all();
-	string print_record (int i);
+	void print_record (int i);
 	void search_name (string name);
 	void search_yob (string yob);
 	void search_city (string city);
@@ -119,8 +119,6 @@ char update_display();
 char list_display();
 char list_str_display();
 char list_int_display();
-void quit_display();
-void test();
 
 //Menu class 
 class Menu{
