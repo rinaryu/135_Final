@@ -3,31 +3,50 @@ using namespace std;
 
 void test(){ //change to better function name later
 	Menu menu;
-	while(true){
+	bool done = false;
+	while(!done){
 		char x = feature_display();
-		char res;
+		//char res;
 		if(x == 'a'){
 		 endwin();
 		 menu.adding();
 		}
 		if(x == 's' || x == 'd'){
 			endwin();	
-			res = menu.searching(x);
+			menu.searching(x);
+			//string returnResp;
+			  //  cout << "Enter (r) if you would like to return.\n";
+			  //cin >> returnResp;
+			  //while(returnResp != "r"){
+			    ///cout << "Invalid response\n";
+			    //cin >> returnResp;
+			  //}
+			  //returnResp = 'r';
+			  cout << "Returning...\n";
+			  chrono::seconds dura(3);
+			  this_thread::sleep_for(dura);
+			  done = false;
 		}
-		
 		//else if (x == 'u'){
 		// 	res = menu.update();
 		// } 
 
-		if (x == 'l') res = menu.list();
-			
-		if (res == 'r') continue; 
-		if(res == 'q') {
+		if (x == 'l'){
 			endwin();
-			break;
+			menu.list();
+		}	
+		
+		if(x == 'q') {
+			//quit_display();
+		 	endwin();
+		 	menu.quit();
+		 	done = true;
 		}
 	}
-	// menu.quit();
+	endwin();
+	cout<<"work?\n";
+
+	//menu.quit();
 }
 
 int main(){
