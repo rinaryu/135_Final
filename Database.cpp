@@ -148,6 +148,7 @@ void Database::search_yob (string yob){
 
 void Database::search_city (string city){
     int count_match = 0;
+    city.at(0) = toupper(city.at(0)); //changing first letter to uppercase
     for (int i = 0; i < size; i++){
         if (new_data[i].get_city() == city){
             cout << "Matching record found: \n" << print_record(i) << "\n";

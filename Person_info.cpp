@@ -83,8 +83,9 @@ void Person_info::new_person (){
 			cin.clear();
 			cin.ignore(10000, '\n');
 			cin >> phone_num;
-		} else if(valid_phone(phone_num)) {break; 
-		}else {
+		} 
+		else if(valid_phone(phone_num)) break; 
+		else {
 			cout<<"This is not a valid phone number in BC, please re-enter: ";
 			cin >> phone_num;
 		}
@@ -138,6 +139,9 @@ bool Person_info::valid_year (string user_input){
 
 //checks if user entered city is valid
 bool Person_info::valid_city(string city_name){
+	//changing input to lower case letters
+	for(int i = 0; i <city_name.size(); i++) city_name.at(i) = towlower(city_name.at(i));
+	
 	//importing list of all cities in Lower Mainland 
 	vector<string> cities;
 	ifstream fin("lowermainland_cities.txt");

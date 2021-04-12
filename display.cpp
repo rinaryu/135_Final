@@ -176,7 +176,7 @@ char search_display(char response){
 		mvwprintw(searchwin, 8, 3, "You can search for: ");
 	}
 	mvwprintw(searchwin, 9, 3, "(n) Name of the person.");
-	mvwprintw(searchwin, 10, 3, "(d) Date of birth.");
+	mvwprintw(searchwin, 10, 3, "(y) Year of birth.");
 	mvwprintw(searchwin, 11, 3, "(c) City.");
 	mvwprintw(searchwin, 12, 3, "(p) Phone number.");
 	mvwprintw(searchwin, 13, 3, "(v) Vaccination status.");
@@ -192,30 +192,30 @@ char search_display(char response){
 				wattron(searchwin, A_STANDOUT);
 				mvwprintw(searchwin, 9, 4, "n");
 				wattroff(searchwin, A_STANDOUT);
-				mvwprintw(searchwin, 10, 4, "d");
+				mvwprintw(searchwin, 10, 4, "y");
 				mvwprintw(searchwin, 11, 4, "c");
 				mvwprintw(searchwin, 12, 4, "p");
 				mvwprintw(searchwin, 13, 4, "v");
 				mvwprintw(searchwin, 15, 4, "r");
 				returnChar = 'n';
 				break;
-			case 'd':
+			case 'y':
 				wattron(searchwin, A_STANDOUT);
-				mvwprintw(searchwin, 10, 4, "d");
+				mvwprintw(searchwin, 10, 4, "y");
 				wattroff(searchwin, A_STANDOUT);
 				mvwprintw(searchwin, 9, 4, "n");
 				mvwprintw(searchwin, 11, 4, "c");
 				mvwprintw(searchwin, 12, 4, "p");
 				mvwprintw(searchwin, 13 ,4, "v");
 				mvwprintw(searchwin, 15, 4, "r");
-				returnChar = 'd';
+				returnChar = 'y';
 				break;
 			case 'c':
 				wattron(searchwin, A_STANDOUT);
 				mvwprintw(searchwin, 11, 4, "c");
 				wattroff(searchwin, A_STANDOUT);
 				mvwprintw(searchwin, 9, 4, "n");
-				mvwprintw(searchwin, 10, 4, "d");
+				mvwprintw(searchwin, 10, 4, "y");
 				mvwprintw(searchwin, 12, 4, "p");
 				mvwprintw(searchwin, 13 ,4, "v");
 				mvwprintw(searchwin, 15, 4, "r");
@@ -226,7 +226,7 @@ char search_display(char response){
 				mvwprintw(searchwin, 12, 4, "p");
 				wattroff(searchwin, A_STANDOUT);
 				mvwprintw(searchwin, 9, 4, "n");
-				mvwprintw(searchwin, 10, 4, "d");
+				mvwprintw(searchwin, 10, 4, "y");
 				mvwprintw(searchwin, 11, 4, "c");
 				mvwprintw(searchwin, 13, 4, "v");
 				mvwprintw(searchwin, 15, 4, "r");
@@ -237,18 +237,18 @@ char search_display(char response){
 				mvwprintw(searchwin, 13 ,4, "v");
 				wattroff(searchwin, A_STANDOUT);
 				mvwprintw(searchwin, 9, 4, "n");
-				mvwprintw(searchwin, 10, 4, "d");
+				mvwprintw(searchwin, 10, 4, "y");
 				mvwprintw(searchwin, 11, 4, "c");
 				mvwprintw(searchwin, 12, 4, "p");
 				mvwprintw(searchwin, 15, 4, "r");
-				returnChar = 'd';
+				returnChar = 'y';
 				break;
 			case 'r':
 				wattron(searchwin, A_STANDOUT);
 				mvwprintw(searchwin, 15 ,4, "r");
 				wattroff(searchwin, A_STANDOUT);
 				mvwprintw(searchwin, 9, 4, "n");
-				mvwprintw(searchwin, 10, 4, "d");
+				mvwprintw(searchwin, 10, 4, "y");
 				mvwprintw(searchwin, 11, 4, "c");
 				mvwprintw(searchwin, 12, 4, "p");
 				mvwprintw(searchwin, 13, 4, "v");
@@ -256,7 +256,7 @@ char search_display(char response){
 				break;
 			default:
 				mvwprintw(searchwin, 9, 3, "(n) Name of the person.");
-				mvwprintw(searchwin, 10, 3, "(d) Date of birth.");
+				mvwprintw(searchwin, 10, 3, "(y) Year of birth.");
 				mvwprintw(searchwin, 11, 3, "(c) City.");
 				mvwprintw(searchwin, 12, 3, "(p) Phone number.");
 				mvwprintw(searchwin, 13, 3, "(v) Vaccination status.");
@@ -500,7 +500,7 @@ char list_display(){
 	mvwprintw(listwin, 5, 3, "============================");
 	mvwprintw(listwin, 8, 3, "You can list by: ");
 	mvwprintw(listwin, 9, 3, "(n) Name of the person.");
-	mvwprintw(listwin, 10, 3, "(d) Date of birth.");
+	mvwprintw(listwin, 10, 3, "(y) Year of birth.");
 	mvwprintw(listwin, 11, 3, "(c) City.");
 	mvwprintw(listwin, 12, 3, "(p) Phone number.");
 	mvwprintw(listwin, 13, 3, "(v) Vaccination status.");
@@ -516,30 +516,30 @@ char list_display(){
 				wattron(listwin, A_STANDOUT);
 				mvwprintw(listwin, 9, 4, "n");
 				wattroff(listwin, A_STANDOUT);
-				mvwprintw(listwin, 10, 4, "d");
+				mvwprintw(listwin, 10, 4, "y");
 				mvwprintw(listwin, 11, 4, "c");
 				mvwprintw(listwin, 12, 4, "p");
 				mvwprintw(listwin, 13, 4, "v");
 				mvwprintw(listwin, 15, 4, "r");
 				returnChar = 'n';
 				break;
-			case 'd':
+			case 'y':
 				wattron(listwin, A_STANDOUT);
-				mvwprintw(listwin, 10, 4, "d");
+				mvwprintw(listwin, 10, 4, "y");
 				wattroff(listwin, A_STANDOUT);
 				mvwprintw(listwin, 9, 4, "n");
 				mvwprintw(listwin, 11, 4, "c");
 				mvwprintw(listwin, 12, 4, "p");
 				mvwprintw(listwin, 13 ,4, "v");
 				mvwprintw(listwin, 15, 4, "r");
-				returnChar = 'd';
+				returnChar = 'y';
 				break;
 			case 'c':
 				wattron(listwin, A_STANDOUT);
 				mvwprintw(listwin, 11, 4, "c");
 				wattroff(listwin, A_STANDOUT);
 				mvwprintw(listwin, 9, 4, "n");
-				mvwprintw(listwin, 10, 4, "d");
+				mvwprintw(listwin, 10, 4, "y");
 				mvwprintw(listwin, 12, 4, "p");
 				mvwprintw(listwin, 13 ,4, "v");
 				mvwprintw(listwin, 15, 4, "r");
@@ -550,7 +550,7 @@ char list_display(){
 				mvwprintw(listwin, 12, 4, "p");
 				wattroff(listwin, A_STANDOUT);
 				mvwprintw(listwin, 9, 4, "n");
-				mvwprintw(listwin, 10, 4, "d");
+				mvwprintw(listwin, 10, 4, "y");
 				mvwprintw(listwin, 11, 4, "c");
 				mvwprintw(listwin, 13, 4, "v");
 				mvwprintw(listwin, 15, 4, "r");
@@ -561,18 +561,18 @@ char list_display(){
 				mvwprintw(listwin, 13 ,4, "v");
 				wattroff(listwin, A_STANDOUT);
 				mvwprintw(listwin, 9, 4, "n");
-				mvwprintw(listwin, 10, 4, "d");
+				mvwprintw(listwin, 10, 4, "y");
 				mvwprintw(listwin, 11, 4, "c");
 				mvwprintw(listwin, 12, 4, "p");
 				mvwprintw(listwin, 15, 4, "r");
-				returnChar = 'd';
+				returnChar = 'v';
 				break;
 			case 'r':
 				wattron(listwin, A_STANDOUT);
 				mvwprintw(listwin, 15 ,4, "r");
 				wattroff(listwin, A_STANDOUT);
 				mvwprintw(listwin, 9, 4, "n");
-				mvwprintw(listwin, 10, 4, "d");
+				mvwprintw(listwin, 10, 4, "y");
 				mvwprintw(listwin, 11, 4, "c");
 				mvwprintw(listwin, 12, 4, "p");
 				mvwprintw(listwin, 13, 4, "v");
@@ -580,7 +580,7 @@ char list_display(){
 				break;
 			default:
 				mvwprintw(listwin, 9, 3, "(n) Name of the person.");
-				mvwprintw(listwin, 10, 3, "(d) Date of birth.");
+				mvwprintw(listwin, 10, 3, "(y) Year of birth.");
 				mvwprintw(listwin, 11, 3, "(c) City.");
 				mvwprintw(listwin, 12, 3, "(p) Phone number.");
 				mvwprintw(listwin, 13, 3, "(v) Vaccination status.");

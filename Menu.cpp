@@ -16,11 +16,14 @@ void Menu::adding(){
   // new_database.print_all();
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////
 //searches the database using user's choice of field
 //user can also decided to delete the searched information
+/////////////////////////////////////////////////////////////////////////////////////////////////
 void Menu::searching(char user_input){
   //user_input keeps track of whether the user pressed (s)earching or (d)eleting
   
+
   char search_input; //which field the user is searching by (name or city or yob etc) 
   string searchForStr = ""; //which string to search for
   string searchForSubstr = "";
@@ -44,7 +47,6 @@ void Menu::searching(char user_input){
       cout<< "Returning...\n";
       chrono::seconds dura(2);
       this_thread::sleep_for(dura);
-      //return search_input; 
     }
 
     //determining which method should be used to search the name
@@ -56,15 +58,21 @@ void Menu::searching(char user_input){
       // if found; will cout out the record, if not found; will cout it's not found
       if(search_input == 'n') new_database.search_name(searchForStr);
       if(search_input == 'v') new_database.search_status(searchForStr);
-      if(search_input == 'c') new_database.search_city(searchForStr);
-
+      if(search_input == 'c') {
+        //checks if it's a city in Lower Mainland 
+        while(!person.valid_city(searchForStr)){
+          cout << "That is not a city in the Lower Mainland, please re-enter: \n";
+          searchForStr = search_get_input();
+        }
+        new_database.search_city(searchForStr);
+      }
     } else if(method == 'o'){ // if wants to search using substring 
       endwin();
       searchForSubstr = search_get_input();
 
       //looking using substring 
-      if(search_input == 'n') new_database.search_substr_name(searchForStr);
-      if(search_input == 'c') new_database.search_substr_city(searchForStr);
+      if(search_input == 'n') new_database.search_substr_name(searchForSubstr);
+      if(search_input == 'c') new_database.search_substr_city(searchForSubstr);
     }
   } 
   //user chose to search by yob or phone number 
