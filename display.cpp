@@ -725,3 +725,12 @@ char list_int_display(){
 	destroy_win(listwin);
 	return returnChar;
 }
+
+void quit_display(){
+	initscr(); //Initiaize the screen 
+	noecho(); //hides user input from window
+	curs_set(0); //hides screen cursor
+
+	WINDOW* listwin = create_win();
+	destroy_win(listwin);
+}
