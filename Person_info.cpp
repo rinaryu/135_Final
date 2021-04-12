@@ -16,14 +16,14 @@ Person_info::Person_info(){
 string Person_info::get_name() const {return new_name;}
 string Person_info::get_yob() const {return yob;}
 string Person_info::get_city() const {return new_city;}
-int Person_info::get_phone() const {return phone_num;}
+long long Person_info::get_phone() const {return phone_num;}
 string Person_info::get_status() const {return vaccinated;}
 
 //setter methods
 void Person_info::set_name(string name) {new_name = name;}
 void Person_info::set_yob(string year) {yob = year;}
 void Person_info::set_city(string city) {new_city = city;}
-void Person_info::set_phone(long int phone) {phone_num = phone;}
+void Person_info::set_phone(long long phone) {phone_num = phone;}
 void Person_info::set_status(string status) {vaccinated = status;}
 
 //Method used to get user input to enter new person into the database.
@@ -157,7 +157,7 @@ bool Person_info::valid_city(string city_name){
 	return 0; 
 }
 //check if user entered phone number is valid
-bool Person_info::valid_phone (long num){
+bool Person_info::valid_phone (long long num){
 	vector<string> area_codes = {"604", "778", "236","672","250"};
 	string temp_num = to_string(num);
 	if(temp_num.size() == 10){
