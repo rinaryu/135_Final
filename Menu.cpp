@@ -13,7 +13,7 @@ void Menu::adding(){
   //Ask user to enter new information in the terminal
   person.new_person();  
   new_database.add_data(person);  
-  new_database.print_all();
+  // new_database.print_all();
 }
 
 //searches the database using user's choice of field

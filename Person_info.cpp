@@ -92,11 +92,11 @@ void Person_info::new_person (){
 	cout << '\n';
 	
 	//Fifth: Getting if new person is vaccinated or not. 
-	cout<<"Is the new person vaccinated? (y/n)";
-	getline(cin, vaccinated);
+	cout<<"Is the new person vaccinated? (y/n): ";
+	cin >> vaccinated;
 	while(true){
-	    if(vaccinated == "y" || vaccinated == "n"){ break;
-	    } else {
+	    if(vaccinated == "y" || vaccinated == "n") break;
+	    else {
 			cout<<"That is not a valid answer, please enter y or n: ";
 			getline(cin, vaccinated);
 	    }
