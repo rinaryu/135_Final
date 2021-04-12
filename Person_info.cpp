@@ -236,8 +236,8 @@ void Database::search_yob(string yob){
 	int count_match = 0;
 	// NOTE: check for the valid search
 	while(true){
-		for (int i = 0; i < user_input.size(); i++){
-			if (!(user_input[i] >= '0' && user_input.at(i) <= '9')){
+		for (int i = 0; i < yob.size(); i++){
+			if (!(yob[i] >= '0' && yob.at(i) <= '9')){
 				cout << "This is not a number, please re-enter: ";
 				cin >> yob;
 			} 
