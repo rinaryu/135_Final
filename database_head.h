@@ -96,7 +96,11 @@ public:
 
 
 	void list_name_alpha();
+	void list_city_alpha();
+	void list_status_alpha();
 	void list_name_reverse();
+	void list_city_reverse();
+	void list_status_reverse();
 	void list_yob_ascend();
 	void list_phone_ascend();
 	void list_yob_descend();
@@ -132,11 +136,9 @@ public:
 	
 	void adding();
 	void searching(char user_input);
-	
-	char list();
-	void quit();
+	char listing();
+	void quitting();
 	string search_get_input();
 	long long search_num_input();
-	
 };
 #endif
