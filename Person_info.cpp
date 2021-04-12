@@ -1,171 +1,142 @@
-//Person_info.cpp
-//Contains Person_info class 
-//////////////////////////////////////////////////////////////////////////////////////
-//This class:
-// - gets user input to add new information into the database
-// - also makes sure that input is valid for all fields
+//Header file
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//contents:
+// - all #include's 
+// - declares methods from Person_info, Database and Menu classes, display.cpp
 
-#include "database_head.h"
+#ifndef DATABASE_H
+#define DATABASE_H
+
+#include "cmpt_error.h"
+#include <cassert>
+#include <iomanip>
+#include <ncurses.h>
+#include <fstream>
+#include <cmath>
 #include <iostream>
+#include <cstdlib>
+#include <ctime> 
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <stdlib.h>
+#include <chrono> 
+#include <thread>
+
 using namespace std;
 
-Person_info::Person_info(){
-	//nothing
-}
-//getter methods
-string Person_info::get_name() const {return new_name;}
-string Person_info::get_yob() const {return yob;}
-string Person_info::get_city() const {return new_city;}
-long long Person_info::get_phone() const {return phone_num;}
-string Person_info::get_status() const {return vaccinated;}
+//Person_info class
+class Person_info{
+private:
+	string new_name;
+	string yob; //year of birth (yob)
+	string new_city;
+	long long phone_num; 
+	string vaccinated; 
+    
+public:
+	Person_info();
 
-//setter methods
-void Person_info::set_name(string name) {new_name = name;}
-void Person_info::set_yob(string year) {yob = year;}
-void Person_info::set_city(string city) {new_city = city;}
-void Person_info::set_phone(long long phone) {phone_num = phone;}
-void Person_info::set_status(string status) {vaccinated = status;}
+	void new_person(); 
+	string get_name() const;
+	string get_yob() const;
+	string get_city() const;
+	long long get_phone() const;
+	string get_status() const;
 
-//Method used to get user input to enter new person into the database.
-void Person_info::new_person (){
-	//First: Getting name of new person to be added. 
-	cout << "To enter a new person in the database, first provide their first and last name: ";
-	getline(cin, new_name); 
-	//call valid_name to check if user input is valid (is a valid name) 
-	if(!valid_name(new_name)){
-	    while(true){
-			cout<<"That is not a valid name, please provide a different name of alphabetical characters: ";
-			getline(cin, new_name);
-			if(valid_name(new_name)) break; 
-	    }              
-	}
-	cout << '\n';
-	
-	//Second: Getting birthday of new person. 
-	cout << "Please enter their year of birth: ";
-	getline(cin, yob);
-	while(true){
-	    if(!valid_year(yob)){
-			cout<<"That is not a valid date of birth, please re-enter: ";
-			getline(cin, yob);
-	    }
-		if(valid_year(yob)) break;
-	}
-	cout << '\n';
-	
-	//Third: Getting the city that the new person resides in. 
-	cout<<"Please enter the city in the Lower Mainland that they reside in: ";
-	getline(cin, new_city);
-	//changing the user input to all lowercase letters
-	for(int i = 0; i < new_city.size(); i++){
-	    new_city.at(i) = towlower(new_city.at(i));
-	}
-	
-	if(!valid_city(new_city)){
-	    while(true){
-			cout<<"That is not a valid city, please enter a city in the Lower Mainland: ";
-			getline(cin, new_city);
-			//changing the user input to all lowercase letters
-			for(int i = 0; i < new_city.size(); i++){
-				new_city.at(i) = towlower(new_city.at(i));
-			}
-			if(valid_city(new_city)) break;
-	    }
-	}
-	cout << '\n';
-	
-	//Fourth: Getting phone number of new person. 
-	cout<<"Please enter their phone number: ";
-	cin >> phone_num;
-	while(true){
-		if(cin.fail()){
-			cout<<"This is not a number, please re-enter: ";
-			cin.clear();
-			cin.ignore(10000, '\n');
-			cin >> phone_num;
-		} else if(valid_phone(phone_num)) {break; 
-		}else {
-			cout<<"This is not a valid phone number in BC, please re-enter: ";
-			cin >> phone_num;
-		}
-	}
-	cout << '\n';
-	
-	//Fifth: Getting if new person is vaccinated or not. 
-	cout<<"Is the new person vaccinated? (y/n): ";
-	cin >> vaccinated;
-	while(true){
-	    if(vaccinated == "y" || vaccinated == "n") break;
-	    else {
-			cout<<"That is not a valid answer, please enter y or n: ";
-			getline(cin, vaccinated);
-	    }
-	}
-	cout << '\n';
-	cout << "New record has been added! \n";
-	cout << "Returning to Main Menu...\n";
-      	chrono::seconds dura(3);
-      	this_thread::sleep_for(dura);
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//helper methods that check validity of input for each field in the database
-//////////////////////////////////////////////////////////////////////////////////////////////////
+	void set_name(string name);
+	void set_yob(string data);
+	void set_city(string city);
+	void set_phone(long long phone);
+	void set_status(string status);
 
-//checks if new person's name input is valid (string with only alpha chars) 
-bool Person_info::valid_name (string user_input){
-    for (int i = 0; i < user_input.size(); i++){
-	    if (!isalpha(user_input[i]) && user_input.at(i) != ' '){
-			return 0;
-	    } 
-	}
-	return 1;
-}
-//checks if new person's DOB is valid
-bool Person_info::check_year (int year){
-	if (year < 1940 || year > 2005) return 0;
-	return 1;
-}
+	bool valid_name (string user_input);
+	bool check_year (int year);
+	bool valid_year (string user_input);
+	bool valid_city (string city_name);
+	bool valid_phone (long long num);
+	~Person_info();
+};
 
-bool Person_info::valid_year (string user_input){
-	for (int i = 0; i < user_input.size(); i++){
-	    if (!(user_input[i] >= '0' && user_input.at(i) <= '9')){
-			return 0;
-	    } 
-	}
-	int year = stoi(user_input);
-	return check_year(year);
-}
 
-//checks if user entered city is valid
-bool Person_info::valid_city(string city_name){
-	//importing list of all cities in Lower Mainland 
-	vector<string> cities;
-	ifstream fin("lowermainland_cities.txt");
-	if(fin.fail()) cmpt::error("Importing city text file failed\n");
+//Database class 
+class Database{
+private:
+	int size;
+	int capacity;
+	Person_info *new_data;
+	string per_record; 
+
+public:
+	Database();
 	
-	while(true){
-	    string city;
-	    getline(fin, city);
-	    if(fin.fail()) break;
-	    cities.push_back(city);
-	}
-	fin.close(); 
-	//checking if valid with user input  
-	for(string x : cities){
-	    if(x == city_name) return 1;
-	}
-	return 0; 
-}
-//check if user entered phone number is valid
-bool Person_info::valid_phone (long long num){
-	vector<string> area_codes = {"604", "778", "236","672","250"};
-	string temp_num = to_string(num);
-	if(temp_num.size() == 10){
-	    for(string code : area_codes){
-			if(temp_num.substr(0,3) == code) return 1;
-	    }
-	} 
-	return 0;
-}
+	int get_size() const;
+	int get_cap() const;
+	void get_data();
+	void resize();
+	
+	void add_data(const Person_info& person);
+	void delete_name(string name);
+	void delete_yob(string yob);
+	void delete_phone(long long phone);
+	void delete_status(string status);
+	void delete_city(string city);
 
-Person_info::~Person_info(){}
+	void print_all();
+	void print_record (int i);
+	void search_name (string name);
+	void search_yob (string yob);
+	void search_city (string city);
+	void search_phone (long long phone);
+	void search_status(string status);
+	void search_substr_name(string findData);
+	void search_substr_city(string findCity);
+	void search_substr_phone(long long num);
+	void search_range_yob(int low, int high);
+
+
+	void list_name_alpha();
+	void list_name_reverse();
+	void list_yob_ascend();
+	void list_phone_ascend();
+	void list_yob_descend();
+	void list_phone_descend();
+	
+	void quitting_save();
+
+	~Database();
+};
+
+//display.cpp
+void destroy_win(WINDOW *deleteWin);
+WINDOW* create_win();
+char feature_display();
+void newwind();
+char search_display(char response);
+char search_str_display();
+char search_int_display();
+char update_display();
+char list_display();
+char list_str_display();
+char list_int_display();
+
+//Menu class 
+class Menu{
+private:
+	Database new_database;
+	Person_info person;
+	string fname;
+
+public:
+	Menu();
+	
+	void adding();
+	void searching(char user_input);
+	
+	char list();
+	void quit();
+	string search_get_input();
+	long long search_num_input();
+	
+};
+#endif
