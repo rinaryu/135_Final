@@ -18,29 +18,23 @@ void destroy_win(WINDOW *deleteWin){
 WINDOW* create_win(){
 	int h, w;
 	getmaxyx(stdscr, h, w);
-
 	WINDOW* tempwin = newwin(h/2, w/2, h/4, w/4);
 	box(tempwin, 0, 0);
 	refresh();
-
 	return tempwin; 
 }
 
 //WINDOW 1: Display main menu
 char feature_display(){
-	char returnChar = '0'; 
-	//gets returned -- used to keep detect which option was chosen by user in the main menu 
+	char returnChar = '0'; //gets returned; keeps track of what option was chosen by user in main menu
 
-	//Initiaize the screen 
-	initscr();  
+	initscr();  //Initiaize the screen 
 	noecho(); //hides user input from window
 	curs_set(0); //hides screen cursor
-
-	WINDOW* mainwin = create_win();
+	WINDOW* mainwin = create_win(); //creating window
 
 	mvwprintw(mainwin, 0, 3, "Features");
 	mvwprintw(mainwin, 0, 13, "Appointment");
-
 	mvwprintw(mainwin, 4, 3, "Welcome to the Vaccination Database!");
 	mvwprintw(mainwin, 5, 3, "====================================");
 	mvwprintw(mainwin, 8, 3, "(a) Add new person's information.");
@@ -49,7 +43,6 @@ char feature_display(){
 	mvwprintw(mainwin, 11, 3, "(l) List all records.");
 	mvwprintw(mainwin, 12, 3, "(d) Delete data.");
 	mvwprintw(mainwin, 13, 3, "(q) Quit.");
-
 	mvwprintw(mainwin, 15, 3, "Enter the letter of your choice: ");
 
 	//detecting which option is being pressed by the user 
@@ -65,8 +58,6 @@ char feature_display(){
 				mvwprintw(mainwin, 11, 4, "l");
 				mvwprintw(mainwin, 12 ,4, "d");
 				mvwprintw(mainwin, 13, 4, "q");
-				//getstr(ch);
-				//mvwprintw(mainwin, 15, 45, "a");
 				returnChar = 'a';
 				break;
 			case 's':
@@ -78,8 +69,6 @@ char feature_display(){
 				mvwprintw(mainwin, 11, 4, "l");
 				mvwprintw(mainwin, 12 ,4, "d");
 				mvwprintw(mainwin, 13, 4, "q");
-				//getstr(ch);
-				//mvwprintw(mainwin, 15, 45, "s");
 				returnChar = 's';
 				break;
 			case 'u':
@@ -91,8 +80,6 @@ char feature_display(){
 				mvwprintw(mainwin, 11, 4, "l");
 				mvwprintw(mainwin, 12 ,4, "d");
 				mvwprintw(mainwin, 13, 4, "q");
-				//getstr(ch);
-				//mvwprintw(mainwin, 15, 45, "u");
 				returnChar = 'u';
 				break;
 			case 'l':
@@ -104,8 +91,6 @@ char feature_display(){
 				mvwprintw(mainwin, 10, 4, "u");
 				mvwprintw(mainwin, 12 ,4, "d");
 				mvwprintw(mainwin, 13, 4, "q");
-				//getstr(ch);
-				//mvwprintw(mainwin, 15, 45, "l");
 				returnChar = 'l';
 				break;
 			case 'd':
@@ -137,30 +122,22 @@ char feature_display(){
 			mvwprintw(mainwin, 11, 3, "(l) List all records.");
 			mvwprintw(mainwin, 12, 3, "(d) Delete data.");
 			mvwprintw(mainwin, 13, 3, "(q) Quit.");
-
 			mvwprintw(mainwin, 15, 3, "Please enter valid letter of your choice: ");
 			break;
 		}
 		if(ch == 10) break; //if user presses enter -- break while loop
 	}  
-	
 	destroy_win(mainwin);
 	return returnChar;
-}
-
-//Adding
-void add_display(){
-	
 }
 
 //WINDOW 2: Display search-for options
 char search_display(char response){
 	char returnChar; 
 
-	initscr(); //Initiaize the screen 
-	noecho(); //hides user input from window
-	curs_set(0); //hides screen cursor
-
+	initscr(); 
+	noecho(); 
+	curs_set(0); 
 	WINDOW* searchwin = create_win();
 
 	mvwprintw(searchwin, 0, 3, "Features");
@@ -265,7 +242,7 @@ char search_display(char response){
 				mvwprintw(searchwin, 17, 3, "Please enter valid letter of choice: ");
 			break;
 		}
-		if(ch == 10) break; //if user presses enter -- break while loop
+		if(ch == 10) break;
 	}  
 	destroy_win(searchwin);
 	return returnChar;
@@ -275,21 +252,18 @@ char search_display(char response){
 char search_str_display(){
 	char returnChar; 
 
-	initscr();  //Initiaize the screen 
-	noecho(); //hides user input from window
-	curs_set(0); //hides screen cursor
-
+	initscr(); 
+	noecho(); 
+	curs_set(0);
 	WINDOW* searchwin = create_win();
 
 	mvwprintw(searchwin, 0, 3, "Features");
 	mvwprintw(searchwin, 0, 13, "Appointment");
-
 	mvwprintw(searchwin, 4, 3, "Search specific information!");
 	mvwprintw(searchwin, 5, 3, "============================");
 	mvwprintw(searchwin, 8, 3, "You can search information that: ");
 	mvwprintw(searchwin, 9, 3, "(e) Exactly matches.");
 	mvwprintw(searchwin, 10, 3, "(o) Occurs as a substring.");
-
 	mvwprintw(searchwin, 13, 3, "(r) Return to main menu.");
 	mvwprintw(searchwin, 15, 3, "Enter the letter of your choice: ");
 
@@ -334,25 +308,80 @@ char search_str_display(){
 	return returnChar;
 }
 
-//WINDOW 4: Display search option for integer type
-char search_int_display(){
-	char returnChar;  
+//WINDOW 4: Display search option for phone number
+//can search by exact num or using area codes 
+char search_phone_display(){
+	char returnChar;
 
-	initscr();  //Initiaize the screen 
-	noecho(); //hides user input from window
-	curs_set(0); //hides screen cursor
+	initscr();
+	noecho();
+	curs_set(0);
 
 	WINDOW* searchwin = create_win();
-
-	mvwprintw(searchwin, 0, 3, "Features");
-	mvwprintw(searchwin, 0, 13, "Appointment");
 
 	mvwprintw(searchwin, 4, 3, "Search specific information!");
 	mvwprintw(searchwin, 5, 3, "============================");
 	mvwprintw(searchwin, 8, 3, "You can search number that: ");
 	mvwprintw(searchwin, 9, 3, "(e) Exactly matches.");
-	mvwprintw(searchwin, 10, 3, "(i) Is in the range, low to high.");
+	mvwprintw(searchwin, 10, 3, "(a) By area code.");
 
+	mvwprintw(searchwin, 13, 3, "(r) Return to main menu.");
+	mvwprintw(searchwin, 15, 3, "Enter the letter of your choice: ");
+
+	char ch;
+	while((ch = wgetch(searchwin))){
+		switch(ch){
+			case 'e':
+				wattron(searchwin, A_STANDOUT);
+				mvwprintw(searchwin, 9, 4, "e");
+				wattroff(searchwin, A_STANDOUT);
+				mvwprintw(searchwin, 10, 4, "a");
+				mvwprintw(searchwin, 13, 4, "r");
+				returnChar = 'e';
+				break;
+			case 'a':
+				wattron(searchwin, A_STANDOUT);
+				mvwprintw(searchwin, 10, 4, "a");
+				wattroff(searchwin, A_STANDOUT);
+				mvwprintw(searchwin, 9, 4, "e");
+				mvwprintw(searchwin, 13, 4, "r");
+				returnChar = 'a';
+				break;
+			case 'r':
+				wattron(searchwin, A_STANDOUT);
+				mvwprintw(searchwin, 13, 4, "r");
+				wattroff(searchwin, A_STANDOUT);
+				mvwprintw(searchwin, 9, 4, "e");
+				mvwprintw(searchwin, 10, 4, "a");
+				returnChar = 'r';
+				break;
+			default:
+				mvwprintw(searchwin, 9, 3, "(e) Exactly matches.");
+				mvwprintw(searchwin, 10, 3, "(a) By area code.");
+				mvwprintw(searchwin, 13, 3, "(r) Return to main menu.");
+				mvwprintw(searchwin, 15, 3, "Please enter valid letter of choice: ");
+		}
+		if(ch == 10) break;
+	}
+	destroy_win(searchwin);
+	return returnChar;
+}
+//WINDOW 5: Display search option for year of birth
+char search_yob_display(){
+	char returnChar;  
+
+	initscr();  
+	noecho(); 
+	curs_set(0); 
+	WINDOW* searchwin = create_win();
+
+	mvwprintw(searchwin, 0, 3, "Features");
+	mvwprintw(searchwin, 0, 13, "Appointment");
+	mvwprintw(searchwin, 4, 3, "Search specific information!");
+	mvwprintw(searchwin, 5, 3, "============================");
+	mvwprintw(searchwin, 8, 3, "You can search number that: ");
+	mvwprintw(searchwin, 9, 3, "(e) Exactly matches.");
+	mvwprintw(searchwin, 10, 3, "(i) Is in the range, low to high.");
 	mvwprintw(searchwin, 13, 3, "(r) Return to main menu.");
 	mvwprintw(searchwin, 15, 3, "Enter the letter of your choice: ");
 
@@ -387,7 +416,6 @@ char search_int_display(){
 			default:
 				mvwprintw(searchwin, 9, 3, "(e) Exactly matches.");
 				mvwprintw(searchwin, 10, 3, "(i) Is in the range, low to high.");
-
 				mvwprintw(searchwin, 13, 3, "(r) Return to main menu.");
 				mvwprintw(searchwin, 15, 3, "Please enter valid letter of choice: ");
 			break;
@@ -398,29 +426,26 @@ char search_int_display(){
 	return returnChar;
 }
 
-//WINDOW 5: Display questions to add information
+//WINDOW 6: Display questions to add information
 
 
-//WINDOW 6: Display update options
+//WINDOW 7: Display update options
 char update_display(){
 	char returnChar; 
 
-	initscr(); //Initiaize the screen 
-	noecho(); //hides user input from window
-	curs_set(0); //hides screen cursor
-
+	initscr(); 
+	noecho(); 
+	curs_set(0);
 	WINDOW* updatewin = create_win();
 
 	mvwprintw(updatewin, 0, 3, "Features");
 	mvwprintw(updatewin, 0, 13, "Appointment");
-
 	mvwprintw(updatewin, 4, 3, "Update personal information!");
 	mvwprintw(updatewin, 5, 3, "============================");
 	mvwprintw(updatewin, 8, 3, "You can update information of one person: ");
 	mvwprintw(updatewin, 9, 3, "(c) City.");
 	mvwprintw(updatewin, 10, 3, "(p) Phone number.");
 	mvwprintw(updatewin, 11, 3, "(v) Vaccination status.");
-
 	mvwprintw(updatewin, 14, 3, "(r) Return to main menu.");
 	mvwprintw(updatewin, 16, 3, "Enter the letter of your choice: ");
 
@@ -481,19 +506,17 @@ char update_display(){
 	return returnChar;
 }
 
-// WINDOW 7: Display listing options
+// WINDOW 8: Display listing options
 char list_display(){
 	char returnChar; 
 
-	initscr(); //Initiaize the screen 
-	noecho(); //hides user input from window
-	curs_set(0); //hides screen cursor
-
+	initscr(); 
+	noecho(); 
+	curs_set(0);
 	WINDOW* listwin = create_win();
 
 	mvwprintw(listwin, 0, 3, "Features");
 	mvwprintw(listwin, 0, 13, "Appointment");
-
 	mvwprintw(listwin, 4, 3, "List all records!");
 	mvwprintw(listwin, 5, 3, "============================");
 	mvwprintw(listwin, 8, 3, "You can list by: ");
@@ -502,7 +525,6 @@ char list_display(){
 	mvwprintw(listwin, 11, 3, "(c) City.");
 	mvwprintw(listwin, 12, 3, "(p) Phone number.");
 	mvwprintw(listwin, 13, 3, "(v) Vaccination status.");
-
 	mvwprintw(listwin, 15, 3, "(r) Return to main menu.");
 	mvwprintw(listwin, 17, 3, "Enter the letter of your choice: ");
 
@@ -582,12 +604,9 @@ char list_display(){
 				mvwprintw(listwin, 11, 3, "(c) City.");
 				mvwprintw(listwin, 12, 3, "(p) Phone number.");
 				mvwprintw(listwin, 13, 3, "(v) Vaccination status.");
-
 				mvwprintw(listwin, 15, 3, "(r) Return to main menu.");
 				mvwprintw(listwin, 17, 3, "Please enter valid letter of choice: ");
-
-			
-			break;
+				break;
 		}
 		if(ch == 10) break;
 	}  
@@ -595,25 +614,22 @@ char list_display(){
 	return returnChar;
 }
 
-//WINDOW 8: Display list options for string type
+//WINDOW 9: Display list options for string type
 char list_str_display(){
 	char returnChar = '0'; 
 
-	initscr(); //Initiaize the screen 
-	noecho(); //hides user input from window
-	curs_set(0); //hides screen cursor
-
+	initscr(); 
+	noecho(); 
+	curs_set(0);
 	WINDOW* listwin = create_win();
 
 	mvwprintw(listwin, 0, 3, "Features");
 	mvwprintw(listwin, 0, 13, "Appointment");
-
 	mvwprintw(listwin, 4, 3, "List all records!");
 	mvwprintw(listwin, 5, 3, "============================");
 	mvwprintw(listwin, 8, 3, "You can choose the order of listing: ");
 	mvwprintw(listwin, 9, 3, "(a) Aphebetical order.");
 	mvwprintw(listwin, 10, 3, "(e) Reverse alphabetical order.");
-
 	mvwprintw(listwin, 13, 3, "(r) Return to main menu.");
 	mvwprintw(listwin, 15, 3, "Enter the letter of your choice: ");
 
@@ -651,7 +667,7 @@ char list_str_display(){
 
 				mvwprintw(listwin, 13, 3, "(r) Return to main menu.");
 				mvwprintw(listwin, 15, 3, "Please enter valid letter of choice: ");
-			break;
+				break;
 		}
 		if(ch == 10) break;
 	}  
@@ -659,25 +675,22 @@ char list_str_display(){
 	return returnChar;
 }
 
-//WINDOW 4: Display search option for integer type
+//WINDOW 10: Display search option for strings
 char list_int_display(){
 	char returnChar = '0'; 
 
-	initscr(); //Initiaize the screen 
-	noecho(); //hides user input from window
-	curs_set(0); //hides screen cursor
-
+	initscr();  
+	noecho(); 
+	curs_set(0); 
 	WINDOW* listwin = create_win();
 
 	mvwprintw(listwin, 0, 3, "Features");
 	mvwprintw(listwin, 0, 13, "Appointment");
-
 	mvwprintw(listwin, 4, 3, "List all records!");
 	mvwprintw(listwin, 5, 3, "============================");
 	mvwprintw(listwin, 8, 3, "You can choose the order of listing numbers: ");
 	mvwprintw(listwin, 9, 3, "(a) Ascending order.");
 	mvwprintw(listwin, 10, 3, "(d) Descending order.");
-
 	mvwprintw(listwin, 13, 3, "(r) Return to main menu.");
 	mvwprintw(listwin, 15, 3, "Enter the letter of your choice: ");
 
@@ -712,11 +725,9 @@ char list_int_display(){
 			default:
 				mvwprintw(listwin, 9, 3, "(a) Ascending order.");
 				mvwprintw(listwin, 10, 3, "(d) Descending order.");
-
-
 				mvwprintw(listwin, 13, 3, "(r) Return to main menu.");
 				mvwprintw(listwin, 15, 3, "Please enter valid letter of choice: ");
-			break;
+				break;
 		}
 		if(ch == 10) break;
 	}  

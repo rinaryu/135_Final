@@ -55,6 +55,7 @@ public:
 	bool valid_year (string user_input);
 	bool valid_city (string city_name);
 	bool valid_phone (long long num);
+	bool valid_area(int code);
 	~Person_info();
 };
 
@@ -93,6 +94,7 @@ public:
 	void search_substr_city(string findCity);
 	void search_substr_phone(long long num);
 	void search_range_yob(int low, int high);
+	void search_area_code(int code);
 
 
 	void list_name_alpha();
@@ -118,7 +120,8 @@ char feature_display();
 void newwind();
 char search_display(char response);
 char search_str_display();
-char search_int_display();
+char search_phone_display();
+char search_yob_display();
 char update_display();
 char list_display();
 char list_str_display();

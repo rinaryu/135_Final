@@ -9,9 +9,7 @@
 #include <iostream>
 using namespace std;
 
-Person_info::Person_info(){
-	//nothing
-}
+Person_info::Person_info(){} //nothing
 
 //Getter methods
 string Person_info::get_name() const {return new_name;}
@@ -60,19 +58,15 @@ void Person_info::new_person (){
 	cout << "Please enter the city in the Lower Mainland that they reside in: ";
 	getline(cin, new_city);
 	//Changing the user input to all lowercase letters
-	for(int i = 0; i < new_city.size(); i++){
-	    new_city.at(i) = towlower(new_city.at(i));
-	}
+	for(int i = 0; i < new_city.size(); i++) new_city.at(i) = towlower(new_city.at(i));
 
 	if(!valid_city(new_city)){
 		while(true){
 			cout << "That is not a valid city, please enter a city in the Lower Mainland: ";
 			getline(cin, new_city);
 			//Changing the user input to all lowercase letters
-			for(int i = 0; i < new_city.size(); i++){
-				new_city.at(i) = towlower(new_city.at(i));
-			}
-			
+			for(int i = 0; i < new_city.size(); i++) new_city.at(i) = towlower(new_city.at(i));
+
 			if(valid_city(new_city)) break;
 		}
 	}
@@ -115,13 +109,12 @@ void Person_info::new_person (){
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //Helper methods that check validity of input for each field in the database
-//////////////////////////////////////////////////////////////////////////////////////////////////
 
 //First: Checks if new person's name input is valid (string with only alpha chars) 
 bool Person_info::valid_name (string user_input){
 	for (int i = 0; i < user_input.size(); i++){
 		if (!isalpha(user_input[i]) && user_input.at(i) != ' '){
-			// Not a character
+			// is not a char
 			return 0;
 		} 
 	}
@@ -164,9 +157,7 @@ bool Person_info::valid_city(string city_name){
 	fin.close(); 
 	
 	//checking if valid with user input  
-	for(string x : cities){
-		if(x == city_name) return 1;
-	}
+	for(string x : cities) if(x == city_name) return 1;
 	return 0; 
 }
 
@@ -175,11 +166,17 @@ bool Person_info::valid_phone (long long num){
 	vector<string> area_codes = {"604", "778", "236","672","250"};
 	string temp_num = to_string(num);
 	if(temp_num.size() == 10){
-		for(string code : area_codes){
-			if(temp_num.substr(0,3) == code) return 1;
-		}
+		for(string code : area_codes) if(temp_num.substr(0,3) == code) return 1;
 	} 
 	return 0;
 }
 
+bool Person_info::valid_area(int code){
+	vector<string> area_codes = {"604", "778", "236","672","250"};
+	string temp_code = to_string(code);
+	if(temp_code.size() == 3){
+		for(string x : area_codes) if(x == temp_code) return 1;
+	}
+	return 0;
+}
 Person_info::~Person_info(){}

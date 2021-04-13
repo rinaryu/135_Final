@@ -27,8 +27,8 @@ void test(){ //change to better function name later
 			}
 			returnResp = 'r';
 			
-			cout << "Returning...\n\n";
-			chrono::seconds dura(5);
+			cout << "Returning to main menu...\n\n";
+			chrono::seconds dura(3);
 			this_thread::sleep_for(dura);
 			done = false;
 		}
@@ -51,7 +51,6 @@ void test(){ //change to better function name later
 	endwin();
 	cout << "Close program.\n";
 }
-
 int main(){
    	test();
 }

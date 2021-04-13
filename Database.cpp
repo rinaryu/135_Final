@@ -26,7 +26,6 @@ void Database::resize(){
 	for(int i = 0; i < size; i++){
 		temp_arr[i] = new_data[i];
 	}
-	
 	delete[] new_data;
 	new_data = temp_arr;
 	capacity *= 2;
@@ -104,7 +103,6 @@ void Database::print_record(int i){
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // 1st Method: type-in STRING EXACTLY matched the appropriate field
-//////////////////////////////////////////////////////////////////////////////////////////////////
 void Database::search_name (string name){
 	int count_match = 0;
 	for (int i = 0; i < size; i++){
@@ -120,7 +118,6 @@ void Database::search_name (string name){
 		cout << "No matching person's name found!\n";
 	}
 }
-
 void Database::search_city (string city){
 	int count_match = 0;
 	city.at(0) = toupper(city.at(0)); //making first letter capital
@@ -138,40 +135,32 @@ void Database::search_city (string city){
 		cout << "No matching city found!\n";
 	}
 }
-
 void Database::search_status(string status){
 	int count_match = 0;
 	status.at(0) = toupper(status.at(0));
-	
 	for(int i = 0; i < size; i++){
 		if(new_data[i].get_status() == status && (status == "Y")){
 			count_match++;
-			if (count_match == 1){
-				cout << "According to the database, people who have been vaccinated are: \n";
-			}
+			if (count_match == 1) cout << "According to the database, people who have been vaccinated are: \n";
+
 			cout << "Record " << count_match << ": \n";
 			print_record(i);
 			cout << '\n';
 			
 		} else if(new_data[i].get_status() == status && (status == "N")){
 			count_match++;
-			if (count_match == 1){
-				cout << "According to the database, people who haven't been vaccinated are: \n";
-			}
+			if (count_match == 1) cout << "According to the database, people who haven't been vaccinated are: \n";
+
 			cout << "Record " << count_match << ": \n";
 			print_record(i);
 			cout << '\n';
 		}
 	}
-	
-	if (count_match == 0){
-		cout << "No matching results found!\n";
-	}
+	if (count_match == 0) cout << "No matching results found!\n";
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // 2nd Method: type-in string as SUBSTRING in appropriate field.
-//////////////////////////////////////////////////////////////////////////////////////////////////
 void Database::search_substr_name(string findData){
 	int count_match  = 0;
 	for (int i = 0; i < size; i++){
@@ -184,11 +173,8 @@ void Database::search_substr_name(string findData){
 			cout << '\n';	
 		}
 	}
-	if (count_match == 0){
-		cout << "No similar name found!\n";
-	}
+	if (count_match == 0) cout << "No similar name found!\n";
 }
-
 void Database::search_substr_city(string findCity){
 	int count_match = 0;
 	for(int i = 0; i < size; i++){
@@ -202,11 +188,8 @@ void Database::search_substr_city(string findCity){
 			cout << '\n';
 		}
 	}
-	if(count_match == 0){
-		cout << "No similar city found!\n";
-	}
+	if(count_match == 0) cout << "No similar city found!\n";
 }
-
 void Database::search_substr_phone(long long num){
 	int count_match = 0;
 	for (int i = 0; i < size; i++){
@@ -220,14 +203,11 @@ void Database::search_substr_phone(long long num){
 			cout << '\n';
 		}
 	}
-	if (count_match == 0){
-		cout << "No similar digits found!\n";
-	}
+	if (count_match == 0) cout << "No similar digits found!\n";
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // 3rd Method: type-in NUMBER EXACTLY matches.
-//////////////////////////////////////////////////////////////////////////////////////////////////
 void Database::search_yob(string yob){
 	int count_match = 0;
 	// NOTE: check for the valid search
@@ -238,25 +218,21 @@ void Database::search_yob(string yob){
 				done = false;
 				cout << "This is not a number, please re-enter: ";
 				cin >> yob;
-			} else { done = true;}
+			} else done = true;
 		}
-		if(done == true){ break; }
+		if(done == true) break; 
 	}
-	
 	for (int i = 0; i < size; i++){
 		if (new_data[i].get_yob() == yob){
 			count_match++;
-			if (count_match == 1) cout << "Matching record(s) found: \n\n" ;
+			if (count_match == 1) cout << "Matching record(s) found: \n\n";
 			cout << "Record " << count_match << ": \n";
 			print_record(i);
 			cout << '\n';
 		}
 	}
-	if (count_match == 0){
-		cout << "No matching person's date of birth found!\n";
-	}
+	if (count_match == 0) cout << "No matching person's date of birth found!\n";
 }
-
 void Database::search_phone (long long phone){
 	int count_match = 0;
 	for (int i = 0; i < size; i++){
@@ -268,14 +244,11 @@ void Database::search_phone (long long phone){
 			cout << '\n';
 		}
 	}
-	if (count_match == 0){
-		cout << "No matching person's phone number found!\n";
-	}
+	if (count_match == 0) cout << "No matching person's phone number found!\n";
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // 4rd Method: type-in NUMBER is in the RANGE from low to high.
-//////////////////////////////////////////////////////////////////////////////////////////////////
 void Database::search_range_yob(int low, int high){
 	int count_match = 0;
 	for (int i = 0; i < size; i++){
@@ -288,13 +261,26 @@ void Database::search_range_yob(int low, int high){
 			cout << '\n';
 		}
 	}
-	if (count_match == 0){
-		cout << "No such results found!\n";
-	}
+	if (count_match == 0) cout << "No such results found!\n";
 }
 
-
-
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// 5th Method: search phone number based on given area code.
+void Database::search_area_code(int code){
+	int count_match = 0;
+	string input_code = to_string(code);
+	for(int i = 0; i < size; i++){
+		string data_code = to_string(new_data[i].get_phone());
+		if(data_code.substr(0,3) == input_code){
+			count_match++; 
+			if(count_match == 1) cout << "Matching record(s) found: \n\n";
+			cout << "Record " << count_match << ": \n";
+			print_record(i);
+			cout << '\n';
+		}
+	}
+	if(count_match == 0) cout << "No such results found!\n";
+}
 
 //////////////////////////////////////Listing Records//////////////////////////////////////////////
 void Database::print_all(){
@@ -320,11 +306,9 @@ void Database::list_name_alpha(){
 }
 
 bool compare_city_alpha(Person_info a, Person_info b){
-	if (a.get_city() == b.get_city()){
-		return a.get_name() <= b.get_name();
-	} else {
-		return a.get_city() < b.get_city();
-	}
+	if (a.get_city() == b.get_city()) return a.get_name() <= b.get_name();
+
+	else return a.get_city() < b.get_city();
 }
 
 void Database::list_city_alpha(){
@@ -333,11 +317,9 @@ void Database::list_city_alpha(){
 }
 
 bool compare_status_alpha(Person_info a, Person_info b){
-	if (a.get_status() == b.get_status()){
-		return a.get_name() <= b.get_name();
-	} else {
-		return a.get_status() < b.get_status();
-	}
+	if (a.get_status() == b.get_status()) return a.get_name() <= b.get_name();
+
+	else return a.get_status() < b.get_status();
 }
 
 void Database::list_status_alpha(){
@@ -356,11 +338,9 @@ void Database::list_name_reverse(){
 }
 
 bool compare_city_rev(Person_info a, Person_info b){
-	if (a.get_city() == b.get_city()){
-		return a.get_name() <= b.get_name();
-	} else {
-		return a.get_city() > b.get_city();
-	}
+	if (a.get_city() == b.get_city()) return a.get_name() <= b.get_name();
+
+	else return a.get_city() > b.get_city();
 }
 
 void Database::list_city_reverse(){
@@ -369,11 +349,9 @@ void Database::list_city_reverse(){
 }
 
 bool compare_status_rev(Person_info a, Person_info b){
-	if (a.get_status() == b.get_status()){
-		return a.get_name() <= b.get_name();
-	} else {
-		return a.get_status() > b.get_status();
-	}
+	if (a.get_status() == b.get_status()) return a.get_name() <= b.get_name();
+
+	 else return a.get_status() > b.get_status();
 }
 
 void Database::list_status_reverse(){
@@ -383,7 +361,6 @@ void Database::list_status_reverse(){
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // 3rd and 4th Method: type-in NUMBER
-//////////////////////////////////////////////////////////////////////////////////////////////////
 //NUMBER field: ASCENDING order
 bool compare_yob_asc(Person_info a, Person_info b){
 	return stoi(a.get_yob()) <= stoi(b.get_yob());
