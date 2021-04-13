@@ -7,45 +7,51 @@ void test(){ //change to better function name later
 	while(!done){
 		char x = feature_display();
 		//char res;
+		
 		if(x == 'a'){
-		 endwin();
-		 menu.adding();
+			endwin();
+			menu.adding();
+			done = false;
 		}
+		
 		if(x == 's' || x == 'd'){
 			endwin();	
 			menu.searching(x);
-			//string returnResp;
-			  //  cout << "Enter (r) if you would like to return.\n";
-			  //cin >> returnResp;
-			  //while(returnResp != "r"){
-			    ///cout << "Invalid response\n";
-			    //cin >> returnResp;
-			  //}
-			  //returnResp = 'r';
-			  cout << "Returning in 5 seconds...\n";
-			  chrono::seconds dura(5);
-			  this_thread::sleep_for(dura);
-			  done = false;
+			
+			string returnResp;
+				cout << "Enter (r) if you would like to return.\n";
+			cin >> returnResp;
+			while(returnResp != "r"){
+				cout << "Invalid response\n";
+				cin >> returnResp;
+			}
+			returnResp = 'r';
+			
+			cout << "Returning...\n\n";
+			chrono::seconds dura(5);
+			this_thread::sleep_for(dura);
+			done = false;
 		}
+		
 		//else if (x == 'u'){
 		// 	res = menu.update();
-		// } 
+		//} 
 
 		if (x == 'l'){
 			endwin();
-			menu.list();
+			menu.listing();
 		}	
 		
 		if(x == 'q') {
-			//quit_display();
-		 	endwin();
-		 	menu.quit();
+			endwin();
+		 	menu.quitting();
 		 	done = true;
 		}
 	}
 	endwin();
+	cout << "Close program.\n";
 }
 
 int main(){
-    test();
+   	test();
 }

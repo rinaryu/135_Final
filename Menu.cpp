@@ -53,7 +53,7 @@ void Menu::searching(char user_input){
 		new_database.search_status(vacStatus);
 	}
 
-	//user chose to search a string field 
+	//user chose to search a string field (name or city)
 	if(search_input == 'n' || search_input == 'c'){
 		//returning to main menu display
 		if(search_input == 'r'){ 
@@ -68,7 +68,7 @@ void Menu::searching(char user_input){
 		if(method == 'e'){  
 			// if wants to search using exact occurence
 			endwin();
-			searchForStr = search_get_input();
+			searchForStr = search_get_input(); //getting cin input
 			
 			//search_name() will look for exact same input
 			// if found; display the record(s), if not found; message not found
@@ -249,8 +249,9 @@ void Menu::quitting(){
 
 string Menu::search_get_input(){ 
 	cout<<"Please enter what you like to search: ";
+	if(cin.peek() == '\n') cin.ignore();
 	string search_for;
-	getline(cin, search_for); 
+	getline(cin, search_for);
 	return search_for;
 }
 
