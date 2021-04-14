@@ -80,7 +80,6 @@ void Menu::searching(char user_input){
 			if(search_input == 'n') new_database.search_substr_name(searchForSubstr);
 			if(search_input == 'c') new_database.search_substr_city(searchForSubstr);
 
-			new_database.search_city(searchForStr);
 			returning();
 		}
 	} 

@@ -79,7 +79,7 @@ public:
 	void add_data(const Person_info& person);
 	int findIdx(string find);
 	void delete_name(string name);
-	void delete_name_substr();
+	void delete_name_substr(string nameSubstr);
 	void delete_yob(string yob);
 	void delete_phone(long long phone);
 	void delete_status(string status);

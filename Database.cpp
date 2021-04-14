@@ -412,7 +412,6 @@ void Database::delete_name(string name){
 	
 	size--;
 	for (int i = n; i < size; i++) new_data[i] = new_data[size - 1];
-
 }
 
 void Database::delete_name_substr(string nameSubstr){
