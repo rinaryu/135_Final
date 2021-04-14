@@ -26,7 +26,8 @@ void Menu::searching(char user_input){
 	string searchForSubstr = "";
 	long long searchForInt = 0; //which number to search for 
 	char method; // which method to be used when searching(exact or substr) 
-
+	int lowerYear, upperYear; // range for searching year of birth
+	
 	search_input = search_display(user_input);
 
 	//returning to main menu display
@@ -71,7 +72,7 @@ void Menu::searching(char user_input){
 					searchForStr = search_get_input();
 				}
 				new_database.search_city(searchForStr);
-				returning(); //going back to main menu
+				
 			}
 		} else if(method == 'o'){// if wants to search using substring 
 			endwin();
@@ -80,7 +81,6 @@ void Menu::searching(char user_input){
 			if(search_input == 'n') new_database.search_substr_name(searchForSubstr);
 			if(search_input == 'c') new_database.search_substr_city(searchForSubstr);
 
-			returning();
 		}
 	} 
 	else if(search_input == 'p'){//if user searching using phone numbers
@@ -108,7 +108,6 @@ void Menu::searching(char user_input){
 				} else if(person.valid_area(searchForInt)) break;
 			}
 			new_database.search_area_code(searchForInt);
-			returning();
 		}
 	}
 	//user chose to search by exact yob or searches using an interval
@@ -122,13 +121,10 @@ void Menu::searching(char user_input){
 			// Look for exact year of birth num 
 			searchForStr = search_get_input();
 			new_database.search_yob(searchForStr);
-			returning();
 
 		} else if (method == 'i'){
 			endwin();
 			// Search for yob in range from year A to year B
-			int lowerYear;
-			int upperYear;
 			cout << "Please enter the lower year limit: ";
 			cin >> lowerYear;
 			//makes sure the lower year input is a valid year 
@@ -158,7 +154,7 @@ void Menu::searching(char user_input){
 				cin >> upperYear;
 			}
 			new_database.search_range_yob(lowerYear, upperYear);
-			returning();
+
 		}
 	}
 	
@@ -175,18 +171,29 @@ void Menu::searching(char user_input){
 		if (confirmDelete == "y"){
 			if (search_input == 'n'){
 				if(method == 'e') new_database.delete_name(searchForStr);
-				if(method == 'o') new_database.delete_name_substr(searchForStr);
+				if(method == 'o') new_database.delete_substr_name(searchForSubstr);
 			} 
 			if (search_input == 'v') new_database.delete_status(vacStatus);
-			if (search_input == 'c') new_database.delete_city(searchForStr);      
-			if (search_input == 'p') new_database.delete_phone(searchForInt);
-			if (search_input == 'd') new_database.delete_yob(searchForStr);
+
+			if (search_input == 'c'){
+				if(method == 'e') new_database.delete_city(searchForStr);  
+				if(method == 'o') new_database.delete_substr_city(searchForSubstr);
+			}   
+			if (search_input == 'p'){
+				if(method == 'e') new_database.delete_phone(searchForInt);
+				if(method == 'a') new_database.delete_phone_area(searchForInt);			
+			}
+			if (search_input == 'y'){
+				if(method == 'e') new_database.delete_yob(searchForStr);
+				if(method == 'i') new_database.delete_yob_range(lowerYear, upperYear);
+			}
 			cout << "Record has been deleted.\n\n";
 		
 		} else if(confirmDelete == "n"){
 			cout << "Record was not deleted.\n\n";
 		}
 	}
+	returning();
 }
 
 // //user can update selected record 
@@ -215,10 +222,12 @@ char Menu::listing(){
 			if(search_input == 'n') new_database.list_name_alpha();
 			if(search_input == 'c') new_database.list_city_alpha();
 			if(search_input == 'v') new_database.list_status_alpha();
+			returning();
 		} else if (method == 'e'){
 			if(search_input == 'n') new_database.list_name_reverse();
 			if(search_input == 'c') new_database.list_city_reverse();
 			if(search_input == 'v') new_database.list_status_reverse();
+			returning();
 		}
 		
 	} else if (search_input == 'd' || search_input == 'p'){//number fields
@@ -227,9 +236,11 @@ char Menu::listing(){
 		if (method == 'a'){
 			if (search_input == 'd') new_database.list_yob_ascend();
 			if (search_input == 'p') new_database.list_phone_ascend();
+			returning();
 		} else if (method == 'd'){
 			if (search_input == 'd') new_database.list_yob_descend();
 			if (search_input == 'p') new_database.list_phone_descend();
+			returning();
 		}
 	}
 	return search_input;
