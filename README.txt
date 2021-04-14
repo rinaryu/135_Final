@@ -17,7 +17,7 @@ Email: nnn2@sfu.ca
 Instructions for Compiling and Running
 --------------------------------------
 BEFORE typing anything in the terminal -- make sure your terminal window's size instructions is
-at least 1/4 of your screen (this will ensure that the entire menu display will appear).
+at least 1/3 of your screen, this will ensure that the entire database display will appear (110 x 40 is a good size for eg).
 
 in the terminal:
     - first enter "make"

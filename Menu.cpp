@@ -71,7 +71,6 @@ void Menu::searching(char user_input){
 					searchForStr = search_get_input();
 				}
 				new_database.search_city(searchForStr);
-				returning(); //going back to main menu
 			}
 		} else if(method == 'o'){// if wants to search using substring 
 			endwin();
@@ -79,8 +78,6 @@ void Menu::searching(char user_input){
 			//looking using substring 
 			if(search_input == 'n') new_database.search_substr_name(searchForSubstr);
 			if(search_input == 'c') new_database.search_substr_city(searchForSubstr);
-
-			returning();
 		}
 	} 
 	else if(search_input == 'p'){//if user searching using phone numbers
@@ -108,7 +105,6 @@ void Menu::searching(char user_input){
 				} else if(person.valid_area(searchForInt)) break;
 			}
 			new_database.search_area_code(searchForInt);
-			returning();
 		}
 	}
 	//user chose to search by exact yob or searches using an interval
@@ -158,7 +154,6 @@ void Menu::searching(char user_input){
 				cin >> upperYear;
 			}
 			new_database.search_range_yob(lowerYear, upperYear);
-			returning();
 		}
 	}
 	
@@ -187,6 +182,7 @@ void Menu::searching(char user_input){
 			cout << "Record was not deleted.\n\n";
 		}
 	}
+	returning();
 }
 
 // //user can update selected record 
@@ -201,6 +197,7 @@ char Menu::listing(){
 	string returnResp;
 
 	search_input = list_display();
+
 	if (search_input == 'r') {
 		// cout << "Returning...\n";
 		// chrono::seconds dura(2);
@@ -215,21 +212,25 @@ char Menu::listing(){
 			if(search_input == 'n') new_database.list_name_alpha();
 			if(search_input == 'c') new_database.list_city_alpha();
 			if(search_input == 'v') new_database.list_status_alpha();
+			returning();
 		} else if (method == 'e'){
 			if(search_input == 'n') new_database.list_name_reverse();
 			if(search_input == 'c') new_database.list_city_reverse();
 			if(search_input == 'v') new_database.list_status_reverse();
+			returning();
 		}
 		
-	} else if (search_input == 'd' || search_input == 'p'){//number fields
+	} else if (search_input == 'y' || search_input == 'p'){//number fields
 		method = list_int_display();
 		endwin();
 		if (method == 'a'){
-			if (search_input == 'd') new_database.list_yob_ascend();
+			if (search_input == 'y') new_database.list_yob_ascend();
 			if (search_input == 'p') new_database.list_phone_ascend();
+			returning();
 		} else if (method == 'd'){
-			if (search_input == 'd') new_database.list_yob_descend();
+			if (search_input == 'y') new_database.list_yob_descend();
 			if (search_input == 'p') new_database.list_phone_descend();
+			returning();
 		}
 	}
 	return search_input;

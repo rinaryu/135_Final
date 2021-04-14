@@ -382,7 +382,7 @@ void Database::list_phone_ascend(){
 
 //NUMBER field: DESCENDING order
 bool compare_yob_des(Person_info a, Person_info b){
-	return stoi(a.get_yob()) >= stoi(b.get_yob());
+	return stoi(a.get_yob()) > stoi(b.get_yob());
 }
 
 void Database::list_yob_descend(){
