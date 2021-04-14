@@ -408,60 +408,170 @@ int Database::findIdx(string find){
 }
 //could be problem when deleting more than one element******
 void Database::delete_name(string name){
-	int n = findIdx(name);
-	
-	size--;
-	for (int i = n; i < size; i++) new_data[i] = new_data[size - 1];
+	Person_info* temp_arr = new Person_info[capacity];
+	int temp_size = 0;
+	for(int i = 0; i < size; i++){
+		if (new_data[i].get_name()!= name){
+			temp_arr[temp_size] = new_data[i];
+			temp_size++;
+		}
+	}
+		
+	delete[] new_data;
+	new_data = temp_arr;
+	size = temp_size;
+	print_all();
 }
 
-void Database::delete_name_substr(string nameSubstr){
-	int i;
-	for(i = 0; i < size; i++){
-		string tempName = new_data[i].get_name();
-		cout<<"break1\n";
-		if(tempName.find(nameSubstr) != std::string::npos) break;
+void Database::delete_substr_name(string nameSubstr){
+	Person_info* temp_arr = new Person_info[capacity];
+	int temp_size = 0;
+	for(int i = 0; i < size; i++){
+		string temp = new_data[i].get_name();
+		if (!(temp.find(nameSubstr) != std::string::npos)){
+			temp_arr[temp_size] = new_data[i];
+			temp_size++;
+		}
 	}
-	size--;
-	for(int j = i; j < size; j++){
-		cout<<"break2\n";
-		new_data[j] = new_data[size - 1];
-	}
+	
+	delete[] new_data;
+	new_data = temp_arr;
+	size = temp_size;
+	print_all();
 }	
 
 void Database::delete_yob(string yob){
-	for (int i = 0; i < size; i++){
-		if (new_data[i].get_yob() == yob){
-		    new_data[i] = new_data[size - 1];
-		    size--; //Truncate
+	Person_info* temp_arr = new Person_info[capacity];
+	int temp_size = 0;
+	for(int i = 0; i < size; i++){
+		if (new_data[i].get_yob()!= yob){
+			temp_arr[temp_size] = new_data[i];
+			temp_size++;
 		}
 	}
+		
+	delete[] new_data;
+	new_data = temp_arr;
+	size = temp_size;
+	print_all();
+}
+
+void Database::delete_yob_range(int low, int high){
+	Person_info* temp_arr = new Person_info[capacity];
+	int temp_size = 0;
+	for(int i = 0; i < size; i++){
+		int year = stoi(new_data[i].get_yob());
+		if (low > year && year > high){
+			temp_arr[temp_size] = new_data[i];
+			temp_size++;
+		}
+	}
+		
+	delete[] new_data;
+	new_data = temp_arr;
+	size = temp_size;
+	print_all();
 }
 
 void Database::delete_city(string city){
-	for (int i = 0; i < size; i++){
-		if (new_data[i].get_city() == city){
-		    new_data[i] = new_data[size - 1];
-		    size--; //Truncate
+	Person_info* temp_arr = new Person_info[capacity];
+	int temp_size = 0;
+	for(int i = 0; i < size; i++){
+		if (new_data[i].get_city()!= city){
+			temp_arr[temp_size] = new_data[i];
+			temp_size++;
 		}
 	}
+		
+	delete[] new_data;
+	new_data = temp_arr;
+	size = temp_size;
+	print_all();
+}
+
+void Database::delete_substr_city(string citySubstr){
+	Person_info* temp_arr = new Person_info[capacity];
+	int temp_size = 0;
+	for(int i = 0; i < size; i++){
+		string temp = new_data[i].get_city();
+		if (!(temp.find(citySubstr) != std::string::npos)){
+			temp_arr[temp_size] = new_data[i];
+			temp_size++;
+		}
+	}
+	
+	delete[] new_data;
+	new_data = temp_arr;
+	size = temp_size;
+	print_all();
 }
 
 void Database::delete_phone(long long phone){
-	for (int i = 0; i < size; i++){
-		if (new_data[i].get_phone() == phone){
-		    new_data[i] = new_data[size - 1];
-		    size--; //Truncate
+	Person_info* temp_arr = new Person_info[capacity];
+	int temp_size = 0;
+	for(int i = 0; i < size; i++){
+		if (new_data[i].get_phone()!= phone){
+			temp_arr[temp_size] = new_data[i];
+			temp_size++;
 		}
 	}
+		
+	delete[] new_data;
+	new_data = temp_arr;
+	size = temp_size;
+	print_all();
+}
+
+void Database::delete_substr_phone(long long phoneSubstr){
+	Person_info* temp_arr = new Person_info[capacity];
+	int temp_size = 0;
+	for(int i = 0; i < size; i++){
+		string temp = to_string(new_data[i].get_phone());
+		if (!(temp.find(to_string(phoneSubstr)) != std::string::npos)){
+			temp_arr[temp_size] = new_data[i];
+			temp_size++;
+		}
+	}
+	
+	delete[] new_data;
+	new_data = temp_arr;
+	size = temp_size;
+	print_all();
+}
+
+void Database::delete_phone_area(int code){
+	Person_info* temp_arr = new Person_info[capacity];
+	int temp_size = 0;
+	
+	string input_code = to_string(code);
+	for(int i = 0; i < size; i++){
+		string data_code = to_string(new_data[i].get_phone());
+		if(data_code.substr(0,3) != input_code){
+			temp_arr[temp_size] = new_data[i];
+			temp_size++;
+		}
+	}
+	
+	delete[] new_data;
+	new_data = temp_arr;
+	size = temp_size;
+	print_all();
 }
 
 void Database::delete_status(string status){
+	Person_info* temp_arr = new Person_info[capacity];
+	int temp_size = 0;
 	for(int i = 0; i < size; i++){
-		if(new_data[i].get_status() == status){
-		    new_data[i] = new_data[size - 1];
-		    size--; 
+		if (new_data[i].get_status()!= status){
+			temp_arr[temp_size] = new_data[i];
+			temp_size++;
 		}
 	}
+		
+	delete[] new_data;
+	new_data = temp_arr;
+	size = temp_size;
+	print_all();
 }
 
 //////////////////////////////////////Saving Records/////////////////////////////////////////////
