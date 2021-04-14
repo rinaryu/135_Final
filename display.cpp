@@ -402,7 +402,7 @@ char search_yob_display(){
 				mvwprintw(searchwin, 10, 4, "i");
 				wattroff(searchwin, A_STANDOUT);
 				mvwprintw(searchwin, 9, 4, "e");
-				mvwprintw(searchwin, 13 ,4, "r");
+				mvwprintw(searchwin, 13, 4, "r");
 				returnChar = 'i';
 				break;
 			case 'r':
@@ -664,7 +664,6 @@ char list_str_display(){
 			default:
 				mvwprintw(listwin, 9, 3, "(a) Aphebetical order.");
 				mvwprintw(listwin, 10, 3, "(e) Reverse alphabetical order.");
-
 				mvwprintw(listwin, 13, 3, "(r) Return to main menu.");
 				mvwprintw(listwin, 15, 3, "Please enter valid letter of choice: ");
 				break;

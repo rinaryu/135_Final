@@ -16,10 +16,14 @@ Email: nnn2@sfu.ca
 
 Instructions for Compiling and Running
 --------------------------------------
+BEFORE typing anything in the terminal -- make sure your terminal window's size instructions is
+at least 1/4 of your screen (this will ensure that the entire menu display will appear).
 
-(put instructions here for compiling and running your program; hopefully it's
-just to type "make" in the shell!)
+in the terminal:
+    - first enter "make"
+    - then enter "./database_main"
 
+the terminal should then begin the program and the user should be able to view/interact with the menu displayed on the terminal 
 
 Limitations
 -----------

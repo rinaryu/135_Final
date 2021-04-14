@@ -17,20 +17,10 @@ void test(){ //change to better function name later
 		if(x == 's' || x == 'd'){
 			endwin();	
 			menu.searching(x);
-			
-			string returnResp;
-				cout << "Enter (r) if you would like to return.\n";
-			cin >> returnResp;
-			while(returnResp != "r"){
-				cout << "Invalid response\n";
-				cin >> returnResp;
-			}
-			returnResp = 'r';
-			
-			cout << "Returning to main menu...\n\n";
-			chrono::seconds dura(3);
-			this_thread::sleep_for(dura);
-			done = false;
+
+			// cout << "Returning...\n\n";
+			// chrono::seconds dura(2);
+			// this_thread::sleep_for(dura);
 		}
 		
 		//else if (x == 'u'){
@@ -49,7 +39,6 @@ void test(){ //change to better function name later
 		}
 	}
 	endwin();
-	cout << "Close program.\n";
 }
 int main(){
    	test();

@@ -1,7 +1,7 @@
 CPPFLAGS = -std=c++17 -Wall -Wextra -Werror -Wfatal-errors -Wno-sign-compare -Wnon-virtual-dtor -g
 
-database_main: final_main.o Person_info.o Database.o Menu.o display.o
-	g++ -o database_main final_main.o Person_info.o Database.o Menu.o display.o -lncurses
+final: final_main.o Person_info.o Database.o Menu.o display.o
+	g++ -o final final_main.o Person_info.o Database.o Menu.o display.o -lncurses
 
 Person_info:
 	g++ -c $(CPPFLAGS) Person_info.cpp
@@ -19,5 +19,5 @@ final_main:
 	g++ -lncurses -c $(CPPFLAGS) final_main.cpp
 
 clean:
-	rm -f database_main final_main.o Person_info.o Database.o Menu.o display.o
+	rm -f final final_main.o Person_info.o Database.o Menu.o display.o
 

@@ -400,14 +400,34 @@ void Database::list_phone_descend(){
 
 
 //////////////////////////////////////Deleting Records/////////////////////////////////////////////
-void Database::delete_name(string name){
-	for (int i = 0; i < size; i++){
-		if (new_data[i].get_name() == name){
-		    new_data[i] = new_data[size - 1];
-		    size--; //Truncate
-		}
+int Database::findIdx(string find){
+	for(int i = 0; i < size; i++){
+		if(new_data[i].get_name() == find) return i;
 	}
+	return 0;
 }
+//could be problem when deleting more than one element******
+void Database::delete_name(string name){
+	int n = findIdx(name);
+	
+	size--;
+	for (int i = n; i < size; i++) new_data[i] = new_data[size - 1];
+
+}
+
+void Database::delete_name_substr(string nameSubstr){
+	int i;
+	for(i = 0; i < size; i++){
+		string tempName = new_data[i].get_name();
+		cout<<"break1\n";
+		if(tempName.find(nameSubstr) != std::string::npos) break;
+	}
+	size--;
+	for(int j = i; j < size; j++){
+		cout<<"break2\n";
+		new_data[j] = new_data[size - 1];
+	}
+}	
 
 void Database::delete_yob(string yob){
 	for (int i = 0; i < size; i++){

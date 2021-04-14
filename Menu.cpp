@@ -30,12 +30,13 @@ void Menu::searching(char user_input){
 	search_input = search_display(user_input);
 
 	//returning to main menu display
-	if(search_input == 'r'){ 
-		cout<< "Returning...\n\n";
-		//pauses program (user sees messages in terminal before returning to main menu)
-		chrono::seconds dura(2);
-		this_thread::sleep_for(dura);
-	}
+	// if(search_input == 'r'){ 
+	// 	cout<< "Returning...\n\n";
+	// 	//pauses program (user sees messages in terminal before returning to main menu)
+	// 	chrono::seconds dura(2);
+	// 	this_thread::sleep_for(dura);
+	// 	return;
+	// }
 	//user chose to search based on vaccination status information
 	string vacStatus;
 	if(search_input == 'v'){
@@ -51,14 +52,11 @@ void Menu::searching(char user_input){
 	}
 	//user chose to search a string field (name or city)
 	if(search_input == 'n' || search_input == 'c'){
-		//returning to main menu display
-		if(search_input == 'r'){ 
-			cout<< "Returning...\n\n";
-			chrono::seconds dura(2);
-			this_thread::sleep_for(dura);
-		}
-		//determining which method should be used to search STRINNG
+		//determining which method should be used to search string
 		method = search_str_display(); 
+
+		if(method == 'r') return;
+
 		if(method == 'e'){// if wants to search using exact occurence
 			endwin();
 			searchForStr = search_get_input(); //getting cin input
@@ -73,6 +71,7 @@ void Menu::searching(char user_input){
 					searchForStr = search_get_input();
 				}
 				new_database.search_city(searchForStr);
+				returning(); //going back to main menu
 			}
 		} else if(method == 'o'){// if wants to search using substring 
 			endwin();
@@ -80,15 +79,16 @@ void Menu::searching(char user_input){
 			//looking using substring 
 			if(search_input == 'n') new_database.search_substr_name(searchForSubstr);
 			if(search_input == 'c') new_database.search_substr_city(searchForSubstr);
+
+			new_database.search_city(searchForStr);
+			returning();
 		}
 	} 
 	else if(search_input == 'p'){//if user searching using phone numbers
 		method = search_phone_display();
-		if(search_input == 'r'){ 
-			cout<< "Returning...\n";
-			chrono::seconds dura(2);
-			this_thread::sleep_for(dura);
-		}
+
+		if(method == 'r') return;
+
 		if(method == 'e'){//search based on exact phone number 
 			endwin();
 			searchForInt = search_num_input();
@@ -109,22 +109,21 @@ void Menu::searching(char user_input){
 				} else if(person.valid_area(searchForInt)) break;
 			}
 			new_database.search_area_code(searchForInt);
+			returning();
 		}
 	}
 	//user chose to search by exact yob or searches using an interval
-	else if (search_input == 'd'){
-		//returning to main menu display
-		if(search_input == 'r'){ 
-			cout<< "Returning...\n";
-			chrono::seconds dura(2);
-			this_thread::sleep_for(dura); 
-		}
+	else if (search_input == 'y'){
 		method = search_yob_display();
+
+		if(method == 'r') return;
+		
 		if(method == 'e'){
 			endwin();
 			// Look for exact year of birth num 
 			searchForStr = search_get_input();
 			new_database.search_yob(searchForStr);
+			returning();
 
 		} else if (method == 'i'){
 			endwin();
@@ -160,12 +159,13 @@ void Menu::searching(char user_input){
 				cin >> upperYear;
 			}
 			new_database.search_range_yob(lowerYear, upperYear);
+			returning();
 		}
 	}
 	
 	//if the user wants to delete the record(s) they searched for
 	if(user_input == 'd'){
-		cout << "Do you want to delete these records (y/n)?";
+		cout << "Do you want to delete these records (y/n)? ";
 		string confirmDelete;
 		cin >> confirmDelete;
 		while(confirmDelete != "y" && confirmDelete != "n"){
@@ -174,15 +174,18 @@ void Menu::searching(char user_input){
 		}
 		
 		if (confirmDelete == "y"){
-			if (search_input == 'n') new_database.delete_name(searchForStr);
+			if (search_input == 'n'){
+				if(method == 'e') new_database.delete_name(searchForStr);
+				if(method == 'o') new_database.delete_name_substr(searchForStr);
+			} 
 			if (search_input == 'v') new_database.delete_status(vacStatus);
 			if (search_input == 'c') new_database.delete_city(searchForStr);      
 			if (search_input == 'p') new_database.delete_phone(searchForInt);
 			if (search_input == 'd') new_database.delete_yob(searchForStr);
-			cout << "Record has been deleted.\nReturning to main menu...\n\n";
+			cout << "Record has been deleted.\n\n";
 		
 		} else if(confirmDelete == "n"){
-			cout << "Record was not deleted.\nReturning to main menu...\n\n";
+			cout << "Record was not deleted.\n\n";
 		}
 	}
 }
@@ -200,9 +203,9 @@ char Menu::listing(){
 
 	search_input = list_display();
 	if (search_input == 'r') {
-		cout << "Returning...\n";
-		chrono::seconds dura(2);
-		this_thread::sleep_for(dura);
+		// cout << "Returning...\n";
+		// chrono::seconds dura(2);
+		// this_thread::sleep_for(dura);
 		return search_input;
 	}
 	
@@ -230,17 +233,6 @@ char Menu::listing(){
 			if (search_input == 'p') new_database.list_phone_descend();
 		}
 	}
-	
-	cout << "Enter (r) if you would like to return.\n";
-	cin >> returnResp;
-	while(returnResp != "r"){
-		cout << "Invalid response\n";
-		cin >> returnResp;
-	}
-	search_input = 'r';
-	cout << "Returning...\n";
-	chrono::seconds dura(2);
-	this_thread::sleep_for(dura);
 	return search_input;
 }
 
@@ -263,4 +255,15 @@ long long Menu::search_num_input(){
 	long long num;
 	cin >> num;
 	return num;
+}
+
+string Menu::returning(){
+	string returnResp;
+	cout << "Enter (r) if you would like to return.\n";
+	cin >> returnResp;
+	while(returnResp != "r"){
+		cout << "Invalid response\n";
+		cin >> returnResp;
+	}
+	return returnResp;
 }

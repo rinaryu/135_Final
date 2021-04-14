@@ -77,7 +77,9 @@ public:
 	void resize();
 	
 	void add_data(const Person_info& person);
+	int findIdx(string find);
 	void delete_name(string name);
+	void delete_name_substr();
 	void delete_yob(string yob);
 	void delete_phone(long long phone);
 	void delete_status(string status);
@@ -143,5 +145,6 @@ public:
 	void quitting();
 	string search_get_input();
 	long long search_num_input();
+	string returning();
 };
 #endif
