@@ -77,26 +77,19 @@ public:
 	void resize();
 	
 	void add_data(const Person_info& person);
-	int findIdx(string find);
-	void delete_name(string name);
-	void delete_name_substr(string nameSubstr);
-	void delete_yob(string yob);
-	void delete_phone(long long phone);
-	void delete_status(string status);
-	void delete_city(string city);
-
+	
 	void print_all();
 	void print_record (int i);
 	void search_name (string name);
-	void search_yob (string yob);
-	void search_city (string city);
-	void search_phone (long long phone);
-	void search_status(string status);
 	void search_substr_name(string findData);
-	void search_substr_city(string findCity);
-	void search_substr_phone(long long num);
+	void search_yob (string yob);
 	void search_range_yob(int low, int high);
+	void search_city (string city);
+	void search_substr_city(string findCity);
+	void search_phone (long long phone);
+	void search_substr_phone(long long num);
 	void search_area_code(int code);
+	void search_status(string status);
 
 
 	void list_name_alpha();
@@ -109,6 +102,19 @@ public:
 	void list_phone_ascend();
 	void list_yob_descend();
 	void list_phone_descend();
+	
+	int findIdx(string find);
+	void delete_name(string name);
+	void delete_substr_name(string nameSubstr);
+	void delete_yob(string yob);
+	void delete_yob_range(int low, int high);
+	void delete_city(string city);
+	void delete_substr_city(string citySubStr);
+	void delete_phone(long long phone);
+	void delete_substr_phone(long long phoneSubstr);
+	void delete_phone_area(int code);
+	void delete_status(string status);
+	
 	
 	void quitting_save();
 
