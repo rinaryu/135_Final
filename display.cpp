@@ -442,62 +442,75 @@ char update_display(){
 	mvwprintw(updatewin, 0, 13, "Appointment");
 	mvwprintw(updatewin, 4, 3, "Update personal information!");
 	mvwprintw(updatewin, 5, 3, "============================");
-	mvwprintw(updatewin, 8, 3, "You can update information of one person: ");
-	mvwprintw(updatewin, 9, 3, "(c) City.");
-	mvwprintw(updatewin, 10, 3, "(p) Phone number.");
-	mvwprintw(updatewin, 11, 3, "(v) Vaccination status.");
-	mvwprintw(updatewin, 14, 3, "(r) Return to main menu.");
-	mvwprintw(updatewin, 16, 3, "Enter the letter of your choice: ");
+	mvwprintw(updatewin, 8, 3, "Which field would you like to update? ");
+	mvwprintw(updatewin, 9, 3, "(n) Name.");
+	mvwprintw(updatewin, 10, 3, "(c) City.");
+	mvwprintw(updatewin, 11, 3, "(p) Phone number.");
+	mvwprintw(updatewin, 12, 3, "(v) Vaccination status.");
+	mvwprintw(updatewin, 15, 3, "(r) Return to main menu.");
+	mvwprintw(updatewin, 17, 3, "Enter the letter of your choice: ");
 
 	//detecting which option is being pressed by the user 
 	char ch;
 	while((ch = wgetch(updatewin))){
 		switch(ch){
+			case 'n':
+				wattron(updatewin, A_STANDOUT);
+				mvwprintw(updatewin, 9, 4, "n");
+				wattroff(updatewin, A_STANDOUT);
+				mvwprintw(updatewin, 10, 4, "c");
+				mvwprintw(updatewin, 11, 4, "p");
+				mvwprintw(updatewin, 12, 4, "v");
+				mvwprintw(updatewin, 15, 4, "r");
+				returnChar = 'n';
+				break;
 			case 'c':
 				wattron(updatewin, A_STANDOUT);
-				mvwprintw(updatewin, 9, 4, "c");
+				mvwprintw(updatewin, 10, 4, "c");
 				wattroff(updatewin, A_STANDOUT);
-				mvwprintw(updatewin, 10, 4, "p");
-				mvwprintw(updatewin, 11, 4, "v");
-				mvwprintw(updatewin, 14, 4, "r");
+				mvwprintw(updatewin, 9, 4, "n");
+				mvwprintw(updatewin, 11, 4, "p");
+				mvwprintw(updatewin, 12, 4, "v");
+				mvwprintw(updatewin, 15, 4, "r");
 				returnChar = 'c';
 				break;
 			case 'p':
 				wattron(updatewin, A_STANDOUT);
-				mvwprintw(updatewin, 10, 4, "p");
+				mvwprintw(updatewin, 11, 4, "p");
 				wattroff(updatewin, A_STANDOUT);
-				mvwprintw(updatewin, 9, 4, "c");
-				mvwprintw(updatewin, 11, 4, "v");
-				mvwprintw(updatewin, 14, 4, "r");
+				mvwprintw(updatewin, 9, 4, "n");
+				mvwprintw(updatewin, 10, 4, "c");
+				mvwprintw(updatewin, 12, 4, "v");
+				mvwprintw(updatewin, 15, 4, "r");
 				returnChar = 'p';
 				break;
 			case 'v':
 				wattron(updatewin, A_STANDOUT);
-				mvwprintw(updatewin, 11, 4, "v");
+				mvwprintw(updatewin, 12, 4, "v");
 				wattroff(updatewin, A_STANDOUT);
-				mvwprintw(updatewin, 9, 4, "c");
-				mvwprintw(updatewin, 10, 4, "p");
-				mvwprintw(updatewin, 14, 4, "r");
+				mvwprintw(updatewin, 9, 4, "n");
+				mvwprintw(updatewin, 10, 4, "c");
+				mvwprintw(updatewin, 11, 4, "p");
+				mvwprintw(updatewin, 15, 4, "r");
 				returnChar = 'v';
 				break;
 			case 'r':
 				wattron(updatewin, A_STANDOUT);
-				mvwprintw(updatewin, 14, 4, "r");
+				mvwprintw(updatewin, 15, 4, "r");
 				wattroff(updatewin, A_STANDOUT);
-				mvwprintw(updatewin, 9, 4, "c");
-				mvwprintw(updatewin, 10, 4, "p");
-				mvwprintw(updatewin, 11, 4, "v");
-				returnChar = 'v';
+				mvwprintw(updatewin, 9, 4, "n");
+				mvwprintw(updatewin, 10, 4, "c");
+				mvwprintw(updatewin, 11, 4, "p");
+				mvwprintw(updatewin, 12, 4, "v");
+				returnChar = 'r';
 				break;
 			default:
-				mvwprintw(updatewin, 9, 3, "(c) City.");
-				mvwprintw(updatewin, 10, 3, "(p) Phone number.");
-				mvwprintw(updatewin, 11, 3, "(v) Vaccination status.");
-
-				mvwprintw(updatewin, 14, 3, "(r) Return to main menu.");
-				mvwprintw(updatewin, 16, 3, "Please enter valid letter of choice: ");
-
-			
+				mvwprintw(updatewin, 9, 3, "(n) Name.");
+				mvwprintw(updatewin, 10, 3, "(c) City.");
+				mvwprintw(updatewin, 11, 3, "(p) Phone number.");
+				mvwprintw(updatewin, 12, 3, "(v) Vaccination status.");
+				mvwprintw(updatewin, 15, 3, "(r) Return to main menu.");
+				mvwprintw(updatewin, 17, 3, "Please enter valid letter of choice: ");
 			break;
 		}
 		if(ch == 10) break;

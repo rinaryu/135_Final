@@ -103,7 +103,7 @@ void Database::print_record(int i){
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // 1st Method: type-in STRING EXACTLY matched the appropriate field
-void Database::search_name (string name){
+void Database::search_name (string name, vector<int>& v){
 	int count_match = 0;
 	for (int i = 0; i < size; i++){
 		if (new_data[i].get_name() == name){
@@ -112,6 +112,8 @@ void Database::search_name (string name){
 			cout << "Record " << count_match << ": \n";
 			print_record(i);
 			cout << '\n';
+
+			v.push_back(i);
 		}
 	}
 	if (count_match == 0){
@@ -574,6 +576,92 @@ void Database::delete_status(string status){
 	print_all();
 }
 
+//////////////////////////////////////Updating Records///////////////////////////////////////////
+void Database::update_option(char update_input, int record_idx){
+	//if(update_input == 'r'){}
+
+	if(update_input == 'n'){
+		string full_name;
+		cout << "What name do you want to change to: ";
+		if(cin.peek() == '\n') cin.ignore();
+		getline(cin, full_name);
+		while(!new_p.valid_name(full_name)){
+			if (new_data[record_idx].get_name() == full_name){
+				cout << "The name entered is the same. Please re-enter to update: ";
+				getline(cin, full_name);
+			} else {
+				cout << "That is not a valid name, please provide a different name of alphabetical characters: ";
+				getline(cin, full_name);
+			}	 
+		} 
+		
+		new_data[record_idx].set_name(full_name);  
+		cout << "Record has been updated: \n";
+		print_record(record_idx);           
+	}
+	
+	if(update_input == 'c'){
+		string city;
+		cout << "What city do you want to change to: ";
+		if(cin.peek() == '\n') cin.ignore();
+		getline(cin, city);
+		while(!new_p.valid_city(city)){
+			cout << "That is not a valid city, please enter a city in the Lower Mainland: ";
+			getline(cin, city);
+		}
+		new_data[record_idx].set_city(city);
+		cout << "Record has been updated: \n";
+		print_record(record_idx);
+	}
+
+	if(update_input == 'p'){
+		long long int new_phone;
+		cout << "What phone number do you want to change to: ";
+		if(cin.peek() == '\n') cin.ignore();
+		cin >> new_phone;
+		while(!new_p.valid_phone(new_phone)){
+			cout << "That is not a valid phone number, please re-enter: ";
+			cin >> new_phone;
+		}
+		new_data[record_idx].set_phone(new_phone);
+		cout << "Record has been updated: \n";
+		print_record(record_idx);
+	}
+
+	if(update_input == 'y'){
+		string year;
+		cout << "What year of birth do you want to change to: ";
+		if(cin.peek() == '\n') cin.ignore();
+		cin >> year;
+		while(true){
+			if(!new_p.valid_year(year)){
+				cout << "That is not a valid year of birth, please re-enter: ";
+				getline(cin, year);
+			}
+			if(!new_p.valid_year(year)) break;
+		}
+		new_data[record_idx].set_yob(year);
+		cout << "Record has been updated: \n";
+		print_record(record_idx);
+	}
+
+	if(update_input == 'v'){
+		string status;
+		cout << "Currently the status is: " << new_data[record_idx].get_status() << "\n";
+		cout << "Would you like to switch this status? (y/n): ";
+		if(cin.peek() == '\n') cin.ignore();
+		cin >> status;
+		while(status != "y" || status != "n"){
+			cout << "That is invalid input, please re-enter (y/n): ";
+			cin >> status;
+		}
+		if(status == "y") new_data[record_idx].set_status("n");
+		if(status == "n") new_data[record_idx].set_status("y");
+
+		cout << "Record has been updated: \n";
+		print_record(record_idx);
+	}
+}
 //////////////////////////////////////Saving Records/////////////////////////////////////////////
 void Database::quitting_save(){
 	ofstream fout("temp.txt");

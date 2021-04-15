@@ -1,7 +1,7 @@
 #include "database_head.h"
 using namespace std;
 
-void test(){ //change to better function name later
+void final_test(){ //change to better function name later
 	Menu menu;
 	bool done = false;
 	while(!done){
@@ -17,15 +17,15 @@ void test(){ //change to better function name later
 		if(x == 's' || x == 'd'){
 			endwin();	
 			menu.searching(x);
-
 			// cout << "Returning...\n\n";
 			// chrono::seconds dura(2);
 			// this_thread::sleep_for(dura);
 		}
 		
-		//else if (x == 'u'){
-		// 	res = menu.update();
-		//} 
+		else if (x == 'u'){
+			endwin();
+			menu.update();
+		} 
 
 		if (x == 'l'){
 			endwin();
@@ -41,5 +41,5 @@ void test(){ //change to better function name later
 	endwin();
 }
 int main(){
-   	test();
+   	final_test();
 }

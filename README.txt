@@ -21,7 +21,7 @@ at least 1/3 of your screen, this will ensure that the entire database display w
 
 in the terminal:
     - first enter "make"
-    - then enter "./database_main"
+    - then enter "./final"
 
 the terminal should then begin the program and the user should be able to view/interact with the menu displayed on the terminal 
 

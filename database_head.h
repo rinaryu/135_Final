@@ -66,6 +66,7 @@ private:
 	int size;
 	int capacity;
 	Person_info *new_data;
+	Person_info new_p;
 	string per_record; 
 
 public:
@@ -80,7 +81,7 @@ public:
 	
 	void print_all();
 	void print_record (int i);
-	void search_name (string name);
+	void search_name (string name, vector<int>& v);
 	void search_substr_name(string findData);
 	void search_yob (string yob);
 	void search_range_yob(int low, int high);
@@ -115,6 +116,7 @@ public:
 	void delete_phone_area(int code);
 	void delete_status(string status);
 	
+	void update_option(char update_input, int record_idx);
 	
 	void quitting_save();
 
@@ -148,6 +150,7 @@ public:
 	void adding();
 	void searching(char user_input);
 	char listing();
+	void update();
 	void quitting();
 	string search_get_input();
 	long long search_num_input();

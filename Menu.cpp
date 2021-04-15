@@ -64,7 +64,8 @@ void Menu::searching(char user_input){
 			
 			//search_name() will look for exact same input
 			// if found; display the record(s), if not found; message not found
-			if(search_input == 'n') new_database.search_name(searchForStr);
+			vector<int> track_index;
+			if(search_input == 'n') new_database.search_name(searchForStr, track_index);
 			if(search_input == 'c') {
 				//checks if it's a city in Lower Mainland 
 				while(!person.valid_city(searchForStr)){
@@ -72,7 +73,6 @@ void Menu::searching(char user_input){
 					searchForStr = search_get_input();
 				}
 				new_database.search_city(searchForStr);
-				
 			}
 		} else if(method == 'o'){// if wants to search using substring 
 			endwin();
@@ -194,11 +194,49 @@ void Menu::searching(char user_input){
 	returning();
 }
 
-// //user can update selected record 
-// void Menu::update(){
-  
-// }
+//user can update selected record 
+void Menu::update(){
+	char update_input;
 
+	string name;
+	cout << "Enter full name of the person whose information you want to update: ";
+	if(cin.peek() == '\n') cin.ignore();
+	getline(cin, name);
+	if(!person.valid_name(name)){
+		while(true){
+			cout << "That is not a valid name, please provide a different name of alphabetical characters: ";
+			getline(cin, name);
+			if(person.valid_name(name)) break; 
+		}              
+	}
+	cout << '\n';
+
+	vector<int> matches_index;
+	new_database.search_name(name, matches_index);
+	int record_idx = matches_index.at(0);
+	cout << "====================================================\n";
+	if(matches_index.size() > 1){
+		cout << "Enter the number of the record you want to update: ";
+		int record_num;
+		cin >> record_num;
+		while(true){
+			if (record_num < 1 && record_num > matches_index.size()){
+				cout << "There are only " << matches_index.size() << " results found.\n";
+				cout << "Please re-enter the correct number of the record: ";
+				cin >> record_num;
+			} else {
+				break;
+			}
+		}
+		record_idx = matches_index.at(record_num-1);		
+	}
+	update_input = update_display();
+	endwin();
+	
+	new_database.update_option(update_input, record_idx);
+	
+	returning();
+}
 ///////////////////////////////////////Listing Records///////////////////////////////////////
 char Menu::listing(){
 	char search_input;
