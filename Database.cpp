@@ -49,7 +49,7 @@ void Database::get_data(){
 	//i.e. name, year of birth, city, phone number, and vaccination status 
 	for(int i = 0; i < data.size()-1; i++){
 		string temp = data.at(i);
-		size_t spaceIdx = data.at(i).find_last_of(' ');
+		size_t spaceIdx = data.at(i).find_last_of(',');
 
 		// Resize the array if needed
 		if(size >= capacity) resize();
@@ -58,19 +58,19 @@ void Database::get_data(){
 		string temp_status = (temp.substr(spaceIdx + 1, temp.size()-1));
 		new_data[i].set_status(temp_status);
 		temp = temp.substr(0, temp.size() - temp_status.size() - 1); 
-		spaceIdx = temp.find_last_of(' ');
+		spaceIdx = temp.find_last_of(',');
 
 		//setting phone number
 		string temp_phone = temp.substr(spaceIdx + 1, temp.size()-1);
 		new_data[i].set_phone(stoll(temp_phone));
 		temp = temp.substr(0, temp.size() - temp_phone.size() - 1);
-		spaceIdx = temp.find_last_of(' ');
+		spaceIdx = temp.find_last_of(',');
 
 		//setting their city
 		string temp_city = (temp.substr(spaceIdx + 1, temp.size()-1));
 		new_data[i].set_city(temp_city);
 		temp = temp.substr(0, temp.size() - temp_city.size() - 1);
-		spaceIdx = temp.find_last_of(' ');
+		spaceIdx = temp.find_last_of(',');
 
 		//setting their date of birth
 		string temp_yob = (temp.substr(spaceIdx + 1, temp.size()-1)); 
@@ -651,7 +651,7 @@ void Database::update_option(char update_input, int record_idx){
 		cout << "Would you like to switch this status? (y/n): ";
 		if(cin.peek() == '\n') cin.ignore();
 		cin >> status;
-		while(status != "y" || status != "n"){
+		while(status != "y" && status != "n"){
 			cout << "That is invalid input, please re-enter (y/n): ";
 			cin >> status;
 		}
@@ -666,16 +666,82 @@ void Database::update_option(char update_input, int record_idx){
 void Database::quitting_save(){
 	ofstream fout("temp.txt");
 		
-	for(int i = 0; i < size; i++){ 
-		fout << new_data[i].get_name() << " " 
-			<< new_data[i].get_yob() << " " 
-			<< new_data[i].get_city() << " " 
-			<< new_data[i].get_phone() << " " 
+	for(int i = 0; i < size; i++){
+		fout << new_data[i].get_name() << "," 
+			<< new_data[i].get_yob() << "," 
+			<< new_data[i].get_city() << "," 
+			<< new_data[i].get_phone() << "," 
 			<< new_data[i].get_status() << '\n';
  	}
 	fout.close();
 	remove("database.txt");
 	rename("temp.txt", "database.txt");
+}
+
+//WINDOW 11: when new person is added, displays what information was entered/added
+char Database::added_person(){
+	char returnChar;
+
+	initscr();
+	noecho();
+	curs_set(0);
+
+	WINDOW* addwin = create_win();
+
+	mvwprintw(addwin, 4, 3, "The record you added is: ");
+	mvwprintw(addwin, 5, 3, "============================");
+
+	string name = new_data[size-1].get_name();
+	string yob = new_data[size-1].get_yob();
+	string city = new_data[size-1].get_city();
+	string phone = to_string(new_data[size-1].get_phone());
+	string status = new_data[size-1].get_status();
+
+	mvwprintw(addwin, 7, 3, "Name: ");
+	mvwprintw(addwin, 7, 9, name.data());
+
+	mvwprintw(addwin, 8, 3, "Year of Birth: ");
+	mvwprintw(addwin, 8, 18, yob.data());
+
+	mvwprintw(addwin, 9, 3, "City: ");
+	mvwprintw(addwin, 9, 9, city.data());
+
+	mvwprintw(addwin, 10, 3, "Phone Number: ");
+	mvwprintw(addwin, 10, 17, phone.data());
+
+	mvwprintw(addwin, 11, 3, "Vaccination Status: ");
+	mvwprintw(addwin, 11, 23, status.data());
+
+
+	mvwprintw(addwin, 13, 3, "(r) Return to main menu.");
+	mvwprintw(addwin, 15, 3, "Enter the letter of your choice: ");
+
+	char ch;
+	while((ch = wgetch(addwin))){
+		switch(ch){
+			case 'r':
+				wattron(addwin, A_STANDOUT);
+				mvwprintw(addwin, 13, 4, "r");
+				wattroff(addwin, A_STANDOUT);
+				returnChar = 'r';
+				break;
+			default:
+				mvwprintw(addwin, 13, 3, "(r) Return to main menu.");
+				mvwprintw(addwin, 15, 3, "Please enter valid letter of choice: ");
+				break;
+		}
+		if(ch == 10) break;
+	}
+	destroy_win(addwin);
+	return returnChar;
+}
+
+//helper method to check if specific person is in database
+bool Database::person_exists(string check){
+	for(int i = 0; i < size; i++){
+		if(new_data[i].get_name() == check) return 1;
+	}
+	return 0;
 }
 
 Database::~Database(){

@@ -13,6 +13,7 @@ void Menu::adding(){
 	//Ask user to enter new information in the terminal
 	person.new_person();  
 	new_database.add_data(person);  
+	new_database.added_person();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,13 +32,8 @@ void Menu::searching(char user_input){
 	search_input = search_display(user_input);
 
 	//returning to main menu display
-	// if(search_input == 'r'){ 
-	// 	cout<< "Returning...\n\n";
-	// 	//pauses program (user sees messages in terminal before returning to main menu)
-	// 	chrono::seconds dura(2);
-	// 	this_thread::sleep_for(dura);
-	// 	return;
-	// }
+	if(search_input == 'r') return;
+	
 	//user chose to search based on vaccination status information
 	string vacStatus;
 	if(search_input == 'v'){
@@ -202,38 +198,44 @@ void Menu::update(){
 	cout << "Enter full name of the person whose information you want to update: ";
 	if(cin.peek() == '\n') cin.ignore();
 	getline(cin, name);
-	if(!person.valid_name(name)){
-		while(true){
-			cout << "That is not a valid name, please provide a different name of alphabetical characters: ";
-			getline(cin, name);
-			if(person.valid_name(name)) break; 
-		}              
-	}
+	while(!person.valid_name(name)){
+		cout << "That is not a valid name, please provide a different name of alphabetical characters: ";
+		getline(cin, name);
+	}     
+	while(!new_database.person_exists(name)){
+		cout << "\nThis person is not in the database.\n";
+		cout << "Press (r) to return or re-enter please: ";
+		getline(cin, name);
+		if(name == "r") return;
+	}      
 	cout << '\n';
 
 	vector<int> matches_index;
 	new_database.search_name(name, matches_index);
-	int record_idx = matches_index.at(0);
-	cout << "====================================================\n";
-	if(matches_index.size() > 1){
-		cout << "Enter the number of the record you want to update: ";
-		int record_num;
-		cin >> record_num;
-		while(true){
-			if (record_num < 1 && record_num > matches_index.size()){
-				cout << "There are only " << matches_index.size() << " results found.\n";
-				cout << "Please re-enter the correct number of the record: ";
-				cin >> record_num;
-			} else {
-				break;
+
+ 	if (matches_index.size() > 0){
+		int record_idx = matches_index.at(0);
+		cout << "====================================================\n";
+		if(matches_index.size() > 1){
+			cout << "Enter the number of the record you want to update: ";
+			int record_num;
+			cin >> record_num;
+			while(true){
+				if (record_num < 1 && record_num > matches_index.size()){
+					cout << "There are only " << matches_index.size() << " results found.\n";
+					cout << "Please re-enter the correct number of the record: ";
+					cin >> record_num;
+				} else {
+					break;
+				}
 			}
+			record_idx = matches_index.at(record_num-1);		
 		}
-		record_idx = matches_index.at(record_num-1);		
+		update_input = update_display();
+		endwin();
+		
+		new_database.update_option(update_input, record_idx);
 	}
-	update_input = update_display();
-	endwin();
-	
-	new_database.update_option(update_input, record_idx);
 	
 	returning();
 }

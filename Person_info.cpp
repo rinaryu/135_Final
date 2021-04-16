@@ -70,23 +70,20 @@ void Person_info::new_person (){
 			if(valid_city(new_city)) break;
 		}
 	}
+	new_city.at(0) = toupper(new_city.at(0));
 	cout << '\n';
 
 	//Fourth: Getting phone number of new person. 
 	cout << "Please enter their phone number: ";
 	cin >> phone_num;
 	while(true){
-		if(cin.fail()){
-			cout << "This is not a number, please re-enter: ";
+		if(cin.fail() || !valid_phone(phone_num)){
+			cout << "This is not a valid phone number in BC, please re-enter: ";
 			cin.clear();
 			cin.ignore(10000, '\n');
 			cin >> phone_num;
-		} else if(valid_phone(phone_num)){
-			break; 
-		} else {
-			cout << "This is not a valid phone number in BC, please re-enter: ";
-			cin >> phone_num;
-		}
+		} 
+		if(valid_phone(phone_num)) break;
 	}
 	cout << '\n';
 
@@ -97,14 +94,8 @@ void Person_info::new_person (){
 		cout<<"That is not a valid answer, please enter y or n: ";
 		cin >> vaccinated;
 	}
+	vaccinated = toupper(vaccinated.at(0));
 	cout << '\n';
-	
-	//Sixth: Inform user that adding is successful
-	cout << "New record has been added! \n";
-	cout << "Returning to Main Menu...\n";
-	cout << '\n';
-	chrono::seconds dura(3);
-	this_thread::sleep_for(dura);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////

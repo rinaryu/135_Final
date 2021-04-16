@@ -117,6 +117,9 @@ public:
 	void delete_status(string status);
 	
 	void update_option(char update_input, int record_idx);
+
+	char added_person();
+	bool person_exists(string check);
 	
 	void quitting_save();
 
