@@ -14,6 +14,22 @@ Full Name: Ngan Ngoc (Lynn) Nguyen
 Student ID: 301420556
 Email: nnn2@sfu.ca
 
+Statement of Originality
+------------------------
+All the code and comments below are our own original work. For any non-
+original work, we have provided citations in the comments with enough detail
+so that someone can see the exact source and extent of the borrowed work.
+
+In addition, we have not shared this work with anyone else, and we have not
+seen solutions from other students, tutors, websites, books, etc.
+
+References
+----------
+1. http://www.cs.ukzn.ac.za/~hughm/os/notes/ncurses.html#using
+2. https://www.youtube.com/watch?v=lV-OPQhPvSM&list=PL2U2TQ__OrQ8jTf0_noNKtHMuYlyxQl4v
+3. https://tldp.org/HOWTO/NCURSES-Programming-HOWTO/index.html
+4. https://docs.oracle.com/cd/E88353_01/html/E37849/makehtml-id-5.html
+
 Instructions for Compiling and Running
 --------------------------------------
 Step 1: Install the ncurses library by typing this at the terminal command line:
@@ -40,7 +56,7 @@ none (that we know of >.>)
 
 Extra Features
 --------------
-1. Update feature
+Update feature
     - user can search for a person in the database based on their full name
     - if a record is found they can choose to update/change
         + name
