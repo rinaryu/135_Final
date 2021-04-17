@@ -84,10 +84,25 @@ void Database::get_data(){
 }
 
 //////////////////////////////////////Adding a Record////////////////////////////////////////////
+bool Database::check_data_exist(Person_info person){
+	for(int i = 0; i < size; i++){
+		if (new_data[i].get_name() == person.get_name() &&
+			new_data[i].get_yob() == person.get_yob() &&
+			new_data[i].get_city() == person.get_city() &&
+			new_data[i].get_phone() == person.get_phone() &&
+			new_data[i].get_status() == person.get_status()){
+			return false;
+		}
+	}
+	
+	return true;
+}
+
 void Database::add_data(const Person_info& person){
 	if(size >= capacity){
 	resize();
 	}
+	
 	new_data[size] = person;
 	size++;
 }
@@ -662,6 +677,7 @@ void Database::update_option(char update_input, int record_idx){
 		print_record(record_idx);
 	}
 }
+
 //////////////////////////////////////Saving Records/////////////////////////////////////////////
 void Database::quitting_save(){
 	ofstream fout("temp.txt");
@@ -679,16 +695,38 @@ void Database::quitting_save(){
 }
 
 //WINDOW 11: when new person is added, displays what information was entered/added
-char Database::added_person(){
+char Database::added_person(bool exist){
 	char returnChar;
 
 	initscr();
 	noecho();
 	curs_set(0);
+	
+	//Set background color
+	start_color();
+	init_pair(1, COLOR_CYAN, COLOR_WHITE);
+	init_pair(2, COLOR_RED, COLOR_WHITE);
+	wbkgd(stdscr, COLOR_PAIR(1));
 
 	WINDOW* addwin = create_win();
-
-	mvwprintw(addwin, 4, 3, "The record you added is: ");
+	
+	
+	if(exist == false){
+		wattron(addwin, COLOR_PAIR(1));
+		wattron(addwin, A_BOLD);
+		mvwprintw(addwin, 4, 3, "The record you added is: ");
+		wattroff(addwin, COLOR_PAIR(1));
+		wattroff(addwin, A_BOLD);
+	} 
+	if (exist == true){
+		wattron(addwin, COLOR_PAIR(1));
+		wattron(addwin, A_BOLD);
+		mvwprintw(addwin, 3, 3, "The record already exists in the database! ");
+		mvwprintw(addwin, 4, 3, "It will not be added again. ");
+		wattroff(addwin, COLOR_PAIR(1));
+		wattroff(addwin, A_BOLD);
+	}
+	
 	mvwprintw(addwin, 5, 3, "============================");
 
 	string name = new_data[size-1].get_name();
@@ -714,7 +752,7 @@ char Database::added_person(){
 
 
 	mvwprintw(addwin, 13, 3, "(r) Return to main menu.");
-	mvwprintw(addwin, 15, 3, "Enter the letter of your choice: ");
+	mvwprintw(addwin, 15, 3, "Enter the letter (r) to return: ");
 
 	char ch;
 	while((ch = wgetch(addwin))){
@@ -723,13 +761,19 @@ char Database::added_person(){
 				wattron(addwin, A_STANDOUT);
 				mvwprintw(addwin, 13, 4, "r");
 				wattroff(addwin, A_STANDOUT);
+				mvwprintw(addwin, 15, 3, "Enter the letter to return, PRESS ENTER: r");
+				wclrtoeol(addwin);
 				returnChar = 'r';
 				break;
 			default:
 				mvwprintw(addwin, 13, 3, "(r) Return to main menu.");
-				mvwprintw(addwin, 15, 3, "Please enter valid letter of choice: ");
-				break;
+				wattron(addwin, A_STANDOUT);
+				mvwprintw(addwin, 15, 3, "Please enter valid letter of your choice! ");
+				wattroff(addwin, A_STANDOUT);
+				wclrtoeol(addwin);
+				//break;
 		}
+		//if(ch == 10) break;
 		if(ch == 10 && returnChar == 'r') break;
 	}
 	destroy_win(addwin);
