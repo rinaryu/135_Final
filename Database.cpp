@@ -739,14 +739,14 @@ char Database::added_person(bool exist){
 	WINDOW* addwin = create_win();
 	
 	
-	if(exist == false){
+	if(exist == true){
 		wattron(addwin, COLOR_PAIR(1));
 		wattron(addwin, A_BOLD);
 		mvwprintw(addwin, 4, 3, "The record you added is: ");
 		wattroff(addwin, COLOR_PAIR(1));
 		wattroff(addwin, A_BOLD);
 	} 
-	if (exist == true){
+	if (exist == false){
 		wattron(addwin, COLOR_PAIR(1));
 		wattron(addwin, A_BOLD);
 		mvwprintw(addwin, 3, 3, "The record already exists in the database! ");
