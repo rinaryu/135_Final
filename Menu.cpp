@@ -307,11 +307,13 @@ long long Menu::search_num_input(){
 
 string Menu::returning(){
 	string returnResp;
-	cout << "Enter (r) if you would like to return.\n";
+	cout << "\tEnter (r) to return to Main Menu: ";
 	cin >> returnResp;
 	while(returnResp != "r"){
-		cout << "Invalid response\n";
+		cout << "\tInvalid response, please re-enter: ";
 		cin >> returnResp;
 	}
+	cout << '\n';
+	cout << "==============================END OF FEATURE===========================\n\n";
 	return returnResp;
 }
