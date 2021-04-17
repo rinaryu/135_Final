@@ -93,7 +93,6 @@ public:
 	void search_area_code(int code);
 	void search_status(string status);
 
-
 	void list_name_alpha();
 	void list_city_alpha();
 	void list_status_alpha();

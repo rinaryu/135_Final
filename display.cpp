@@ -962,9 +962,9 @@ char list_int_display(){
 }
 
 void quit_display(){
-	initscr(); //Initiaize the screen 
-	noecho(); //hides user input from window
-	curs_set(0); //hides screen cursor
+	initscr(); 
+	noecho(); 
+	curs_set(0); 
 
 	WINDOW* listwin = create_win();
 	destroy_win(listwin);

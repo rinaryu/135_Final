@@ -14,7 +14,7 @@ void Menu::adding(){
 	person.new_person();  
 	bool exist_data = new_database.check_data_exist(person);
 	
-	if (exist_data == true){
+	if (exist_data){
 		new_database.add_data(person);
 	}
 	new_database.added_person(exist_data);

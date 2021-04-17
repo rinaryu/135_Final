@@ -84,6 +84,7 @@ void Database::get_data(){
 }
 
 //////////////////////////////////////Adding a Record////////////////////////////////////////////
+//checks to see if the new data trying to be added doesn't already exist in the database
 bool Database::check_data_exist(Person_info person){
 	for(int i = 0; i < size; i++){
 		if (new_data[i].get_name() == person.get_name() &&
@@ -94,7 +95,6 @@ bool Database::check_data_exist(Person_info person){
 			return false;
 		}
 	}
-	
 	return true;
 }
 
@@ -666,13 +666,16 @@ void Database::update_option(char update_input, int record_idx){
 		cout << "Would you like to switch this status? (y/n): ";
 		if(cin.peek() == '\n') cin.ignore();
 		cin >> status;
-		while(status != "y" && status != "n"){
+		while(status != "y" && status != "n" && status != "Y" && status != "N"){
 			cout << "That is invalid input, please re-enter (y/n): ";
 			cin >> status;
 		}
-		if(status == "y") new_data[record_idx].set_status("n");
-		if(status == "n") new_data[record_idx].set_status("y");
-
+		if((status == "y" || status == "Y") && new_data[record_idx].get_status() == "Y"){
+			new_data[record_idx].set_status("N");
+		}
+		else if((status == "y" || status == "Y") && new_data[record_idx].get_status() == "N"){
+			new_data[record_idx].set_status("Y");
+		}
 		cout << "Record has been updated: \n";
 		print_record(record_idx);
 	}
