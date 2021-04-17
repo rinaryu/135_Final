@@ -449,7 +449,7 @@ void Database::delete_name(string name){
 	delete[] new_data;
 	new_data = temp_arr;
 	size = temp_size;
-	print_all();
+	
 }
 
 void Database::delete_substr_name(string nameSubstr){
@@ -466,7 +466,7 @@ void Database::delete_substr_name(string nameSubstr){
 	delete[] new_data;
 	new_data = temp_arr;
 	size = temp_size;
-	print_all();
+	
 }	
 
 void Database::delete_yob(string yob){
@@ -482,7 +482,7 @@ void Database::delete_yob(string yob){
 	delete[] new_data;
 	new_data = temp_arr;
 	size = temp_size;
-	print_all();
+	
 }
 
 void Database::delete_yob_range(int low, int high){
@@ -499,7 +499,7 @@ void Database::delete_yob_range(int low, int high){
 	delete[] new_data;
 	new_data = temp_arr;
 	size = temp_size;
-	print_all();
+	
 }
 
 void Database::delete_city(string city){
@@ -515,7 +515,7 @@ void Database::delete_city(string city){
 	delete[] new_data;
 	new_data = temp_arr;
 	size = temp_size;
-	print_all();
+	
 }
 
 void Database::delete_substr_city(string citySubstr){
@@ -532,7 +532,7 @@ void Database::delete_substr_city(string citySubstr){
 	delete[] new_data;
 	new_data = temp_arr;
 	size = temp_size;
-	print_all();
+	
 }
 
 void Database::delete_phone(long long phone){
@@ -548,7 +548,7 @@ void Database::delete_phone(long long phone){
 	delete[] new_data;
 	new_data = temp_arr;
 	size = temp_size;
-	print_all();
+	
 }
 
 void Database::delete_substr_phone(long long phoneSubstr){
@@ -565,7 +565,7 @@ void Database::delete_substr_phone(long long phoneSubstr){
 	delete[] new_data;
 	new_data = temp_arr;
 	size = temp_size;
-	print_all();
+	
 }
 
 void Database::delete_phone_area(int code){
@@ -584,7 +584,7 @@ void Database::delete_phone_area(int code){
 	delete[] new_data;
 	new_data = temp_arr;
 	size = temp_size;
-	print_all();
+	
 }
 
 void Database::delete_status(string status){
@@ -600,7 +600,7 @@ void Database::delete_status(string status){
 	delete[] new_data;
 	new_data = temp_arr;
 	size = temp_size;
-	print_all();
+	
 }
 
 //////////////////////////////////////Updating Records///////////////////////////////////////////
