@@ -12,8 +12,12 @@ Menu::Menu(){
 void Menu::adding(){
 	//Ask user to enter new information in the terminal
 	person.new_person();  
-	new_database.add_data(person);  
-	new_database.added_person();
+	bool exist_data = new_database.check_data_exist(person);
+	
+	if (exist_data == true){
+		new_database.add_data(person);
+	}
+	new_database.added_person(exist_data);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
