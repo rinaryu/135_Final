@@ -109,11 +109,11 @@ void Database::add_data(const Person_info& person){
 
 //////////////////////////////////////Finding a Record////////////////////////////////////////////
 void Database::print_record(int i){
-	cout << "Full name: " << new_data[i].get_name() << '\n';
-	cout << "Year of birth: " << new_data[i].get_yob() << '\n';
-	cout << "City that resides in: " << new_data[i].get_city() << '\n';
-	cout << "Contact: " << new_data[i].get_phone() << '\n';
-	cout << "Vaccination status: " << new_data[i].get_status() << '\n';
+	cout << "\tFull name: " << new_data[i].get_name() << '\n';
+	cout << "\tYear of birth: " << new_data[i].get_yob() << '\n';
+	cout << "\tCity that resides in: " << new_data[i].get_city() << '\n';
+	cout << "\tContact: " << new_data[i].get_phone() << '\n';
+	cout << "\tVaccination status: " << new_data[i].get_status() << '\n';
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -301,10 +301,22 @@ void Database::search_area_code(int code){
 
 //////////////////////////////////////Listing Records//////////////////////////////////////////////
 void Database::print_all(){
+	cout << left << setw(25) << "Full Name";
+	cout << left << setw(20) << "Year of Birth";
+	cout << left << setw(25) << "City";
+	cout << left << setw(14) << "Phone Number";
+	cout << left << setw(10) << "Vaccination Status" << '\n';
+	
+	cout << left << setw(25) << "=========";
+	cout << left << setw(20) << "=============";
+	cout << left << setw(25) << "====";
+	cout << left << setw(14) << "============";
+	cout << left << setw(10) << "==================" << '\n';
+	
 	for (int i = 0; i < size; i++){
 		cout << left << setw(25) << new_data[i].get_name() ;
-		cout << left << setw(7) << new_data[i].get_yob();
-		cout << left << setw(20) << new_data[i].get_city();
+		cout << left << setw(20) << new_data[i].get_yob();
+		cout << left << setw(25) << new_data[i].get_city();
 		cout << left << setw(14) << new_data[i].get_phone();
 		cout << left << setw(10) << new_data[i].get_status() << '\n';
 	}
