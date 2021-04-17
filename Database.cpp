@@ -592,38 +592,71 @@ void Database::delete_status(string status){
 }
 
 //////////////////////////////////////Updating Records///////////////////////////////////////////
-void Database::update_option(char update_input, int record_idx){
-	//if(update_input == 'r'){}
+char Database::update_option(char update_input, int record_idx){
 
+	if(update_input == 'r') return 'r';
 	if(update_input == 'n'){
 		string full_name;
 		cout << "What name do you want to change to: ";
 		if(cin.peek() == '\n') cin.ignore();
 		getline(cin, full_name);
-		while(!new_p.valid_name(full_name)){
+		while(true){
 			if (new_data[record_idx].get_name() == full_name){
+				//check if name is already the current status
 				cout << "The name entered is the same. Please re-enter to update: ";
+				if(cin.peek() == '\n') cin.ignore();
 				getline(cin, full_name);
-			} else {
+			} else if(!new_p.valid_name(full_name)){
 				cout << "That is not a valid name, please provide a different name of alphabetical characters: ";
+				if(cin.peek() == '\n') cin.ignore();
 				getline(cin, full_name);
-			}	 
+			} else break;	 
 		} 
-		
 		new_data[record_idx].set_name(full_name);  
 		cout << "Record has been updated: \n";
 		print_record(record_idx);           
 	}
-	
+
+	if(update_input == 'y'){
+		string yob;
+		cout << "What year of birth do you want to change to: ";
+		if(cin.peek() == '\n') cin.ignore();
+		getline(cin, yob);
+		while(true){
+			if (new_data[record_idx].get_yob() == yob){
+				//check if year of birth is already the current status
+				cout << "The year entered is the same. Please re-enter to update: ";
+				if(cin.peek() == '\n') cin.ignore();
+				getline(cin, yob);
+			} else if(!new_p.valid_year(yob)){
+				cout << "That is not a valid year of birth, please re-enter: ";
+				if(cin.peek() == '\n') cin.ignore();
+				getline(cin, yob);
+			} else break;	 
+		}
+		new_data[record_idx].set_yob(yob);
+		cout << "Record has been updated: \n";
+		print_record(record_idx);
+	}
+
 	if(update_input == 'c'){
 		string city;
 		cout << "What city do you want to change to: ";
 		if(cin.peek() == '\n') cin.ignore();
 		getline(cin, city);
-		while(!new_p.valid_city(city)){
-			cout << "That is not a valid city, please enter a city in the Lower Mainland: ";
-			getline(cin, city);
+		while(true){
+			if (new_data[record_idx].get_city() == city){
+				//check if city is already the current status
+				cout << "The city entered is the same. Please re-enter to update: ";
+				if(cin.peek() == '\n') cin.ignore();
+				getline(cin, city);
+			} else if(!new_p.valid_city(city)){
+				cout << "That is not a valid city, please enter a city in the Lower Mainland: ";
+				if(cin.peek() == '\n') cin.ignore();
+				getline(cin, city);
+			} else break;	 
 		}
+		
 		new_data[record_idx].set_city(city);
 		cout << "Record has been updated: \n";
 		print_record(record_idx);
@@ -634,32 +667,23 @@ void Database::update_option(char update_input, int record_idx){
 		cout << "What phone number do you want to change to: ";
 		if(cin.peek() == '\n') cin.ignore();
 		cin >> new_phone;
-		while(!new_p.valid_phone(new_phone)){
-			cout << "That is not a valid phone number, please re-enter: ";
-			cin >> new_phone;
+		while(true){
+			if(new_data[record_idx].get_phone() == new_phone){
+				//check if phone is already the current status
+				cout << "The phone number entered is the same. Please re-enter to update: ";
+				if(cin.peek() == '\n') cin.ignore();
+				cin >> new_phone;
+			}
+			if(!new_p.valid_phone(new_phone)){
+				cout << "That is not a valid phone number, please re-enter: ";
+				if(cin.peek() == '\n') cin.ignore();
+				cin >> new_phone;
+			} else break;
 		}
 		new_data[record_idx].set_phone(new_phone);
 		cout << "Record has been updated: \n";
 		print_record(record_idx);
 	}
-
-	if(update_input == 'y'){
-		string year;
-		cout << "What year of birth do you want to change to: ";
-		if(cin.peek() == '\n') cin.ignore();
-		cin >> year;
-		while(true){
-			if(!new_p.valid_year(year)){
-				cout << "That is not a valid year of birth, please re-enter: ";
-				getline(cin, year);
-			}
-			if(!new_p.valid_year(year)) break;
-		}
-		new_data[record_idx].set_yob(year);
-		cout << "Record has been updated: \n";
-		print_record(record_idx);
-	}
-
 	if(update_input == 'v'){
 		string status;
 		cout << "Currently the status is: " << new_data[record_idx].get_status() << "\n";
@@ -679,6 +703,7 @@ void Database::update_option(char update_input, int record_idx){
 		cout << "Record has been updated: \n";
 		print_record(record_idx);
 	}
+	return ' ';
 }
 
 //////////////////////////////////////Saving Records/////////////////////////////////////////////

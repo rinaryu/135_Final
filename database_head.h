@@ -116,7 +116,7 @@ public:
 	void delete_phone_area(int code);
 	void delete_status(string status);
 	
-	void update_option(char update_input, int record_idx);
+	char update_option(char update_input, int record_idx);
 
 	char added_person(bool exist);
 	bool person_exists(string check);

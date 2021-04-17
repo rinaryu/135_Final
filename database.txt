@@ -6,7 +6,7 @@ Quinten Crane,1994,Coquitlam,6049450046,N
 Prince Mata,1999,Coquitlam,6044680449,Y
 Nickolas Perry,1990,Coquitlam,6049422927,Y
 Nehemiah Dennis,1951,Burnaby,6049839830,N
-Nash Kerr,1993,Delta,6045253889,Y
+Nash Kerr,2002,Delta,6045253889,Y
 Miriam Gallagher,1973,Delta,6045170595,Y
 Melanie Freeman,1956,Vancouver,6044673985,Y
 Mattie Washington,1997,Vancouver,6049317268,Y

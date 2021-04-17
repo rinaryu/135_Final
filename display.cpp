@@ -581,11 +581,12 @@ char update_display(){
 	mvwprintw(updatewin, 5, 3, "============================");
 	mvwprintw(updatewin, 8, 3, "Which field would you like to update? ");
 	mvwprintw(updatewin, 9, 3, "(n) Name.");
-	mvwprintw(updatewin, 10, 3, "(c) City.");
-	mvwprintw(updatewin, 11, 3, "(p) Phone number.");
-	mvwprintw(updatewin, 12, 3, "(v) Vaccination status.");
-	mvwprintw(updatewin, 15, 3, "(r) Return to main menu.");
-	mvwprintw(updatewin, 17, 3, "Enter the letter of your choice: ");
+	mvwprintw(updatewin, 10, 3, "(y) Year of Birth.");
+	mvwprintw(updatewin, 11, 3, "(c) City.");
+	mvwprintw(updatewin, 12, 3, "(p) Phone number.");
+	mvwprintw(updatewin, 13, 3, "(v) Vaccination status.");
+	mvwprintw(updatewin, 16, 3, "(r) Return to main menu.");
+	mvwprintw(updatewin, 18, 3, "Enter the letter of your choice: ");
 
 	//detecting which option is being pressed by the user 
 	char ch;
@@ -595,59 +596,77 @@ char update_display(){
 				wattron(updatewin, COLOR_PAIR(2));
 				mvwprintw(updatewin, 9, 4, "n");
 				wattroff(updatewin, COLOR_PAIR(2));
-				mvwprintw(updatewin, 10, 4, "c");
-				mvwprintw(updatewin, 11, 4, "p");
-				mvwprintw(updatewin, 12, 4, "v");
-				mvwprintw(updatewin, 15, 4, "r");
-				mvwprintw(updatewin, 17, 3, "Enter the letter of your choice, PRESS ENTER: n");
+				mvwprintw(updatewin, 10, 4, "y");
+				mvwprintw(updatewin, 11, 4, "c");
+				mvwprintw(updatewin, 12, 4, "p");
+				mvwprintw(updatewin, 13, 4, "v");
+				mvwprintw(updatewin, 16, 4, "r");
+				mvwprintw(updatewin, 18, 3, "Enter the letter of your choice, PRESS ENTER: n");
 				wclrtoeol(updatewin);
 				returnChar = 'n';
 				break;
-			case 'c':
+			case 'y':
 				wattron(updatewin, COLOR_PAIR(2));
-				mvwprintw(updatewin, 10, 4, "c");
+				mvwprintw(updatewin, 10, 4, "y");
 				wattroff(updatewin, COLOR_PAIR(2));
 				mvwprintw(updatewin, 9, 4, "n");
-				mvwprintw(updatewin, 11, 4, "p");
-				mvwprintw(updatewin, 12, 4, "v");
-				mvwprintw(updatewin, 15, 4, "r");
-				mvwprintw(updatewin, 17, 3, "Enter the letter of your choice, PRESS ENTER: c");
+				mvwprintw(updatewin, 11, 4, "c");
+				mvwprintw(updatewin, 12, 4, "p");
+				mvwprintw(updatewin, 13, 4, "v");
+				mvwprintw(updatewin, 16, 4, "r");
+				mvwprintw(updatewin, 18, 3, "Enter the letter of your choice, PRESS ENTER: y");
+				wclrtoeol(updatewin);
+				returnChar = 'y';
+				break;
+			case 'c':
+				wattron(updatewin, COLOR_PAIR(2));
+				mvwprintw(updatewin, 11, 4, "c");
+				wattroff(updatewin, COLOR_PAIR(2));
+				mvwprintw(updatewin, 9, 4, "n");
+				mvwprintw(updatewin, 10, 4, "y");
+				mvwprintw(updatewin, 12, 4, "p");
+				mvwprintw(updatewin, 13, 4, "v");
+				mvwprintw(updatewin, 16, 4, "r");
+				mvwprintw(updatewin, 18, 3, "Enter the letter of your choice, PRESS ENTER: c");
 				wclrtoeol(updatewin);
 				returnChar = 'c';
 				break;
 			case 'p':
 				wattron(updatewin, COLOR_PAIR(2));
-				mvwprintw(updatewin, 11, 4, "p");
+				mvwprintw(updatewin, 12, 4, "p");
 				wattroff(updatewin, COLOR_PAIR(2));
 				mvwprintw(updatewin, 9, 4, "n");
-				mvwprintw(updatewin, 10, 4, "c");
-				mvwprintw(updatewin, 12, 4, "v");
-				mvwprintw(updatewin, 15, 4, "r");
-				mvwprintw(updatewin, 17, 3, "Enter the letter of your choice, PRESS ENTER: p");
+				mvwprintw(updatewin, 10, 4, "y");
+				mvwprintw(updatewin, 11, 4, "c");
+				mvwprintw(updatewin, 13, 4, "v");
+				mvwprintw(updatewin, 16, 4, "r");
+				mvwprintw(updatewin, 18, 3, "Enter the letter of your choice, PRESS ENTER: p");
 				wclrtoeol(updatewin);
 				returnChar = 'p';
 				break;
 			case 'v':
 				wattron(updatewin, COLOR_PAIR(2));
-				mvwprintw(updatewin, 12, 4, "v");
+				mvwprintw(updatewin, 13, 4, "v");
 				wattroff(updatewin, COLOR_PAIR(2));
 				mvwprintw(updatewin, 9, 4, "n");
-				mvwprintw(updatewin, 10, 4, "c");
-				mvwprintw(updatewin, 11, 4, "p");
-				mvwprintw(updatewin, 15, 4, "r");
-				mvwprintw(updatewin, 17, 3, "Enter the letter of your choice, PRESS ENTER: v");
+				mvwprintw(updatewin, 10, 4, "y");
+				mvwprintw(updatewin, 11, 4, "c");
+				mvwprintw(updatewin, 12, 4, "p");
+				mvwprintw(updatewin, 16, 4, "r");
+				mvwprintw(updatewin, 18, 3, "Enter the letter of your choice, PRESS ENTER: v");
 				wclrtoeol(updatewin);
 				returnChar = 'v';
 				break;
 			case 'r':
 				wattron(updatewin, COLOR_PAIR(2));
-				mvwprintw(updatewin, 15, 4, "r");
+				mvwprintw(updatewin, 16, 4, "r");
 				wattroff(updatewin, COLOR_PAIR(2));
 				mvwprintw(updatewin, 9, 4, "n");
-				mvwprintw(updatewin, 10, 4, "c");
-				mvwprintw(updatewin, 11, 4, "p");
-				mvwprintw(updatewin, 12, 4, "v");
-				mvwprintw(updatewin, 17, 3, "Enter the letter of your choice, PRESS ENTER: r");
+				mvwprintw(updatewin, 10, 4, "y");
+				mvwprintw(updatewin, 11, 4, "c");
+				mvwprintw(updatewin, 12, 4, "p");
+				mvwprintw(updatewin, 13, 4, "v");
+				mvwprintw(updatewin, 18, 3, "Enter the letter of your choice, PRESS ENTER: r");
 				wclrtoeol(updatewin);
 				returnChar = 'r';
 				break;
@@ -664,7 +683,7 @@ char update_display(){
 			break;
 		}
 		if(ch == 10 && (returnChar == 'n' || returnChar == 'c' || returnChar == 'p' || 
-						returnChar == 'v' || returnChar == 'r')) break;
+						returnChar == 'v' || returnChar == 'r' || returnChar == 'y')) break;
 	}  
 	destroy_win(updatewin);
 	return returnChar;

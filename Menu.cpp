@@ -217,6 +217,7 @@ void Menu::update(){
 	vector<int> matches_index;
 	new_database.search_name(name, matches_index);
 
+	//if multiple records under the same name are found
  	if (matches_index.size() > 0){
 		int record_idx = matches_index.at(0);
 		cout << "====================================================\n";
@@ -238,10 +239,9 @@ void Menu::update(){
 		update_input = update_display();
 		endwin();
 		
-		new_database.update_option(update_input, record_idx);
+		char r = new_database.update_option(update_input, record_idx);
+		if(r != 'r') returning();
 	}
-	
-	returning();
 }
 ///////////////////////////////////////Listing Records///////////////////////////////////////
 char Menu::listing(){
@@ -251,12 +251,7 @@ char Menu::listing(){
 
 	search_input = list_display();
 
-	if (search_input == 'r') {
-		// cout << "Returning...\n";
-		// chrono::seconds dura(2);
-		// this_thread::sleep_for(dura);
-		return search_input;
-	}
+	if (search_input == 'r') return search_input;
 	
 	if(search_input == 'n' || search_input == 'c' || search_input == 'v'){//string fields
 		method = list_str_display();
