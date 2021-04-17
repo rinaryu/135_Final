@@ -77,6 +77,7 @@ public:
 	void get_data();
 	void resize();
 	
+	bool check_data_exist(Person_info person);
 	void add_data(const Person_info& person);
 	
 	void print_all();
@@ -118,7 +119,7 @@ public:
 	
 	void update_option(char update_input, int record_idx);
 
-	char added_person();
+	char added_person(bool exist);
 	bool person_exists(string check);
 	
 	void quitting_save();
