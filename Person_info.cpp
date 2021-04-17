@@ -31,11 +31,13 @@ void Person_info::new_person (){
 	cout << "ADDING NEW PERSON\n";
 	cout << "=================\n";
 	cout << "To enter a new person in the database, first provide their first and last name: ";
+	if(cin.peek() == '\n') cin.ignore();
 	getline(cin, new_name); 
 	//Call valid_name to check if user input is valid (is a valid name) 
 	if(!valid_name(new_name)){
 		while(true){
 			cout << "That is not a valid name, please provide a different name of alphabetical characters: ";
+			if(cin.peek() == '\n') cin.ignore();
 			getline(cin, new_name);
 			if(valid_name(new_name)) break; 
 		}              
@@ -44,10 +46,12 @@ void Person_info::new_person (){
 
 	//Second: Getting birthday of new person. 
 	cout << "Please enter their year of birth: ";
+	if(cin.peek() == '\n') cin.ignore();
 	getline(cin, yob);
 	while(true){
 		if(!valid_year(yob)){
-			cout << "That is not a valid year of birth, please re-enter: ";
+			cout << "That is not a valid year of birth, please re-enter (from 1940 to 2003): ";
+			if(cin.peek() == '\n') cin.ignore();
 			getline(cin, yob);
 		}
 		if(valid_year(yob)) break;
@@ -56,6 +60,7 @@ void Person_info::new_person (){
 
 	//Third: Getting the city that the new person resides in. 
 	cout << "Please enter the city in the Lower Mainland that they reside in: ";
+	if(cin.peek() == '\n') cin.ignore();
 	getline(cin, new_city);
 	//Changing the user input to all lowercase letters
 	for(int i = 0; i < new_city.size(); i++) new_city.at(i) = towlower(new_city.at(i));
@@ -63,6 +68,7 @@ void Person_info::new_person (){
 	if(!valid_city(new_city)){
 		while(true){
 			cout << "That is not a valid city, please enter a city in the Lower Mainland: ";
+			if(cin.peek() == '\n') cin.ignore();
 			getline(cin, new_city);
 			//Changing the user input to all lowercase letters
 			for(int i = 0; i < new_city.size(); i++) new_city.at(i) = towlower(new_city.at(i));
@@ -75,6 +81,7 @@ void Person_info::new_person (){
 
 	//Fourth: Getting phone number of new person. 
 	cout << "Please enter their phone number: ";
+	if(cin.peek() == '\n') cin.ignore();
 	cin >> phone_num;
 	while(true){
 		if(cin.fail() || !valid_phone(phone_num)){
@@ -89,6 +96,7 @@ void Person_info::new_person (){
 
 	//Fifth: Getting if new person is vaccinated or not. 
 	cout << "Is the new person vaccinated? (y)es or (n)o: ";
+	if(cin.peek() == '\n') cin.ignore();
 	cin >> vaccinated;
 	while(vaccinated != "y" && vaccinated != "n"){
 		cout<<"That is not a valid answer, please enter y or n: ";
