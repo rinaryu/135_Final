@@ -147,20 +147,21 @@ char feature_display(){
 				returnChar = 'q';
 				break;
 			default:
-			mvwprintw(mainwin, 8, 3, "(a) Add new person's information.");
-			mvwprintw(mainwin, 9, 3, "(s) Search specific information.");
-			mvwprintw(mainwin, 10, 3, "(u) Update personal information.");
-			mvwprintw(mainwin, 11, 3, "(l) List all records.");
-			mvwprintw(mainwin, 12, 3, "(d) Delete data.");
-			mvwprintw(mainwin, 13, 3, "(q) Quit.");
-			wattron(mainwin, A_STANDOUT);
-			mvwprintw(mainwin, 15, 3, "Please enter valid letter of your choice! ");
-			wattroff(mainwin, A_STANDOUT);
-			wclrtoeol(mainwin);
-			
-			break;
+				mvwprintw(mainwin, 8, 3, "(a) Add new person's information.");
+				mvwprintw(mainwin, 9, 3, "(s) Search specific information.");
+				mvwprintw(mainwin, 10, 3, "(u) Update personal information.");
+				mvwprintw(mainwin, 11, 3, "(l) List all records.");
+				mvwprintw(mainwin, 12, 3, "(d) Delete data.");
+				mvwprintw(mainwin, 13, 3, "(q) Quit.");
+				wattron(mainwin, A_STANDOUT);
+				mvwprintw(mainwin, 15, 3, "Please enter valid letter of your choice! ");
+				wattroff(mainwin, A_STANDOUT);
+				wclrtoeol(mainwin);
+				break;
 		}
-		if(ch == 10) break; //if user presses enter -- break while loop
+		//if user presses enter -- break while loop
+		if(ch == 10 && (returnChar == 'a'|| returnChar == 's'|| returnChar == 'u'|| 
+						returnChar == 'd'|| returnChar == 'l'|| returnChar == 'q')) break;
 	}  
 	destroy_win(mainwin);
 	return returnChar;
@@ -301,15 +302,15 @@ char search_display(char response){
 				mvwprintw(searchwin, 11, 3, "(c) City.");
 				mvwprintw(searchwin, 12, 3, "(p) Phone number.");
 				mvwprintw(searchwin, 13, 3, "(v) Vaccination status.");
-
 				mvwprintw(searchwin, 15, 3, "(r) Return to main menu.");
 				wattron(searchwin, A_STANDOUT);
 				mvwprintw(searchwin, 17, 3, "Please enter valid letter of your choice! ");
 				wattroff(searchwin, A_STANDOUT);
 				wclrtoeol(searchwin);
-			break;
+				break;
 		}
-		if(ch == 10) break;
+		if(ch == 10 && (returnChar == 'n' || returnChar == 'y' || returnChar == 'c' ||
+						returnChar == 'p' || returnChar == 'v' || returnChar == 'r')) break;
 	}  
 	destroy_win(searchwin);
 	return returnChar;
@@ -387,9 +388,9 @@ char search_str_display(){
 				mvwprintw(searchwin, 15, 3, "Please enter valid letter of your choice! ");
 				wattroff(searchwin, A_STANDOUT);
 				wclrtoeol(searchwin);
-			break;
+				break;
 		}
-		if(ch == 10) break;
+		if(ch == 10 && (returnChar == 'e' || returnChar == 'o' || returnChar == 'r')) break;
 	}  
 	destroy_win(searchwin);
 	return returnChar;
@@ -466,6 +467,7 @@ char search_phone_display(){
 				mvwprintw(searchwin, 15, 3, "Please enter valid letter of your choice! ");
 				wattroff(searchwin, A_STANDOUT);
 				wclrtoeol(searchwin);
+				break;
 		}
 		if(ch == 10) break;
 	}
@@ -545,7 +547,7 @@ char search_yob_display(){
 				mvwprintw(searchwin, 15, 3, "Please enter valid letter of your choice! ");
 				wattroff(searchwin, A_STANDOUT);
 				wclrtoeol(searchwin);
-			break;
+				break;
 		}
 		if(ch == 10) break;
 	}  
@@ -663,9 +665,11 @@ char update_display(){
 				mvwprintw(updatewin, 17, 3, "Please enter valid letter of your choice! ");
 				wattroff(updatewin, A_STANDOUT);
 				wclrtoeol(updatewin);
-			break;
+	
+				break;
 		}
-		if(ch == 10) break;
+		if(ch == 10 && (returnChar == 'n' || returnChar == 'c' || returnChar == 'p' || 
+						returnChar == 'v' || returnChar == 'r')) break;
 	}  
 	destroy_win(updatewin);
 	return returnChar;
@@ -800,7 +804,8 @@ char list_display(){
 				wclrtoeol(listwin);
 				break;
 		}
-		if(ch == 10) break;
+		if(ch == 10 && (returnChar == 'n' || returnChar == 'y' || returnChar == 'c' ||
+						returnChar == 'p' || returnChar == 'v' || returnChar == 'r')) break;
 	}  
 	destroy_win(listwin);
 	return returnChar;
@@ -881,7 +886,7 @@ char list_str_display(){
 				wclrtoeol(listwin);
 				break;
 		}
-		if(ch == 10) break;
+		if(ch == 10 && (returnChar == 'a'|| returnChar == 'e'|| returnChar == 'r')) break;
 	}  
 	destroy_win(listwin);
 	return returnChar;
@@ -955,7 +960,7 @@ char list_int_display(){
 				wclrtoeol(listwin);
 				break;
 		}
-		if(ch == 10) break;
+		if(ch == 10 && (returnChar == 'a'|| returnChar == 'd'|| returnChar == 'r')) break;
 	}  
 	destroy_win(listwin);
 	return returnChar;

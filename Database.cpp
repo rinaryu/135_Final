@@ -730,7 +730,7 @@ char Database::added_person(){
 				mvwprintw(addwin, 15, 3, "Please enter valid letter of choice: ");
 				break;
 		}
-		if(ch == 10) break;
+		if(ch == 10 && returnChar == 'r') break;
 	}
 	destroy_win(addwin);
 	return returnChar;
