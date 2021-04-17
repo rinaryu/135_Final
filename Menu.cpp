@@ -128,7 +128,7 @@ void Menu::searching(char user_input){
 			cin >> lowerYear;
 			//makes sure the lower year input is a valid year 
 			while(lowerYear > 2003 || lowerYear < 1940){
-				cout << "That is not a valid year, it must be after 1940 and before 2005.\n";
+				cout << "That is not a valid year, it must be after 1940 and before 2003.\n";
 				cout << "Please re-enter: ";
 				cin >> lowerYear; 
 			}
