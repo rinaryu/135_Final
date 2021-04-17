@@ -287,7 +287,7 @@ char Menu::listing(){
 //quitting program and creating new txt of the database 
 void Menu::quitting(){
 	new_database.quitting_save();
-	cout << "Successfully quit\n";
+	cout << "\nSuccessfully quit\n";
 }
 
 string Menu::search_get_input(){ 
